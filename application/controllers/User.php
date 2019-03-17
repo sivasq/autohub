@@ -1,5 +1,6 @@
 <?php
 
+use Restserver\Libraries\REST_Controller;
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class User extends MY_Controller

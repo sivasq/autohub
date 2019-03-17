@@ -1,10 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: enginef
- * Date: 3/2/19
- * Time: 7:45 PM
- */
+use Restserver\Libraries\REST_Controller;
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Payment extends MY_Controller
 {

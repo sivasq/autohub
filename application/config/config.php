@@ -1,6 +1,9 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+/*
+| Set Default TimeZone
+*/
+date_default_timezone_set('Asia/Kolkata');
 /*
 |--------------------------------------------------------------------------
 | Base Site URL
@@ -103,6 +106,17 @@ $config['charset'] = 'UTF-8';
 |
 */
 $config['enable_hooks'] = FALSE;
+
+/*
+|--------------------------------------------------------------------------
+| Enable/Disable System Profling
+|--------------------------------------------------------------------------
+|
+| If you would like to use the 'profiling' feature you must enable it by
+| setting this variable to TRUE (boolean).
+|
+*/
+$config['enable_profiling'] = FALSE;
 
 /*
 |--------------------------------------------------------------------------

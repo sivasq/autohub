@@ -75,7 +75,7 @@ class Auth_model extends Generic_model
 		return $this->model_response(true, 202, array(), "OTP Verified");
 	}
 
-	public function login_auth()
+	public function login_auth1()
 	{
 		$this->db->where(array('email' => $this->httpRequest->email, 'password' => $this->httpRequest->password));
 		$query = $this->db->get($this->table);
@@ -106,5 +106,12 @@ class Auth_model extends Generic_model
 		}
 
 		return $this->model_response(true, 202, $response, "Login Success");
+	}
+
+	public function login_auth()
+	{
+		$this->db->where(array('email' => $this->httpRequest->email, 'password' => $this->httpRequest->password));
+		$query = $this->db->get($this->table);
+		return $query;		
 	}
 }
