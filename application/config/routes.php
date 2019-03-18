@@ -59,6 +59,14 @@ $route[ 'auth/register'] = 'auth/user_registration';
 $route[ 'auth/sendOtp'] = 'auth/send_otp';
 $route[ 'auth/verifyOtp'] = 'auth/otp_verify';
 $route[ 'auth/login'] = 'auth/user_login_auth';
+$route[ 'auth/logout'] = 'auth/logout';
+
+// Shipping Address
+$route['user/create-shipping-address'] = 'user/create_shipping_address_by_user_id';
+$route['user/update-shipping-address/shipping-address-id/(:num)'] = 'user/update_shipping_address_by_shipping_id';
+$route['user/list-shipping-address/user-id/(:num)']['get'] = 'user/get_shipping_address_by_user_id';
+$route['user/get-shipping-address/shipping-address-id/(:num)']['get'] = 'user/get_shipping_address_by_shipping_id';
+$route['user/delete-shipping-address/shipping-address-id/(:num)'] = 'user/delete_shipping_address_by_shipping_id';
 
 //Vehicles Routes
 $route['vehicle/create'] = 'vehicle/create_vehicle';
@@ -89,9 +97,7 @@ $route['order/list-shipping-methods'] = 'order/get_all_shipping_methods';
 
 #$route['order/status/orderId/(:num)'] = 'order/update_order_status';
 
-$route['user/create-shipping-address'] = 'user/create_shipping_address_by_user_id';
-$route['user/update-shipping-address/id/(:num)'] = 'user/update_shipping_address_by_shipping_id';
-$route['user/list-shipping-address/user-id/(:num)']['get'] = 'user/get_shipping_address_by_user_id';
+
 
 
 //Payment

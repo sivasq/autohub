@@ -20,7 +20,7 @@ class User extends MY_Controller
 
     public function update_shipping_address_by_shipping_id_put()
     {
-        $shippingId = $this->get_path_variable('id');
+        $shippingId = $this->get_path_variable('shipping-address-id');
         $this->validateVariable($shippingId);
         $updatedShippingData = $this->User_model->update_shipping_address($this->httpRequest, $shippingId);
         return $this->response($updatedShippingData, REST_Controller::HTTP_OK);
@@ -34,4 +34,24 @@ class User extends MY_Controller
         return $this->response($responseData, REST_Controller::HTTP_OK);
     }
 
+	public function get_shipping_address_by_shipping_id_get()
+	{
+		$shippingAddressId = $this->get_path_variable('shipping-address-id');
+		$this->validateVariable($shippingAddressId);
+		$responseData = $this->User_model->get_shipping_address($shippingAddressId);
+		return $this->response($responseData, REST_Controller::HTTP_OK);
+	}
+
+	public function delete_shipping_address_by_shipping_id1_delete()
+	{
+		$shippingAddressId = $this->get_path_variable('shipping-address-id');
+		$this->validateVariable($shippingAddressId);
+		$responseData = $this->User_model->get_shipping_address($shippingAddressId);
+		return $this->response($responseData, REST_Controller::HTTP_OK);
+	}
+
+	public function delete_shipping_address_by_shipping_id_delete(){
+		$shippingAddressId = $this->get_path_variable('shipping-address-id');
+		$this->response($this->User_model->delete($shippingAddressId));
+	}
 }

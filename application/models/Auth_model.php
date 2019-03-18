@@ -114,4 +114,8 @@ class Auth_model extends Generic_model
 		$query = $this->db->get($this->table);
 		return $query;		
 	}
+
+	public function create_response($message){
+		return $this->model_response(true, 294, array(), $message);
+	}
 }

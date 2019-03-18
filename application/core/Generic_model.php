@@ -65,11 +65,11 @@ class Generic_model extends CI_Model
         if ($table != NULL) {
             $this->db->where($primary_key, $id);
             $this->db->delete($table);
-            return $this->model_response(true, 202, array());
+            return $this->model_response(true, 202, array(), 'Delete Success');
         }
         $this->db->where_in($this->primary_key, $id);
         $this->db->delete($this->table);
-        return $this->model_response(true, 202, array());
+        return $this->model_response(true, 202, array(), 'Delete Success');
     }
 
     public function list_by_field($fieldName, $value, $table = NULL, $orderby="createdAt")
@@ -301,10 +301,8 @@ class Generic_model extends CI_Model
 
     public function model_response($status = false, $errorCode = NULL, $data = array(), $message = "")
     {
-
         return array($status, $errorCode, $message, $data);
     }
-
 
     public function create_model(&$array, $prefix = '')
     {

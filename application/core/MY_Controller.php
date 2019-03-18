@@ -46,7 +46,7 @@ class MY_Controller extends REST_Controller
 
     public function response($data = NULL, $http_code = NULL, $continue = FALSE)
     {       
-        if(!$data['error'])
+        if(!isset($data['error']))
         {
             // var_dump($data); die;
             if(isAssoc($data))
