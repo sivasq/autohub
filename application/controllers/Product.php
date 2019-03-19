@@ -2,7 +2,7 @@
 use Restserver\Libraries\REST_Controller;
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class product extends MY_Controller
+class Product extends MY_Controller
 {
     public function __construct()
     {
@@ -20,6 +20,7 @@ class product extends MY_Controller
     {
         $response = $this->Product_model->list_product_by_type(1);
         return $this->response($response);
+//	    echo json_encode($response);
     }
 
     public function list_service_packs_get()

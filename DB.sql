@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Mar 16, 2019 at 09:37 AM
+-- Generation Time: Mar 19, 2019 at 12:27 PM
 -- Server version: 8.0.13
 -- PHP Version: 7.2.12
 
@@ -77,33 +77,14 @@ CREATE TABLE IF NOT EXISTS `apikeys` (
   `ip_addresses` text,
   `date_created` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `apikeys`
 --
 
 INSERT INTO `apikeys` (`id`, `user_id`, `apikey`, `level`, `ignore_limits`, `is_private_key`, `ip_addresses`, `date_created`) VALUES
-(19, 1, 'DiUHVFNBuXPoCGWklwKvbLpT', 1, 0, 0, NULL, '2019-03-06 10:36:38'),
-(20, 1, 'CeFaAGm9QSUtX328ZPc4gfk1', 1, 0, 0, NULL, '2019-03-07 06:49:36'),
-(21, 5, 'SEhjTCbIKZodfLYu1iMeN405', 1, 0, 0, NULL, '2019-03-09 06:20:57'),
-(22, 6, '1jpSeWJRMOUsHlrBkmKnYqVd', 1, 0, 0, NULL, '2019-03-09 06:31:37'),
-(23, 1, 'Q2J0jRSVhCgwWdtGeyYb5HuN', 1, 0, 0, NULL, '2019-03-09 11:11:58'),
-(24, 1, '7A4wojCq30TBWDXyEuGZJezP', 1, 0, 0, NULL, '2019-03-09 11:12:13'),
-(25, 1, 'nI2Ok4dPTyrEF8Ah7JNHxjMV', 1, 0, 0, NULL, '2019-03-12 06:33:26'),
-(26, 1, 'GpJzHCXF4Ksq1L0A92VwWgIS', 1, 0, 0, NULL, '2019-03-12 06:34:52'),
-(27, 1, 'YR6hkpLuQUZeqm9stodbn4Wr', 1, 0, 0, NULL, '2019-03-12 07:41:39'),
-(28, 1, 'BiyRnpqTvsNlo3u6UHDkW49a', 1, 0, 0, NULL, '2019-03-12 08:36:19'),
-(29, 1, 'uJZxi4TAEh2Dd1U7s9Oqmz8v', 1, 0, 0, NULL, '2019-03-12 09:42:14'),
-(30, 1, 'xyMbD7PKTzN6d8Qm9gLFwuaH', 1, 0, 0, NULL, '2019-03-12 11:14:05'),
-(31, 1, '4MNvitcluWBh67A8CHds9ypO', 1, 0, 0, NULL, '2019-03-12 11:45:01'),
-(32, 1, 'dEcsjzl7uHwtJT8g2MQYZaoB', 1, 0, 0, NULL, '2019-03-15 12:07:44'),
-(33, 1, 'gVaureQlDBEx230fScFMdOyi', 1, 0, 0, NULL, '2019-03-15 12:29:12'),
-(34, 1, 'DcIU4dCwzNZ6OamxJGBAM3Kv', 1, 0, 0, NULL, '2019-03-15 12:31:12'),
-(35, 1, 'kqJoj5tdWxIm7F1KzruAgPOy', 1, 0, 0, NULL, '2019-03-15 12:43:48'),
-(36, 1, 'XtZ6J1jIrqOidS3Gx0geRNAP', 1, 0, 0, NULL, '2019-03-15 12:44:06'),
-(37, 1, '7RGl1L3WeE5i98TagHrDjSuI', 1, 0, 0, NULL, '2019-03-15 12:45:45'),
-(38, 1, 'CknEz8OJSNwoyqWIb6MecmZs', 1, 0, 0, NULL, '2019-03-15 12:47:28');
+(43, 61, 'w8s4k8g48gg00o8k0k0c0gs8cowwc0sccocso4ks', 1, 1, 0, '192.168.1.23', '2019-03-19 12:07:48');
 
 -- --------------------------------------------------------
 
@@ -673,20 +654,14 @@ CREATE TABLE IF NOT EXISTS `register` (
   `otp_is_expired` tinyint(1) DEFAULT NULL,
   `otp_created_at` datetime DEFAULT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=47 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=62 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `register`
 --
 
 INSERT INTO `register` (`user_id`, `first_name`, `last_name`, `email`, `password`, `otp`, `phone`, `country`, `ref_code`, `created_at`, `otp_is_expired`, `otp_created_at`) VALUES
-(1, 'Guna', 'Sundari', 'guna@sqindia.net', '12345', '7724', '7550168101', 'Nigeria', '4509', '2019-03-15 10:44:47', 0, '2019-03-15 11:01:22'),
-(3, 'saran ', 'chandrasekan ', 'saranya.arapps@gmail.com', '12313', '1476', '9750234153', 'Nigeria', 'sdfdsf', '2019-01-11 05:24:42', NULL, NULL),
-(5, 'Gopinath', 'Parthasarathy ', 'pgnath02@gmail.com', '123456', '6419', '8526571169', 'Nygeria', 'LAPCD', '2019-03-09 06:20:07', NULL, NULL),
-(6, 'Santhosk', 'Kumar', 'santhosh@sqindia.net', '123456', '7997', '9941382838', 'Nygeria', 'CHHCHC', '2019-03-09 06:29:25', NULL, NULL),
-(7, 'Emeka', 'Dan', 'eadagbo@ifindcard.con', '123456', '3908', '+18327163892', 'Nygeria', 'AF4566', '2019-03-09 10:58:48', NULL, NULL),
-(46, 'abc', 'def', 'siva@sqindia.net', 'string', '4551', '999999999', 'India', 'string', '2019-03-15 10:49:32', 0, '2019-03-15 11:01:50'),
-(45, 'abc', 'def', 'siva@sqindia.net', 'string', '4551', '999999999', 'India', 'string', '2019-03-15 10:47:07', 0, '2019-03-15 11:01:50');
+(61, 'abc', 'def', 'siva@sqindia.net', 'string', '7474', '999999999', 'India', 'string', '2019-03-19 12:07:00', 1, '2019-03-19 12:07:00');
 
 -- --------------------------------------------------------
 
@@ -710,7 +685,7 @@ CREATE TABLE IF NOT EXISTS `shipping_addresses` (
   `sha_email` varchar(45) DEFAULT NULL,
   `sha_createdAt` datetime DEFAULT NULL,
   PRIMARY KEY (`sha_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `shipping_addresses`
@@ -721,7 +696,9 @@ INSERT INTO `shipping_addresses` (`sha_id`, `sha_userId`, `sha_firstName`, `sha_
 (2, 3, 'muffed', 'kasim', 'address line', 'address line', 'Thrissur', 'Kerala', 'India', '686563', '9995413420', 'muffed@gmail.com', NULL),
 (3, 3, 'muffed', 'kasim', 'address line', 'address line', 'Thrissur', 'Kerala', 'India', '686563', '9995413420', 'muffed@gmail.com', NULL),
 (4, 1, 'Ebin---E', 'Chandy', 'trivandrum', 'Kazhakuttam', 'Thrissur', 'Kerala', 'India', '680671', '8788787', 'mufeed@dfsd.com', NULL),
-(5, 5, 'Gopinath', 'Parthasarathy ', 'Abuja main road', '', 'Abuja', 'Abuja', 'Nygeria', '', '3121315551', 'pgnath02@gmail.com', NULL);
+(5, 5, 'Gopinath', 'Parthasarathy ', 'Abuja main road', '', 'Abuja', 'Abuja', 'Nygeria', '', '3121315551', 'pgnath02@gmail.com', NULL),
+(6, 1, 'Ebin', 'Chandy', 'trivandrum', 'Kazhakuttam', 'Thrissur', 'Kerala', 'India', '680671', '8788787', 'mufeed@dfsd.com', '2019-03-18 14:06:14'),
+(9, 1, 'Ebin', 'Chandy', 'trivandrum', 'Kazhakuttam', 'Thrissur', 'Kerala', 'India', '680671', '8788787', 'mufeed@dfsd.com', '2019-03-19 11:15:15');
 
 -- --------------------------------------------------------
 
@@ -810,7 +787,7 @@ CREATE TABLE IF NOT EXISTS `vehicles` (
   `vhl_createdAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `vhl_updatedAt` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`vhl_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `vehicles`
@@ -820,7 +797,9 @@ INSERT INTO `vehicles` (`vhl_id`, `vhl_vin`, `vhl_userId`, `vhl_vehicleTypeId`, 
 (5, 'XGHXXHXH467557GXH', 1, 0, '2019', 'Audi', 'A3 e-tron', 'Select Car Trim', 1, 0, 0, '', '875775', 'string', NULL),
 (6, 'CHCHCHXH64476464U', 1, 1, '2019', 'Acura', 'MDX', 'Advance and Entertainment Packages 4dr SUV (3', 2, 1, 0, '578555', '866858', 'string', NULL),
 (7, '1GKJWJEJEHSHAUUYG', 5, 0, '2014', 'Ford', 'Escape', 'S 4dr SUV (2.5L 4cyl 6A)', 1, 0, 0, '', '32555', 'string', NULL),
-(8, 'XHXHXXHDDH', 1, 0, '2019', 'Audi', 'A3 e-tron', 'Select Car Trim', 1, 0, 0, '', '878798', 'string', NULL);
+(8, 'XHXHXXHDDH', 1, 0, '2019', 'Audi', 'A3 e-tron', 'Select Car Trim', 1, 0, 0, '', '878798', 'string', NULL),
+(9, '123231', 1, 1, '2019', 'nissan', 'kicks', 'string', 1, 1, 1, '1233', '130', 'string', NULL),
+(10, '123231', 1, 1, '2019', 'Nissan', 'Kicks', '123213', 1, 1, 1, '1233', '130', '232131', NULL);
 
 -- --------------------------------------------------------
 
@@ -865,7 +844,7 @@ CREATE TABLE IF NOT EXISTS `vehicle_companies` (
   `vcm_createdAt` timestamp NULL DEFAULT NULL,
   `vcm_createdBy` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`vcm_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `vehicle_companies`
@@ -873,11 +852,19 @@ CREATE TABLE IF NOT EXISTS `vehicle_companies` (
 
 INSERT INTO `vehicle_companies` (`vcm_id`, `vcm_userId`, `vcm_companyName`, `vcm_email`, `vcm_phone`, `vcm_address1`, `vcm_address2`, `vcm_city`, `vcm_createdAt`, `vcm_createdBy`) VALUES
 (1, 1, 'SQ-India', 'test@gmail.com', '1232321321', 'jhdgfjhgsd', 'ewrrewe', 'trivandrum', NULL, NULL),
-(2, 1, 'BroadtechSolutions', 'bradmin@gmail.com', '1232321321', 'jhdgfjhgsd', 'ewrrewe', 'trivandrum', NULL, NULL),
+(2, 1, 'BRTech', 'test@gmail.com', '1232321321', 'jhdgfjhgsd', 'ewrrewe', 'trivandrum', '2019-03-19 06:03:56', NULL),
 (3, 1, 'BroadtechSolutions', 'bradmin@gmail.com', '1232321321', 'jhdgfjhgsd', 'ewrrewe', 'trivandrum', NULL, NULL),
 (4, 1, 'Broadtech123', 'bradmin@gmail.com', '1232321321', 'jhdgfjhgsd', 'ewrrewe', 'trivandrum', NULL, NULL),
 (5, 1, 'Broadtech123', 'bradmin@gmail.com', '1232321321', 'jhdgfjhgsd', 'ewrrewe', 'trivandrum', NULL, NULL),
-(6, 1, 'Broadtech123', 'bradmin@gmail.com', '1232321321', 'jhdgfjhgsd', 'ewrrewe', 'trivandrum', NULL, NULL);
+(6, 1, 'Broadtech123', 'bradmin@gmail.com', '1232321321', 'jhdgfjhgsd', 'ewrrewe', 'trivandrum', NULL, NULL),
+(7, 1, 'Broadtech123', 'bradmin@gmail.com', '1232321321', 'jhdgfjhgsd', 'ewrrewe', 'trivandrum', '2019-03-19 05:34:10', NULL),
+(8, 1, 'Broadtech123', 'bradmin@gmail.com', '1232321321', 'jhdgfjhgsd', 'ewrrewe', 'trivandrum', '2019-03-19 05:44:13', NULL),
+(9, 1, 'Broadtech123', 'bradmin@gmail.com', '1232321321', 'jhdgfjhgsd', 'ewrrewe', 'trivandrum', '2019-03-19 05:53:51', NULL),
+(10, 1, 'Broadtech123', 'bradmin@gmail.com', '1232321321', 'jhdgfjhgsd', 'ewrrewe', 'trivandrum', '2019-03-19 05:55:03', NULL),
+(11, 1, 'Broadtech123', 'bradmin@gmail.com', '1232321321', 'jhdgfjhgsd', 'ewrrewe', 'trivandrum', '2019-03-19 05:55:38', NULL),
+(12, 1, 'Broadtech123', 'bradmin@gmail.com', '1232321321', 'jhdgfjhgsd', 'ewrrewe', 'trivandrum', '2019-03-19 05:56:34', NULL),
+(13, 1, 'Broadtech123', 'bradmin@gmail.com', '1232321321', 'jhdgfjhgsd', 'ewrrewe', 'trivandrum', '2019-03-19 05:58:07', NULL),
+(14, 1, 'Broadtech123', 'bradmin@gmail.com', '1232321321', 'jhdgfjhgsd', 'ewrrewe', 'trivandrum', '2019-03-19 07:30:29', NULL);
 
 -- --------------------------------------------------------
 
@@ -899,7 +886,7 @@ CREATE TABLE IF NOT EXISTS `vehicle_drivers` (
   `vdr_createdAt` int(11) DEFAULT NULL,
   `vdr_createdBy` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`vdr_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `vehicle_drivers`
@@ -910,7 +897,9 @@ INSERT INTO `vehicle_drivers` (`vdr_id`, `vdr_companyId`, `vdr_firstName`, `vdr_
 (2, 1, 'ebin', 'thomas', '1232321321', 'test@gmail.com', 'trivandrum', 'kerala', NULL, NULL),
 (3, 1, 'BIN--U-Satish', 'thomas', '1232321321', 'test@gmail.com', 'trivandrum', 'Kerala', NULL, NULL),
 (4, 1, 'Vishnu', 'thomas', '1232321321', 'test@gmail.com', 'trivandrum', 'kerala', NULL, NULL),
-(5, 1, 'Sathish', 'thomas', '1232321321', 'test@gmail.com', 'trivandrum', 'kerala', NULL, NULL);
+(5, 1, 'Sathish', 'thomas', '1232321321', 'test@gmail.com', 'trivandrum', 'kerala', NULL, NULL),
+(6, 1, 'BIN--U-Satish', 'thomas', '1232321321', 'test@gmail.com', 'trivandrum', 'Keralaa', NULL, 2019),
+(7, 1, 'Vishnu', 'thomas', '1232321321', 'test@gmail.com', 'trivandrum', 'kerala', NULL, 2019);
 
 -- --------------------------------------------------------
 

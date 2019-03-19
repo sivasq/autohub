@@ -70,18 +70,20 @@ $route['user/delete-shipping-address/shipping-address-id/(:num)'] = 'user/delete
 
 //Vehicles Routes
 $route['vehicle/create'] = 'vehicle/create_vehicle';
-$route['vehicle/update/id/(:num)'] = 'vehicle/update_vehicle';
+$route['vehicle/update/vehicle-id/(:num)'] = 'vehicle/update_vehicle';
 $route['vehicle/list/user-id/(:num)'] = 'vehicle/list_user_vehicles';
 $route['vehicle/delete/(:num)'] = 'vehicle/delete_vehicle';
 
 $route['vehicle/create-company'] = "vehicle/create_vehicle_company";
-$route['vehicle/update-company/id/(:num)'] = "vehicle/update_vehicle_company";
+$route['vehicle/update-company/company-id/(:num)'] = "vehicle/update_vehicle_company";
 $route['vehicle/list-company/user-id/(:num)'] = "vehicle/get_all_user_companies";
 
 $route['vehicle/create-driver'] = "vehicle/create_vehicle_driver";
-$route['vehicle/update-driver/id/(:num)'] = "vehicle/update_vehicle_driver";
+$route['vehicle/update-driver/driver-id/(:num)'] = "vehicle/update_vehicle_driver";
 $route['vehicle/list-driver/company-id/(:num)'] = "vehicle/get_all_user_drivers";
+
 $route['vehicle/list-business-types'] = "vehicle/list_business_types";
+$route['vehicle/list-vehicle-types'] = "vehicle/list_vehicle_types";
 
 
 //Order Routes

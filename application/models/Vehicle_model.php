@@ -35,10 +35,13 @@ class Vehicle_model extends Generic_model
         $this->db->join($this->tbl_vehicle_driver, $this->prefix_vehicle_driver . "id = " . $this->prfx_vehicle . "driverId", "left");
         $this->db->where($this->prfx_vehicle . "userId", $userId);
         $result = $this->build_response_array($this->db->get()->result_array());
-        return $this->model_response(true, 200, $result);
+        return $this->model_response(true, 200, array('vehicles' => $result));
 
     }
 
+    /*
+     * Not Used Services
+     */
     public function create_vehicle_company($company_data)
     {
         $this->db->insert($this->tbl_vehicle_company, $this->build_model_data($company_data, $this->prefix_vehicle_company));
@@ -104,7 +107,6 @@ class Vehicle_model extends Generic_model
             $this->prfx_vehicle_type . "name as vehicleType, " . $this->prfx_business_type . "name as businessType, " . $this->prefix_vehicle_company . "companyName , " . $this->prefix_vehicle_driver . "firstName as driverName";
     }
 
-
     public function get_vehicles()
     {
         $this->db->from(self::TBL_VEHICLE);
@@ -119,7 +121,6 @@ class Vehicle_model extends Generic_model
         $result = $this->db->get();
         return $this->model_response(true, 200, $result->result_array());
     }
-
 
     public function get_vehicle_details_by_vehicle_id($vehicle_id)
     {
@@ -151,7 +152,6 @@ class Vehicle_model extends Generic_model
         return $this->model_response(true, 200, $result->result_array());
     }
 
-
     public function get_driver_details_by_company_id($company_id)
     {
         $this->db->select($this->tbl_vehicle_driver . ".*, "."concat(vdr_firstName,' ',vdr_lastName) as driverName");
@@ -180,7 +180,6 @@ class Vehicle_model extends Generic_model
         $result = $this->build_response_array($this->db->get()->result_array(), NULL, array("createdAt"));
         return $this->model_response(true, 200, $result);
     }
-
 
     /**
      * @param $driverData
