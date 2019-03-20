@@ -12,9 +12,10 @@ class Productcondition_model extends Generic_model
     }
 
 
-    public function get_query_list(){
+    public function  get_product_condition_select_items(){
 
-        return $this->prfx."id as productConditionId, ". $this->prfx."name as productCondition";
+        return $this->prfx."id as productConditionId, ".
+	        $this->prfx."name as productCondition";
 
     }
 }

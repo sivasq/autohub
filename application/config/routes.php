@@ -53,6 +53,7 @@ $route['default_controller'] = 'Admin/index';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
+
 // Auth Routes
 $route[ 'auth/emailValidate'] = 'auth/email_validate';
 $route[ 'auth/register'] = 'auth/user_registration';
@@ -61,12 +62,14 @@ $route[ 'auth/verifyOtp'] = 'auth/otp_verify';
 $route[ 'auth/login'] = 'auth/user_login_auth';
 $route[ 'auth/logout'] = 'auth/logout';
 
+
 // Shipping Address
 $route['user/create-shipping-address'] = 'user/create_shipping_address_by_user_id';
 $route['user/update-shipping-address/shipping-address-id/(:num)'] = 'user/update_shipping_address_by_shipping_id';
 $route['user/list-shipping-address/user-id/(:num)']['get'] = 'user/get_shipping_address_by_user_id';
 $route['user/get-shipping-address/shipping-address-id/(:num)']['get'] = 'user/get_shipping_address_by_shipping_id';
 $route['user/delete-shipping-address/shipping-address-id/(:num)'] = 'user/delete_shipping_address_by_shipping_id';
+
 
 //Vehicles Routes
 $route['vehicle/create'] = 'vehicle/create_vehicle';
@@ -86,6 +89,19 @@ $route['vehicle/list-business-types'] = "vehicle/list_business_types";
 $route['vehicle/list-vehicle-types'] = "vehicle/list_vehicle_types";
 
 
+//Product Routes
+$route['product/conditions'] = 'product/list_product_conditions';
+$route['product/vehicle-parts'] = 'product/list_vehicle_parts';
+$route['product/service-packs'] = 'product/list_service_packs';
+
+
+//Cart
+$route['cart/add-item/user-id/(:num)'] = 'cart/add_item';
+$route['cart/list-items/user-id/(:num)'] = 'cart/list_items';
+$route['cart/delete-items/user-id/(:num)'] = 'cart/delete_items';
+$route['cart/delete/cart-id/(:num)'] = 'cart/delete';
+
+
 //Order Routes
 $route['order/create'] = 'order/create_order';
 $route['order/get/id/(:num)']['get'] = 'order/get_order';
@@ -100,17 +116,11 @@ $route['order/list-shipping-methods'] = 'order/get_all_shipping_methods';
 #$route['order/status/orderId/(:num)'] = 'order/update_order_status';
 
 
-
-
 //Payment
 $route['payment/create-bank'] = 'payment/create_payment_bank';
 $route['payment/list-bank'] = 'payment/list_payment_bank';
 $route['payment/create'] = 'payment/create_order_payment';
 
-//Product Routes
-$route['product/conditions'] = 'product/list_product_conditions';
-$route['product/vehicle-parts'] = 'product/list_vehicle_parts';
-$route['product/service-packs'] = 'product/list_service_packs';
 
 //DataTable Routes
 //product
@@ -121,23 +131,21 @@ $route['product/type/getdata'] = 'product/get_type';
 $route['product/index/sub-item/getdata'] = 'product/get_products_sub_items';
 $route['product/index/service-pack/getdata'] = 'product/get_products_service_pack';
 
+
 //Payment
 $route['payment/bank/getdata'] = 'payment/list_payment_bank';
 $route['payment/method/getdata'] = 'payment/list_payment_method';
+
 
 //Order
 $route['order/getdata'] = 'order/get_orders';
 $route['order/get-details/order-id/(:num)/getdata'] = 'order/get_orders_by_orderId';
 
+
 //Vehicle
 $route['vehicles/getdata'] = 'vehicle/get_vehicles';
 $route['vehicles/get-details/vehicle-id/(:num)/getdata'] = 'order/get_vehicles_by_vehicle_id';
 
-//Cart
-$route['cart/add-item/user-id/(:num)'] = 'cart/add_item';
-$route['cart/list-items/user-id/(:num)'] = 'cart/list_items';
-$route['cart/delete-items/user-id/(:num)'] = 'cart/delete_items';
-$route['cart/delete/id/(:num)'] = 'cart/delete';
 
 //---------Notifications------------//
 $route['notification/list'] = 'notification/list_all';

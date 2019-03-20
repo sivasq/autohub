@@ -104,7 +104,10 @@ class Vehicle_model extends Generic_model
             $this->prfx_vehicle . "trim as vehicleTrim, " .
             $this->prfx_vehicle . "actualMileage as vehicleActualMileage, " .
             $this->prfx_vehicle . "image as vehicleImage, " .
-            $this->prfx_vehicle_type . "name as vehicleType, " . $this->prfx_business_type . "name as businessType, " . $this->prefix_vehicle_company . "companyName , " . $this->prefix_vehicle_driver . "firstName as driverName";
+            $this->prfx_vehicle_type . "name as vehicleType, " .
+	        $this->prfx_business_type . "name as businessType, " .
+	        $this->prefix_vehicle_company . "companyName , " .
+	        $this->prefix_vehicle_driver . "firstName as driverName";
     }
 
     public function get_vehicles()

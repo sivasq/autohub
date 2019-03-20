@@ -22,12 +22,19 @@ class Vehicle extends MY_Controller
 
 	/*
 	 * Vehicles
-	 * */
+	 */
+
+	/*
+	 * Format : { "userId":1, "vin":123231, "vehicleTypeId":1, "year": "2019", "make": "nissan", "model": "kicks", "trim": "string", "image": "string", "businessTypeId":1, "companyId": 1, "driverId": 1, "mileageRange":"1233", "actualMileage": "130" }
+	 */
 	public function create_vehicle_post()
 	{
 		return $this->response($this->Vehicle_model->insert($this->Vehicle_model->build_generic_model_data($this->httpRequest, array('createdAt' => date('Y-m-d H:i:s'))), '', 'vehicleId', 'Vehicle Created Successfully'));
 	}
 
+	/*
+	 * Format : { "userId":1, "vin":123231, "vehicleTypeId":1, "year": "2019", "make": "Nissan", "model": "Kicks", "trim": "123213", "image": "232131", "businessTypeId":1, "companyId": 1, "driverId": 1, "mileageRange":"1233", "actualMileage": "130" }
+	 */
 	public function update_vehicle_put()
 	{
 		$vehicleId = $this->get_path_variable('vehicle-id');
@@ -35,6 +42,9 @@ class Vehicle extends MY_Controller
 		return $this->response($this->Vehicle_model->update($model_data, $vehicleId, '', '', 'Vehicle Updated Successfully'));
 	}
 
+	/*
+	 * No body
+	 */
 	public function list_user_vehicles_get()
 	{
 		$userId = $this->get_path_variable('user-id');
@@ -45,12 +55,19 @@ class Vehicle extends MY_Controller
 	/*
 	* Vehicle Companies
 	*/
+
+	/*
+	 * Format : { "userId":1, "companyName":"Broadtech123", "email":"bradmin@gmail.com", "phone":"1232321321", "address1":"jhdgfjhgsd", "address2":"ewrrewe", "city":"trivandrum" }
+	 */
 	public function create_vehicle_company_post()
 	{
 		$model_data = $this->Company_model->build_generic_model_data($this->httpRequest, array('createdAt' => date('Y-m-d H:i:s')));
 		return $this->response($this->Company_model->insert($model_data, '', 'companyId', 'Company Created Successfully'));
 	}
 
+	/*
+	 * Format : { "userId":1, "companyName":"BRTech", "email":"test@gmail.com", "phone":"1232321321", "address1":"jhdgfjhgsd", "address2":"ewrrewe", "city":"trivandrum" }
+	 */
 	public function update_vehicle_company_put()
 	{
 		$company_id = $this->get_path_variable('company-id');
@@ -58,6 +75,9 @@ class Vehicle extends MY_Controller
 		return $this->response($this->Company_model->update($model_data, $company_id, '', '', 'Company Updated Successfully'));
 	}
 
+	/*
+	 * No body
+	 */
 	public function get_all_user_companies_get()
 	{
 		return $this->response($this->Company_model->list_by_field("userId", (int)$this->get_path_variable('user-id'), '', '', 'companies'));
@@ -67,12 +87,19 @@ class Vehicle extends MY_Controller
 	/*
 	 * Vehicle Drivers
 	 */
+
+	/*
+	 * Format : { "companyId":1, "firstName":"Vishnu", "lastName":"thomas", "email":"test@gmail.com", "phone":"1232321321", "city":"trivandrum", "state":"kerala" }
+	 */
 	public function create_vehicle_driver_post()
 	{
 		$model_data = $this->Driver_model->build_generic_model_data($this->httpRequest, array('createdAt' => date('Y-m-d H:i:s')));
 		return $this->response($this->Driver_model->insert($model_data, '', 'driverId', 'Driver Created Successfully'));
 	}
 
+	/*
+	 * Format : { "companyId":1, "firstName":"BIN--U-Satish", "lastName":"thomas", "email":"test@gmail.com", "phone":"1232321321", "city":"trivandrum", "state":"Keralaa" }
+	 */
 	public function update_vehicle_driver_put()
 	{
 		$driver_id = $this->get_path_variable('driver-id');
@@ -80,6 +107,9 @@ class Vehicle extends MY_Controller
 		return $this->response($this->Driver_model->update($model_data, $driver_id, '', '', 'Driver Updated Successfully'));
 	}
 
+	/*
+	 * No Body
+	 */
 	public function get_all_user_drivers_get()
 	{
 		return $this->response($this->Driver_model->list_by_field("companyId", (int)$this->get_path_variable('company-id'), '', '', 'drivers'));
@@ -88,6 +118,7 @@ class Vehicle extends MY_Controller
 	/*
 	* Business types
 	*/
+
 	public function list_business_types_get()
 	{
 		return $this->response($this->Businesstype_model->list_all('', '', '', 'vehicleBusinessTypes'));

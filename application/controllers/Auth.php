@@ -6,7 +6,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Auth extends My_Controller
 {
-
 	public function __construct()
 	{
 		parent:: __construct();
@@ -14,26 +13,31 @@ class Auth extends My_Controller
 	}
 
 	/*
-	 * Format : {"email": "guna@sqindia.net"}
+	 * Format : {"email": "siva@sqindia.net"}
 	 */
 	public function email_validate_post()
 	{
 		$availability = $this->Auth_model->email_availability();
 
 		if ($availability) {
-			$response['status'] = 'failed';
-			$response['msg'] = 'Already have this email ';
+			$response['status'] = false;
+			$response['msg'] = 'Already have this email';
 		} else {
-			$response['status'] = 'success';
+			$response['status'] = true;
 			$response['msg'] = 'Email not found';
 		}
 		echo json_encode($response);
 	}
 
+	/*
+	 * Format : {"first_name": "abc","last_name": "def","email": "guna@sqindia.net","password": "string","phone": "999999999","country": "India","ref_code": "string"}
+	 */
 	public function user_registration_post()
 	{
-		$response = $this->Auth_model->user_reg();
+		if ($this->Auth_model->email_availability())
+			$this->response(array(false, 202, "This Email Already Registered"), REST_Controller::HTTP_OK);
 
+		$response = $this->Auth_model->user_reg();
 		if ($response[0]) {
 			$otp = $response[3]['otp'];
 			$firstName = $response[3]['first_name'];
@@ -45,10 +49,16 @@ class Auth extends My_Controller
 
 			$this->sendEmail($message, $email, $subject);
 		}
+		$extract_data['username'] = $response[3]['first_name'] . ' ' . $response[3]['last_name'];
+		$extract_data['email'] = $response[3]['email'];
 		unset($response[3]);
+		$response[3] = $extract_data;
 		$this->response($response, REST_Controller::HTTP_OK);
 	}
 
+	/*
+	 * Format :{"email": "siva@sqindia.net"}
+	 */
 	public function send_otp_post()
 	{
 		$response = $this->Auth_model->send_otp();
@@ -68,30 +78,32 @@ class Auth extends My_Controller
 		$this->response($response, REST_Controller::HTTP_OK);
 	}
 
+	/*
+	 * Format : {"email": "siva@sqindia.net","otp": 9212}
+	 */
 	public function otp_verify_post()
 	{
 		$response = $this->Auth_model->verify_otp();
-
 		$this->response($response, REST_Controller::HTTP_OK);
 	}
 
+	/*
+	 * Deprecated function
+	 */
 	public function user_login_auth1_post()
 	{
 		$response = $this->Auth_model->login_auth();
-
 		$this->response($response, REST_Controller::HTTP_OK);
 	}
 
-	// data send to body
-	public function check_input_body($data_var)
-	{
-		if ($data = ($data_var !== null) ? $data_var : 'NULL') {
-			return $data;
-		}
-	}
-
+	/*
+	 * Format : {"email": "siva@sqindia.net","password": "string"}
+	 */
 	public function user_login_auth_post()
 	{
+		if (!$this->Auth_model->is_email_verified())
+			$this->response($this->Auth_model->model_response(true, 202, array(), "Email Not Verified"), REST_Controller::HTTP_OK);
+
 		$response_query = $this->Auth_model->login_auth();
 		$response = array();
 		if ($response_query->num_rows() > 0) {
@@ -124,6 +136,9 @@ class Auth extends My_Controller
 		$this->response($this->Auth_model->model_response(true, 202, $response, "Login Success"), REST_Controller::HTTP_OK);
 	}
 
+	/*
+	 * No Body
+	 */
 	public function logout_post()
 	{
 		$key = $this->_head_args['x-api-key'];

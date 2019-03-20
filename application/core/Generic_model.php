@@ -163,54 +163,44 @@ class Generic_model extends CI_Model
 	public function build_response_array($result, $mapField = NULL, $date_fields = array())
 	{
 		$response_array_data = array();
+
 		if (empty($result))
 			return $response_array_data;
+
 		foreach ($result as $data) {
 			$response_data = $this->build_response($data, $date_fields);
+
 			if (array_key_exists($mapField, $response_data)) {
+
 				if (!array_key_exists(0, $response_array_data))
 					array_push($response_array_data, array());  //to create response data as array;
+
 				if (!array_key_exists($response_data[$mapField], $response_array_data[0])) {
 					$response_array_data[0][$response_data[$mapField]] = array();
 				}
+
 				array_push($response_array_data[0][$response_data[$mapField]], $response_data);
 			} else
 				array_push($response_array_data, $response_data);
 		}
-
 		return $response_array_data;
 	}
 
-	public function build_response_array_new($result, $mapField = NULL, $date_fields = array())
+	public function build_response_array_simple($result, $mapField = NULL, $date_fields = array())
 	{
 		$response_array_data = array();
+
 		if (empty($result))
 			return $response_array_data;
 
-		foreach ($result as $data) {
-			$response_data = $this->build_response($data, $date_fields);
+		foreach ($result as $val) {
+			$response_data = $this->build_response($val, $date_fields);
+
 			if (array_key_exists($mapField, $response_data)) {
-//				if (!array_key_exists(0, $response_array_data))
-//					array_push($response_array_data, array('ll' =>'fsdf'));  //to create response data as array;
-//				if (!array_key_exists($response_data[$mapField], $response_array_data[0])) {
-//					$response_array_data[0][$response_data[$mapField]] = array();
-//				}
-				if (count($response_array_data) > 0) {
-					$demo = array();
-					foreach ($response_array_data as $key => $value) {
-						if ($value['partName'] == $response_data[$mapField]) {
-							array_push($response_array_data[$key]['subParts'], array('field' => 2));
-							die;
-						} else {
-							array_push($response_array_data, array('partName' => $response_data[$mapField], 'subParts' => array('field' => $value['partName'], 'field1' => $response_data[$mapField])));
-							die;
-						}
-					}
-				} else
-					array_push($response_array_data, array('partName' => $response_data[$mapField], 'subParts' => array('field' => 1)));
-//					break;
-			} else
-				array_push($response_array_data, $response_data);
+				$response_array_data[$response_data[$mapField]][] = $response_data;
+			} else {
+				$response_array_data[""][] = $response_data;
+			}
 		}
 
 		return $response_array_data;

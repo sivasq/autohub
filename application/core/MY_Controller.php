@@ -53,9 +53,9 @@ class MY_Controller extends REST_Controller
                 parent::response($data, 403);
 
             $response_data = array();
-            $response_data["status"] = $data[0];
-            $response_data["message"] = $data[2];
-            $response_data["data"] = $data[3];
+            $response_data["status"] = isset($data[0]) ? $data[0] : null;
+            $response_data["message"] = isset($data[2]) ? $data[2] : null;
+            $response_data["data"] = isset($data[3]) ? $data[3] : null;
 
             $http_code = (isset($response_data[1])?$response_data[1]:$http_code);
 

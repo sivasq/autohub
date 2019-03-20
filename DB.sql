@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Mar 19, 2019 at 12:27 PM
+-- Generation Time: Mar 20, 2019 at 01:17 PM
 -- Server version: 8.0.13
 -- PHP Version: 7.2.12
 
@@ -77,14 +77,19 @@ CREATE TABLE IF NOT EXISTS `apikeys` (
   `ip_addresses` text,
   `date_created` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `apikeys`
 --
 
 INSERT INTO `apikeys` (`id`, `user_id`, `apikey`, `level`, `ignore_limits`, `is_private_key`, `ip_addresses`, `date_created`) VALUES
-(43, 61, 'w8s4k8g48gg00o8k0k0c0gs8cowwc0sccocso4ks', 1, 1, 0, '192.168.1.23', '2019-03-19 12:07:48');
+(43, 61, 'w8s4k8g48gg00o8k0k0c0gs8cowwc0sccocso4ks', 1, 1, 0, '192.168.1.23', '2019-03-19 12:07:48'),
+(44, 65, 'c8wgokg04ocggk080kk48gc4gwkwkckc8840gkw4', 1, 1, 0, '192.168.1.10', '2019-03-20 12:27:30'),
+(45, 2, 'g4c0o848k840ww00w44gskw8k8w00cwo4gko0g04', 1, 1, 0, '192.168.1.23', '2019-03-20 15:10:03'),
+(46, 2, '4sww808gs808k4o8884wgs0o0ggccckow00oo44w', 1, 1, 0, '192.168.1.6', '2019-03-20 16:13:00'),
+(48, 2, 'kk0skww80w0k8o4kcskowo880okww80w4kwcwcc4', 1, 1, 0, '192.168.1.6', '2019-03-20 16:24:10'),
+(49, 2, 'cccoc40gccso80wkcwcwk0cooo4gsw0woc0s8w8s', 1, 1, 0, '192.168.1.6', '2019-03-20 16:26:22');
 
 -- --------------------------------------------------------
 
@@ -652,16 +657,18 @@ CREATE TABLE IF NOT EXISTS `register` (
   `ref_code` varchar(50) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `otp_is_expired` tinyint(1) DEFAULT NULL,
+  `is_email_verified` tinyint(1) NOT NULL DEFAULT '0',
   `otp_created_at` datetime DEFAULT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=62 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `register`
 --
 
-INSERT INTO `register` (`user_id`, `first_name`, `last_name`, `email`, `password`, `otp`, `phone`, `country`, `ref_code`, `created_at`, `otp_is_expired`, `otp_created_at`) VALUES
-(61, 'abc', 'def', 'siva@sqindia.net', 'string', '7474', '999999999', 'India', 'string', '2019-03-19 12:07:00', 1, '2019-03-19 12:07:00');
+INSERT INTO `register` (`user_id`, `first_name`, `last_name`, `email`, `password`, `otp`, `phone`, `country`, `ref_code`, `created_at`, `otp_is_expired`, `is_email_verified`, `otp_created_at`) VALUES
+(1, 'abc', 'def', 'siva@sqindia.net', 'string', '9212', '999999999', 'India', 'string', '2019-03-20 12:58:19', 0, 0, '2019-03-20 13:11:38'),
+(2, 'Guna', 'Sundari', 'guna@sqindia.net', 'guna06@', '4438', '7550168101', 'Ghana', '', '2019-03-20 14:32:57', 1, 1, '2019-03-20 14:57:11');
 
 -- --------------------------------------------------------
 
@@ -759,8 +766,7 @@ INSERT INTO `shopping_cart` (`crt_id`, `crt_userId`, `crt_productId`, `crt_vehic
 (54, 5, 4, 7, 1, NULL, '333228', 'Send urgently', NULL),
 (55, 5, 4, 7, 1, NULL, '333228', 'Send urgently', NULL),
 (56, 5, 4, 7, 1, NULL, '333228', 'Send urgently', NULL),
-(57, 5, 4, 7, 1, NULL, '333228', 'Send urgently', NULL),
-(58, 5, 4, 1, 1, NULL, '500', 'Test comment', 'image1,image2');
+(57, 5, 4, 7, 1, NULL, '333228', 'Send urgently', NULL);
 
 -- --------------------------------------------------------
 

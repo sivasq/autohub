@@ -20,7 +20,6 @@ class Product extends MY_Controller
     {
         $response = $this->Product_model->list_product_by_type(1);
         return $this->response($response);
-//	    echo json_encode($response);
     }
 
     public function list_service_packs_get()
@@ -70,5 +69,4 @@ class Product extends MY_Controller
         $response = $this->Product_model->get_subItems();
         return $this->response($response, REST_Controller::HTTP_OK);
     }
-
 }
