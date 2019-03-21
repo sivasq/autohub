@@ -14,8 +14,8 @@ class Cart extends MY_Controller
 	public function add_item_post()
 	{
 		$user_id = $this->get_path_variable('user-id');
-		$cart_model_data = $this->Cart_model->build_generic_model_array($this->httpRequest, array("userId" => $user_id));
-		$this->Cart_model->insert_batch($cart_model_data);
+		$cart_model_data = $this->Cart_model->build_generic_model_array($this->httpRequest, array("userId" => $user_id, "cartType" => "shopping"));
+		$this->Cart_model->insert_batch($cart_model_data, 'Successfully Added into Cart');
 
 		//Get the cartItem list
 		$this->response($this->Cart_model->list_by_userId($user_id));
@@ -31,10 +31,10 @@ class Cart extends MY_Controller
 	public function delete_items_post()
 	{
 		$userId = $this->get_path_variable('user-id');
-		$this->Cart_model->delete($this->httpRequest->ids);
+		$this->Cart_model->delete($this->httpRequest->cartIds);
 
 		//Get the cartItem list
-		$this->response($this->Cart_model->list_by_userId($userId));
+		$this->response($this->Cart_model->list_by_userId($userId, 'Item Deleted from Cart'));
 	}
 
 	public function delete_delete()

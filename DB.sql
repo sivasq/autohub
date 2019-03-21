@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Mar 20, 2019 at 01:17 PM
+-- Generation Time: Mar 21, 2019 at 12:50 PM
 -- Server version: 8.0.13
 -- PHP Version: 7.2.12
 
@@ -214,7 +214,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `ord_updatedAt` timestamp NULL DEFAULT NULL,
   `ord_updatedBy` int(11) DEFAULT NULL,
   PRIMARY KEY (`ord_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `orders`
@@ -249,7 +249,10 @@ INSERT INTO `orders` (`ord_id`, `ord_orderId`, `ord_userId`, `ord_statusId`, `or
 (57, NULL, 1, 1, 4, 5, NULL, NULL, NULL, NULL, NULL, NULL),
 (58, 'OC-19-000058', 1, 5, 4, 5, '1000.00', '45000.00', '46000.00', NULL, NULL, NULL),
 (59, 'OC-19-000059', 5, 5, 5, 5, '8998.00', '45000.00', '53998.00', NULL, NULL, NULL),
-(60, 'OC-19-000060', 1, 4, 4, 4, '124027.00', '20000.00', '144027.00', NULL, NULL, NULL);
+(60, 'OC-19-000060', 1, 4, 4, 4, '124027.00', '20000.00', '144027.00', NULL, NULL, NULL),
+(62, 'OC-19-000062', 1, 2, 1, NULL, '70.00', '10.00', '70.00', NULL, NULL, NULL),
+(63, NULL, 1, 1, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(64, 'OC-19-000064', 1, 2, 1, NULL, '70.00', '10.00', '70.00', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -276,15 +279,15 @@ CREATE TABLE IF NOT EXISTS `order_details` (
   `ode_updatedDate` datetime DEFAULT NULL,
   `ode_updatedBy` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`ode_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `order_details`
 --
 
 INSERT INTO `order_details` (`ode_id`, `ode_orderId`, `ode_vehicleId`, `ode_productId`, `ode_productConditionId`, `ode_quantity`, `ode_statusId`, `ode_comment`, `ode_currentMileage`, `ode_price`, `ode_discount`, `ode_total`, `ode_createdDate`, `ode_createdBy`, `ode_updatedDate`, `ode_updatedBy`) VALUES
-(1, 1, 4, 1, 5, NULL, NULL, '', '4000', '55.00', NULL, '35.00', NULL, NULL, NULL, NULL),
-(2, 1, 3, 1, 5, NULL, NULL, '', '4000', '35.00', NULL, '35.00', NULL, NULL, NULL, NULL),
+(1, 64, 5, 1, 5, NULL, NULL, '', '4000', '35.00', NULL, '35.00', NULL, NULL, NULL, NULL),
+(2, 64, 5, 1, 5, NULL, NULL, '', '4000', '35.00', NULL, '35.00', NULL, NULL, NULL, NULL),
 (3, 33, 4, 1, 5, NULL, NULL, '', '300', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (4, 33, 3, 1, 5, NULL, NULL, '', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (5, 34, 4, 1, 5, NULL, NULL, '', '300', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
@@ -323,7 +326,15 @@ INSERT INTO `order_details` (`ode_id`, `ode_orderId`, `ode_vehicleId`, `ode_prod
 (38, 59, 7, 4, 0, NULL, NULL, 'Send fast', '32233', '8998.00', NULL, NULL, NULL, NULL, NULL, NULL),
 (39, 60, 5, 4, 0, NULL, NULL, 'I need it immediately.', '250000', '34343.00', NULL, NULL, NULL, NULL, NULL, NULL),
 (40, 60, 5, 2, 5, NULL, NULL, 'I want new parts not a old one. ', '485558', '54321.00', NULL, NULL, NULL, NULL, NULL, NULL),
-(41, 60, 5, 5, 0, NULL, NULL, 'I want know the price of this pack. And need it urgently.', '899788', '35363.00', NULL, NULL, NULL, NULL, NULL, NULL);
+(41, 60, 5, 5, 0, NULL, NULL, 'I want know the price of this pack. And need it urgently.', '899788', '35363.00', NULL, NULL, NULL, NULL, NULL, NULL),
+(42, 61, 4, 1, 5, NULL, NULL, '', '300', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(43, 61, 3, 1, 5, NULL, NULL, '', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(44, 62, 5, 1, 5, NULL, NULL, '', '300', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(45, 62, 5, 1, 5, NULL, NULL, '', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(46, 63, 5, 1, 5, NULL, NULL, '', '300', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(47, 63, 5, 1, 5, NULL, NULL, '', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(48, 64, 5, 1, 5, NULL, NULL, '', '300', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(49, 64, 5, 1, 5, NULL, NULL, '', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -396,14 +407,16 @@ CREATE TABLE IF NOT EXISTS `order_shippings` (
   `osh_createdAt` datetime DEFAULT NULL,
   `osh_createdBy` int(11) DEFAULT NULL,
   PRIMARY KEY (`osh_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `order_shippings`
 --
 
 INSERT INTO `order_shippings` (`osh_id`, `osh_orderId`, `osh_methodId`, `osh_courierId`, `osh_courierTrackId`, `osh_amount`, `osh_createdAt`, `osh_createdBy`) VALUES
-(1, 1, 1, NULL, NULL, '10.00', NULL, NULL);
+(1, 1, 1, NULL, NULL, '10.00', NULL, NULL),
+(2, 62, 1, NULL, NULL, '10.00', NULL, NULL),
+(3, 64, 1, NULL, NULL, '10.00', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -494,36 +507,46 @@ INSERT INTO `payment_methods` (`pmt_id`, `pmt_name`, `pmt_description`, `pmt_cre
 DROP TABLE IF EXISTS `products`;
 CREATE TABLE IF NOT EXISTS `products` (
   `prd_id` int(11) NOT NULL AUTO_INCREMENT,
-  `prd_name` varchar(45) DEFAULT NULL,
-  `prd_description` varchar(200) DEFAULT NULL,
+  `prd_name` varchar(45) CHARACTER SET latin1 DEFAULT NULL,
+  `prd_description` varchar(200) CHARACTER SET latin1 DEFAULT NULL,
   `prd_categoryId` int(11) DEFAULT NULL,
   `prd_typeId` int(11) DEFAULT NULL,
   `prd_currentStock` int(11) DEFAULT NULL,
-  `prd_image` varchar(200) DEFAULT NULL,
+  `prd_image` varchar(200) CHARACTER SET latin1 DEFAULT NULL,
   `prd_price` decimal(10,2) DEFAULT '0.00',
   `prd_createdAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `prd_createdBy` int(11) DEFAULT NULL,
   PRIMARY KEY (`prd_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 --
 -- Dumping data for table `products`
 --
 
 INSERT INTO `products` (`prd_id`, `prd_name`, `prd_description`, `prd_categoryId`, `prd_typeId`, `prd_currentStock`, `prd_image`, `prd_price`, `prd_createdBy`) VALUES
-(1, 'Alternator', NULL, 1, 1, NULL, NULL, '0.00', NULL),
-(2, 'Brake Shoe', NULL, 2, 1, NULL, NULL, '0.00', NULL),
-(3, 'Engine belt', NULL, 1, 1, NULL, NULL, '0.00', NULL),
-(4, 'Regular Service Kit', NULL, NULL, 2, NULL, NULL, '0.00', NULL),
-(5, 'Tuneup Service Kit', NULL, NULL, 2, NULL, NULL, '0.00', NULL),
-(6, 'Oil Change', NULL, NULL, 3, NULL, NULL, '0.00', NULL),
-(7, 'Oil Filter', NULL, NULL, 3, NULL, NULL, '0.00', NULL),
-(8, 'Air Filter', NULL, NULL, 3, NULL, NULL, '0.00', NULL),
-(9, 'Shipping Pack Kit', NULL, NULL, 3, NULL, NULL, '0.00', NULL),
-(10, 'Plugs', NULL, NULL, 3, NULL, NULL, '0.00', NULL),
-(11, 'Car Engine Treatment', NULL, NULL, 3, NULL, NULL, '0.00', NULL),
-(12, 'Test Data', 'Service', 0, 2, NULL, NULL, NULL, NULL),
-(13, 'test', 'test description', 3, 1, NULL, NULL, NULL, NULL);
+(1, 'Engine Parts', NULL, 1, 1, 0, NULL, '0.00', NULL),
+(2, 'Engine Replacement', NULL, 1, 1, 0, NULL, '0.00', NULL),
+(3, 'Brake Parts', NULL, 2, 1, 0, NULL, '0.00', NULL),
+(4, 'Suspension Parts', NULL, 3, 1, 0, NULL, '0.00', NULL),
+(5, 'Steering Parts', NULL, 4, 1, 0, NULL, '0.00', NULL),
+(6, 'Trans Parts', NULL, 5, 1, 0, NULL, '0.00', NULL),
+(7, 'Trans Replacement', NULL, 5, 1, 0, NULL, '0.00', NULL),
+(8, 'A/C Parts', NULL, 6, 1, 0, NULL, '0.00', NULL),
+(9, 'Front', NULL, 7, 1, 0, NULL, '0.00', NULL),
+(10, 'Back Break Light', NULL, 7, 1, 0, NULL, '0.00', NULL),
+(11, 'Standard', NULL, 8, 1, 0, NULL, '0.00', NULL),
+(12, 'Premium', NULL, 8, 1, 0, NULL, '0.00', NULL),
+(13, 'Doors', NULL, 9, 1, 0, NULL, '0.00', NULL),
+(14, 'Others', NULL, 9, 1, 0, NULL, '0.00', NULL),
+(15, 'Engine Sensors', NULL, 10, 1, 0, NULL, '0.00', NULL),
+(16, 'Interior Parts', NULL, 10, 1, 0, NULL, '0.00', NULL),
+(17, 'Regular Service Kit', NULL, 0, 2, 0, NULL, '0.00', NULL),
+(18, 'Tuneup Service Kit', NULL, 0, 2, 0, NULL, '0.00', NULL),
+(19, 'Oil Change', NULL, 0, 3, 0, NULL, '0.00', NULL),
+(20, 'Oil Filter', NULL, 0, 3, 0, NULL, '0.00', NULL),
+(21, 'Air Filter', NULL, 0, 3, 0, NULL, '0.00', NULL),
+(22, 'Plugs', NULL, 0, 3, 0, NULL, '0.00', NULL),
+(23, 'Car Engine Treatment', NULL, 0, 3, 0, NULL, '0.00', NULL);
 
 -- --------------------------------------------------------
 
@@ -534,25 +557,35 @@ INSERT INTO `products` (`prd_id`, `prd_name`, `prd_description`, `prd_categoryId
 DROP TABLE IF EXISTS `product_categories`;
 CREATE TABLE IF NOT EXISTS `product_categories` (
   `pca_id` int(11) NOT NULL AUTO_INCREMENT,
-  `pca_name` varchar(45) DEFAULT NULL,
-  `pca_description` varchar(200) DEFAULT NULL,
+  `pca_name` varchar(45) CHARACTER SET latin1 DEFAULT NULL,
+  `pca_description` varchar(200) CHARACTER SET latin1 DEFAULT NULL,
   `pca_createdAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `pca_createdBy` int(11) DEFAULT NULL,
   PRIMARY KEY (`pca_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 --
 -- Dumping data for table `product_categories`
 --
 
 INSERT INTO `product_categories` (`pca_id`, `pca_name`, `pca_description`, `pca_createdBy`) VALUES
-(1, 'Engine Parts', '', NULL),
+(1, 'Engine', NULL, NULL),
 (2, 'Brakes', NULL, NULL),
 (3, 'Suspension', NULL, NULL),
 (4, 'Steering', NULL, NULL),
 (5, 'Transmission', NULL, NULL),
-(6, 'Fluid', 'Oils', NULL),
-(7, 'engine oil', 'oils', NULL);
+(6, 'Cooling/Heating', NULL, NULL),
+(7, 'Headlights/Light', NULL, NULL),
+(8, 'Rims', NULL, NULL),
+(9, 'Body', NULL, NULL),
+(10, 'Electricals', NULL, NULL),
+(11, 'Alternator', NULL, NULL),
+(12, 'CV Driveshaft Axle', NULL, NULL),
+(13, 'Iginition', NULL, NULL),
+(14, 'Fuel Pump', NULL, NULL),
+(15, 'Water Pump', NULL, NULL),
+(16, 'Radiator', NULL, NULL),
+(17, 'Wiper Blades', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -591,27 +624,21 @@ CREATE TABLE IF NOT EXISTS `product_sub_products` (
   `psp_productId` int(11) DEFAULT NULL,
   `psp_subProductId` int(11) DEFAULT NULL,
   PRIMARY KEY (`psp_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
 -- Dumping data for table `product_sub_products`
 --
 
 INSERT INTO `product_sub_products` (`psp_id`, `psp_productId`, `psp_subProductId`) VALUES
-(1, 4, 6),
-(2, 4, 7),
-(3, 4, 8),
-(4, 4, 9),
-(5, 5, 6),
-(6, 5, 7),
-(7, 5, 8),
-(8, 5, 9),
-(9, 5, 10),
-(10, 5, 11),
-(11, 12, 7),
-(12, 12, 8),
-(13, 12, 9),
-(14, 12, 10);
+(1, 17, 19),
+(2, 17, 20),
+(3, 17, 21),
+(4, 18, 19),
+(5, 18, 20),
+(6, 18, 21),
+(7, 18, 22),
+(8, 18, 23);
 
 -- --------------------------------------------------------
 
@@ -750,23 +777,19 @@ CREATE TABLE IF NOT EXISTS `shopping_cart` (
   `crt_mileage` varchar(45) DEFAULT NULL,
   `crt_comment` varchar(200) DEFAULT NULL,
   `crt_images` text,
+  `crt_cartType` varchar(12) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
   `crt_createdAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`crt_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `shopping_cart`
 --
 
-INSERT INTO `shopping_cart` (`crt_id`, `crt_userId`, `crt_productId`, `crt_vehicleId`, `crt_quantity`, `crt_productConditionId`, `crt_mileage`, `crt_comment`, `crt_images`) VALUES
-(50, 1, 4, 5, 1, NULL, '250000', 'I need it immediately.', NULL),
-(51, 1, 2, 5, 1, 5, '485558', 'I want new parts not a old one. ', NULL),
-(52, 1, 5, 5, 1, NULL, '899788', 'I want know the price of this pack. And need it urgently.', NULL),
-(53, 5, 4, 7, 1, NULL, '32233', 'Send fast', NULL),
-(54, 5, 4, 7, 1, NULL, '333228', 'Send urgently', NULL),
-(55, 5, 4, 7, 1, NULL, '333228', 'Send urgently', NULL),
-(56, 5, 4, 7, 1, NULL, '333228', 'Send urgently', NULL),
-(57, 5, 4, 7, 1, NULL, '333228', 'Send urgently', NULL);
+INSERT INTO `shopping_cart` (`crt_id`, `crt_userId`, `crt_productId`, `crt_vehicleId`, `crt_quantity`, `crt_productConditionId`, `crt_mileage`, `crt_comment`, `crt_images`, `crt_cartType`) VALUES
+(1, 1, 1, 5, 1, 5, '500', 'Test comment', 'image1,image2', 'quotreq'),
+(7, 5, 1, 5, 1, 5, '500', 'Test comment', 'image1,image2', 'shopping'),
+(9, 1, 1, 5, 1, 5, '500', 'Test comment', 'image1,image2', 'quotreq');
 
 -- --------------------------------------------------------
 
@@ -793,7 +816,7 @@ CREATE TABLE IF NOT EXISTS `vehicles` (
   `vhl_createdAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `vhl_updatedAt` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`vhl_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `vehicles`
@@ -805,7 +828,8 @@ INSERT INTO `vehicles` (`vhl_id`, `vhl_vin`, `vhl_userId`, `vhl_vehicleTypeId`, 
 (7, '1GKJWJEJEHSHAUUYG', 5, 0, '2014', 'Ford', 'Escape', 'S 4dr SUV (2.5L 4cyl 6A)', 1, 0, 0, '', '32555', 'string', NULL),
 (8, 'XHXHXXHDDH', 1, 0, '2019', 'Audi', 'A3 e-tron', 'Select Car Trim', 1, 0, 0, '', '878798', 'string', NULL),
 (9, '123231', 1, 1, '2019', 'nissan', 'kicks', 'string', 1, 1, 1, '1233', '130', 'string', NULL),
-(10, '123231', 1, 1, '2019', 'Nissan', 'Kicks', '123213', 1, 1, 1, '1233', '130', '232131', NULL);
+(10, '123231', 1, 1, '2019', 'Nissan', 'Kicks', '123213', 1, 1, 1, '1233', '130', '232131', NULL),
+(11, 'XHHXXHX475886GIHF', 2, 0, '2019', 'Acura', 'NSX', '2dr Coupe AWD (3.5L 6cyl gas/electric hybrid ', 1, 0, 0, '', '857885', 'string', NULL);
 
 -- --------------------------------------------------------
 
@@ -859,18 +883,7 @@ CREATE TABLE IF NOT EXISTS `vehicle_companies` (
 INSERT INTO `vehicle_companies` (`vcm_id`, `vcm_userId`, `vcm_companyName`, `vcm_email`, `vcm_phone`, `vcm_address1`, `vcm_address2`, `vcm_city`, `vcm_createdAt`, `vcm_createdBy`) VALUES
 (1, 1, 'SQ-India', 'test@gmail.com', '1232321321', 'jhdgfjhgsd', 'ewrrewe', 'trivandrum', NULL, NULL),
 (2, 1, 'BRTech', 'test@gmail.com', '1232321321', 'jhdgfjhgsd', 'ewrrewe', 'trivandrum', '2019-03-19 06:03:56', NULL),
-(3, 1, 'BroadtechSolutions', 'bradmin@gmail.com', '1232321321', 'jhdgfjhgsd', 'ewrrewe', 'trivandrum', NULL, NULL),
-(4, 1, 'Broadtech123', 'bradmin@gmail.com', '1232321321', 'jhdgfjhgsd', 'ewrrewe', 'trivandrum', NULL, NULL),
-(5, 1, 'Broadtech123', 'bradmin@gmail.com', '1232321321', 'jhdgfjhgsd', 'ewrrewe', 'trivandrum', NULL, NULL),
-(6, 1, 'Broadtech123', 'bradmin@gmail.com', '1232321321', 'jhdgfjhgsd', 'ewrrewe', 'trivandrum', NULL, NULL),
-(7, 1, 'Broadtech123', 'bradmin@gmail.com', '1232321321', 'jhdgfjhgsd', 'ewrrewe', 'trivandrum', '2019-03-19 05:34:10', NULL),
-(8, 1, 'Broadtech123', 'bradmin@gmail.com', '1232321321', 'jhdgfjhgsd', 'ewrrewe', 'trivandrum', '2019-03-19 05:44:13', NULL),
-(9, 1, 'Broadtech123', 'bradmin@gmail.com', '1232321321', 'jhdgfjhgsd', 'ewrrewe', 'trivandrum', '2019-03-19 05:53:51', NULL),
-(10, 1, 'Broadtech123', 'bradmin@gmail.com', '1232321321', 'jhdgfjhgsd', 'ewrrewe', 'trivandrum', '2019-03-19 05:55:03', NULL),
-(11, 1, 'Broadtech123', 'bradmin@gmail.com', '1232321321', 'jhdgfjhgsd', 'ewrrewe', 'trivandrum', '2019-03-19 05:55:38', NULL),
-(12, 1, 'Broadtech123', 'bradmin@gmail.com', '1232321321', 'jhdgfjhgsd', 'ewrrewe', 'trivandrum', '2019-03-19 05:56:34', NULL),
-(13, 1, 'Broadtech123', 'bradmin@gmail.com', '1232321321', 'jhdgfjhgsd', 'ewrrewe', 'trivandrum', '2019-03-19 05:58:07', NULL),
-(14, 1, 'Broadtech123', 'bradmin@gmail.com', '1232321321', 'jhdgfjhgsd', 'ewrrewe', 'trivandrum', '2019-03-19 07:30:29', NULL);
+(3, 1, 'BroadtechSolutions', 'bradmin@gmail.com', '1232321321', 'jhdgfjhgsd', 'ewrrewe', 'trivandrum', '2019-03-19 06:03:56', NULL);
 
 -- --------------------------------------------------------
 

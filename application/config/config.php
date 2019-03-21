@@ -28,7 +28,7 @@ date_default_timezone_set('Asia/Kolkata');
 */
 $config['base_url'] = 'http://localhost/autohubb/';
 
-$config['api_url'] = 'http://localhost/autohubb/';
+$config['api_url'] = 'http://localhost/autohubb/index.php';
 
 /*
 |--------------------------------------------------------------------------

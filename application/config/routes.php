@@ -102,6 +102,13 @@ $route['cart/delete-items/user-id/(:num)'] = 'cart/delete_items';
 $route['cart/delete/cart-id/(:num)'] = 'cart/delete';
 
 
+//Quot Req
+$route['quotreq/add-item/user-id/(:num)'] = 'quotreq/add_item';
+$route['quotreq/list-items/user-id/(:num)'] = 'quotreq/list_items';
+$route['quotreq/delete-items/user-id/(:num)'] = 'quotreq/delete_items';
+$route['quotreq/delete/quotreq-id/(:num)'] = 'quotreq/delete';
+
+
 //Order Routes
 $route['order/create'] = 'order/create_order';
 $route['order/get/id/(:num)']['get'] = 'order/get_order';

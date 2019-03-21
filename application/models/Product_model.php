@@ -55,7 +55,7 @@ class Product_model extends Generic_Model
 
 	public function list_product_by_type($typeId)
 	{
-		$this->db->select($this->table . ".*, " . $this->tableCategories . ".pca_name as productCategory, pty_name as productType");
+		$this->db->select($this->table . ".*, " .$this->table . ".prd_id as productId, " .$this->tableCategories . ".pca_name as productCategory, pty_name as productType");
 		$this->db->from($this->table);
 		$this->db->join($this->tableCategories, 'prd_categoryId = pca_id');
 		$this->db->join($this->tableTypes, 'prd_typeId = pty_id');
