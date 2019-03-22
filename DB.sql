@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Mar 21, 2019 at 12:50 PM
+-- Generation Time: Mar 22, 2019 at 01:38 PM
 -- Server version: 8.0.13
 -- PHP Version: 7.2.12
 
@@ -202,17 +202,25 @@ DROP TABLE IF EXISTS `orders`;
 CREATE TABLE IF NOT EXISTS `orders` (
   `ord_id` int(11) NOT NULL AUTO_INCREMENT,
   `ord_orderId` varchar(45) DEFAULT NULL,
+  `ord_quoteId` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `ord_userId` int(11) DEFAULT NULL,
   `ord_statusId` int(11) DEFAULT NULL,
+  `ord_quotStatusId` int(11) DEFAULT NULL,
   `ord_shippingAddressId` int(11) DEFAULT NULL,
   `ord_shippingMethodId` int(11) DEFAULT NULL,
   `ord_itemTotal` decimal(10,2) DEFAULT NULL,
   `ord_shippingTotal` decimal(10,2) DEFAULT NULL,
   `ord_grandTotal` decimal(10,2) DEFAULT NULL,
-  `ord_createdAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `ord_createdAt` datetime DEFAULT NULL,
   `ord_createdBy` int(11) DEFAULT NULL,
   `ord_updatedAt` timestamp NULL DEFAULT NULL,
   `ord_updatedBy` int(11) DEFAULT NULL,
+  `ord_quotCreatedAt` datetime DEFAULT NULL,
+  `ord_quotCreatedBy` int(11) DEFAULT NULL,
+  `ord_quotUpdatedAt` datetime DEFAULT NULL,
+  `ord_quotUpdatedBy` int(11) DEFAULT NULL,
+  `ord_discount_amount` decimal(20,2) DEFAULT NULL,
+  `ord_discount_percent` decimal(20,2) DEFAULT NULL,
   PRIMARY KEY (`ord_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=latin1;
 
@@ -220,39 +228,39 @@ CREATE TABLE IF NOT EXISTS `orders` (
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`ord_id`, `ord_orderId`, `ord_userId`, `ord_statusId`, `ord_shippingAddressId`, `ord_shippingMethodId`, `ord_itemTotal`, `ord_shippingTotal`, `ord_grandTotal`, `ord_createdBy`, `ord_updatedAt`, `ord_updatedBy`) VALUES
-(1, 'OC-19-000001', 1, 4, 1, 4, '90.00', '10.00', '70.00', NULL, NULL, NULL),
-(33, NULL, 1, 1, 2, 4, NULL, NULL, NULL, NULL, NULL, NULL),
-(34, 'OC-19-000034', 1, 3, 2, 4, '1000.00', NULL, NULL, NULL, NULL, NULL),
-(35, NULL, 1, 1, 2, 4, NULL, NULL, NULL, NULL, NULL, NULL),
-(36, NULL, 1, 1, 2, 4, NULL, NULL, NULL, NULL, NULL, NULL),
-(37, NULL, 1, 1, 2, 4, NULL, NULL, NULL, NULL, NULL, NULL),
-(38, NULL, 1, 1, 2, 4, NULL, NULL, NULL, NULL, NULL, NULL),
-(39, NULL, 1, 1, 2, 4, NULL, NULL, NULL, NULL, NULL, NULL),
-(40, NULL, 1, 1, 2, 4, NULL, NULL, NULL, NULL, NULL, NULL),
-(41, NULL, 1, 1, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(42, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(43, NULL, 1, 1, 2, 3, '788.00', '30000.00', '30788.00', NULL, NULL, NULL),
-(44, 'OC-19-000044', 3, 3, 2, 3, '390.00', NULL, NULL, NULL, NULL, NULL),
-(45, NULL, 2, 1, 2, 5, NULL, NULL, NULL, NULL, NULL, NULL),
-(46, NULL, 2, 1, 2, 5, NULL, NULL, NULL, NULL, NULL, NULL),
-(47, NULL, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(48, NULL, 1, 1, NULL, 4, NULL, NULL, NULL, NULL, NULL, NULL),
-(49, NULL, 1, 1, NULL, 4, NULL, NULL, NULL, NULL, NULL, NULL),
-(50, NULL, 1, 1, NULL, 4, NULL, NULL, NULL, NULL, NULL, NULL),
-(51, NULL, 1, 1, NULL, 4, NULL, NULL, NULL, NULL, NULL, NULL),
-(52, NULL, 1, 1, 4, 5, NULL, NULL, NULL, NULL, NULL, NULL),
-(53, NULL, 1, 1, 4, 5, NULL, NULL, NULL, NULL, NULL, NULL),
-(54, NULL, 1, 1, 4, 5, NULL, NULL, NULL, NULL, NULL, NULL),
-(55, NULL, 1, 1, 4, 4, NULL, NULL, NULL, NULL, NULL, NULL),
-(56, NULL, 1, 1, 4, 4, NULL, NULL, NULL, NULL, NULL, NULL),
-(57, NULL, 1, 1, 4, 5, NULL, NULL, NULL, NULL, NULL, NULL),
-(58, 'OC-19-000058', 1, 5, 4, 5, '1000.00', '45000.00', '46000.00', NULL, NULL, NULL),
-(59, 'OC-19-000059', 5, 5, 5, 5, '8998.00', '45000.00', '53998.00', NULL, NULL, NULL),
-(60, 'OC-19-000060', 1, 4, 4, 4, '124027.00', '20000.00', '144027.00', NULL, NULL, NULL),
-(62, 'OC-19-000062', 1, 2, 1, NULL, '70.00', '10.00', '70.00', NULL, NULL, NULL),
-(63, NULL, 1, 1, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(64, 'OC-19-000064', 1, 2, 1, NULL, '70.00', '10.00', '70.00', NULL, NULL, NULL);
+INSERT INTO `orders` (`ord_id`, `ord_orderId`, `ord_quoteId`, `ord_userId`, `ord_statusId`, `ord_quotStatusId`, `ord_shippingAddressId`, `ord_shippingMethodId`, `ord_itemTotal`, `ord_shippingTotal`, `ord_grandTotal`, `ord_createdAt`, `ord_createdBy`, `ord_updatedAt`, `ord_updatedBy`, `ord_quotCreatedAt`, `ord_quotCreatedBy`, `ord_quotUpdatedAt`, `ord_quotUpdatedBy`, `ord_discount_amount`, `ord_discount_percent`) VALUES
+(1, 'OC-19-000001', NULL, 1, 4, NULL, 1, 4, '90.00', '10.00', '70.00', '2019-03-02 14:29:15', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(33, NULL, NULL, 1, 1, NULL, 2, 4, NULL, NULL, NULL, '2019-03-02 14:29:15', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(34, 'OC-19-000034', NULL, 1, 3, NULL, 2, 4, '1000.00', NULL, NULL, '2019-03-02 14:29:15', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(35, NULL, NULL, 1, 1, NULL, 2, 4, NULL, NULL, NULL, '2019-03-02 14:29:15', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(36, NULL, NULL, 1, 1, NULL, 2, 4, NULL, NULL, NULL, '2019-03-02 14:29:15', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(37, NULL, NULL, 1, 1, NULL, 2, 4, NULL, NULL, NULL, '2019-03-02 14:29:15', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(38, NULL, NULL, 1, 1, NULL, 2, 4, NULL, NULL, NULL, '2019-03-02 14:29:15', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(39, NULL, NULL, 1, 1, NULL, 2, 4, NULL, NULL, NULL, '2019-03-02 14:29:15', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(40, NULL, NULL, 1, 1, NULL, 2, 4, NULL, NULL, NULL, '2019-03-02 14:29:15', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(41, NULL, NULL, 1, 1, NULL, 2, NULL, NULL, NULL, NULL, '2019-03-05 15:50:31', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(42, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, '2019-03-05 15:52:12', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(43, NULL, NULL, 1, 1, NULL, 2, 3, '788.00', '30000.00', '30788.00', '2019-03-05 15:52:24', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(44, 'OC-19-000044', NULL, 3, 3, NULL, 2, 3, '390.00', NULL, NULL, '2019-03-06 13:13:14', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(45, NULL, NULL, 2, 1, NULL, 2, 5, NULL, NULL, NULL, '2019-03-06 16:33:21', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(46, NULL, NULL, 2, 1, NULL, 2, 5, NULL, NULL, NULL, '2019-03-07 15:20:44', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(47, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, '2019-03-07 15:27:39', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(48, NULL, NULL, 1, 1, NULL, NULL, 4, NULL, NULL, NULL, '2019-03-07 15:28:10', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(49, NULL, NULL, 1, 1, NULL, NULL, 4, NULL, NULL, NULL, '2019-03-07 15:46:47', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, NULL, NULL, 1, 1, NULL, NULL, 4, NULL, NULL, NULL, '2019-03-07 15:51:30', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(51, NULL, NULL, 1, 1, NULL, NULL, 4, NULL, NULL, NULL, '2019-03-07 15:51:32', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(52, NULL, NULL, 1, 1, NULL, 4, 5, NULL, NULL, NULL, '2019-03-08 09:29:54', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(53, NULL, NULL, 1, 1, NULL, 4, 5, NULL, NULL, NULL, '2019-03-08 09:30:07', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(54, NULL, NULL, 1, 1, NULL, 4, 5, NULL, NULL, NULL, '2019-03-08 09:31:13', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(55, NULL, NULL, 1, 1, NULL, 4, 4, NULL, NULL, NULL, '2019-03-08 09:37:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(56, NULL, NULL, 1, 1, NULL, 4, 4, NULL, NULL, NULL, '2019-03-08 10:07:25', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(57, NULL, NULL, 1, 1, NULL, 4, 5, NULL, NULL, NULL, '2019-03-08 10:22:23', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(58, 'OC-19-000058', NULL, 1, 5, NULL, 4, 5, '1000.00', '45000.00', '46000.00', '2019-03-08 18:43:52', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(59, 'OC-19-000059', NULL, 5, 5, NULL, 5, 5, '8998.00', '45000.00', '53998.00', '2019-03-09 12:05:59', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(60, 'OC-19-000060', NULL, 1, 4, NULL, 4, 4, '124027.00', '20000.00', '144027.00', '2019-03-09 16:47:46', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(62, 'OC-19-000062', NULL, 1, 2, NULL, 1, NULL, '70.00', '10.00', '70.00', '2019-03-21 16:05:10', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(63, NULL, NULL, 1, 1, NULL, 2, NULL, NULL, NULL, NULL, '2019-03-21 16:12:37', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(64, 'OC-19-000064', NULL, 1, 2, NULL, 1, NULL, '70.00', '10.00', '70.00', '2019-03-21 16:36:57', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -668,6 +676,35 @@ INSERT INTO `product_types` (`pty_id`, `pty_name`, `pty_description`, `pty_creat
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `quote_status`
+--
+
+DROP TABLE IF EXISTS `quote_status`;
+CREATE TABLE IF NOT EXISTS `quote_status` (
+  `qst_id` int(11) NOT NULL AUTO_INCREMENT,
+  `qst_name` varchar(45) DEFAULT NULL,
+  `qst_Description` varchar(200) DEFAULT NULL,
+  `qst_order` int(11) DEFAULT NULL,
+  `qst_createdDate` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `qst_createdBy` int(11) DEFAULT NULL,
+  PRIMARY KEY (`qst_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+--
+-- Dumping data for table `quote_status`
+--
+
+INSERT INTO `quote_status` (`qst_id`, `qst_name`, `qst_Description`, `qst_order`, `qst_createdBy`) VALUES
+(1, 'draft', NULL, 1, NULL),
+(2, 'sent', NULL, 2, NULL),
+(3, 'viewed', NULL, 3, NULL),
+(4, 'accepted', NULL, 4, NULL),
+(5, 'declined', NULL, 5, NULL),
+(6, 'cenceled', NULL, 6, NULL);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `register`
 --
 
@@ -774,7 +811,7 @@ CREATE TABLE IF NOT EXISTS `shopping_cart` (
   `crt_vehicleId` int(11) DEFAULT NULL,
   `crt_quantity` int(11) DEFAULT NULL,
   `crt_productConditionId` int(11) DEFAULT NULL,
-  `crt_mileage` varchar(45) DEFAULT NULL,
+  `crt_currentMileage` varchar(45) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
   `crt_comment` varchar(200) DEFAULT NULL,
   `crt_images` text,
   `crt_cartType` varchar(12) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
@@ -786,10 +823,10 @@ CREATE TABLE IF NOT EXISTS `shopping_cart` (
 -- Dumping data for table `shopping_cart`
 --
 
-INSERT INTO `shopping_cart` (`crt_id`, `crt_userId`, `crt_productId`, `crt_vehicleId`, `crt_quantity`, `crt_productConditionId`, `crt_mileage`, `crt_comment`, `crt_images`, `crt_cartType`) VALUES
+INSERT INTO `shopping_cart` (`crt_id`, `crt_userId`, `crt_productId`, `crt_vehicleId`, `crt_quantity`, `crt_productConditionId`, `crt_currentMileage`, `crt_comment`, `crt_images`, `crt_cartType`) VALUES
 (1, 1, 1, 5, 1, 5, '500', 'Test comment', 'image1,image2', 'quotreq'),
 (7, 5, 1, 5, 1, 5, '500', 'Test comment', 'image1,image2', 'shopping'),
-(9, 1, 1, 5, 1, 5, '500', 'Test comment', 'image1,image2', 'quotreq');
+(9, 1, 1, 5, 2, 5, '500', 'Test comment', 'image1,image2', 'quotreq');
 
 -- --------------------------------------------------------
 
@@ -816,7 +853,7 @@ CREATE TABLE IF NOT EXISTS `vehicles` (
   `vhl_createdAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `vhl_updatedAt` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`vhl_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `vehicles`
@@ -829,7 +866,8 @@ INSERT INTO `vehicles` (`vhl_id`, `vhl_vin`, `vhl_userId`, `vhl_vehicleTypeId`, 
 (8, 'XHXHXXHDDH', 1, 0, '2019', 'Audi', 'A3 e-tron', 'Select Car Trim', 1, 0, 0, '', '878798', 'string', NULL),
 (9, '123231', 1, 1, '2019', 'nissan', 'kicks', 'string', 1, 1, 1, '1233', '130', 'string', NULL),
 (10, '123231', 1, 1, '2019', 'Nissan', 'Kicks', '123213', 1, 1, 1, '1233', '130', '232131', NULL),
-(11, 'XHHXXHX475886GIHF', 2, 0, '2019', 'Acura', 'NSX', '2dr Coupe AWD (3.5L 6cyl gas/electric hybrid ', 1, 0, 0, '', '857885', 'string', NULL);
+(11, 'XHHXXHX475886GIHF', 2, 0, '2019', 'Acura', 'NSX', '2dr Coupe AWD (3.5L 6cyl gas/electric hybrid ', 1, 0, 0, '', '857885', 'string', NULL),
+(12, 'DGHFHHCGXHXHCGDXC', 2, 1, '2019', 'Buick', 'Enclave', 'Convenience Group 4dr SUV (3.6L 6cyl 6A)', 2, 1, 0, '864588', '898686', 'string', NULL);
 
 -- --------------------------------------------------------
 
@@ -874,16 +912,17 @@ CREATE TABLE IF NOT EXISTS `vehicle_companies` (
   `vcm_createdAt` timestamp NULL DEFAULT NULL,
   `vcm_createdBy` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`vcm_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `vehicle_companies`
 --
 
 INSERT INTO `vehicle_companies` (`vcm_id`, `vcm_userId`, `vcm_companyName`, `vcm_email`, `vcm_phone`, `vcm_address1`, `vcm_address2`, `vcm_city`, `vcm_createdAt`, `vcm_createdBy`) VALUES
-(1, 1, 'SQ-India', 'test@gmail.com', '1232321321', 'jhdgfjhgsd', 'ewrrewe', 'trivandrum', NULL, NULL),
+(1, 2, 'SQ-India', 'test@gmail.com', '1232321321', 'jhdgfjhgsd', 'ewrrewe', 'trivandrum', NULL, NULL),
 (2, 1, 'BRTech', 'test@gmail.com', '1232321321', 'jhdgfjhgsd', 'ewrrewe', 'trivandrum', '2019-03-19 06:03:56', NULL),
-(3, 1, 'BroadtechSolutions', 'bradmin@gmail.com', '1232321321', 'jhdgfjhgsd', 'ewrrewe', 'trivandrum', '2019-03-19 06:03:56', NULL);
+(3, 1, 'BroadtechSolutions', 'bradmin@gmail.com', '1232321321', 'jhdgfjhgsd', 'ewrrewe', 'trivandrum', '2019-03-19 06:03:56', NULL),
+(15, 2, 'Lenovo Ltd.', 'as@gmail.com', '5878878879', 'Chennai', '', NULL, '2019-03-22 09:01:13', NULL);
 
 -- --------------------------------------------------------
 
@@ -905,7 +944,7 @@ CREATE TABLE IF NOT EXISTS `vehicle_drivers` (
   `vdr_createdAt` int(11) DEFAULT NULL,
   `vdr_createdBy` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`vdr_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `vehicle_drivers`
@@ -918,7 +957,8 @@ INSERT INTO `vehicle_drivers` (`vdr_id`, `vdr_companyId`, `vdr_firstName`, `vdr_
 (4, 1, 'Vishnu', 'thomas', '1232321321', 'test@gmail.com', 'trivandrum', 'kerala', NULL, NULL),
 (5, 1, 'Sathish', 'thomas', '1232321321', 'test@gmail.com', 'trivandrum', 'kerala', NULL, NULL),
 (6, 1, 'BIN--U-Satish', 'thomas', '1232321321', 'test@gmail.com', 'trivandrum', 'Keralaa', NULL, 2019),
-(7, 1, 'Vishnu', 'thomas', '1232321321', 'test@gmail.com', 'trivandrum', 'kerala', NULL, 2019);
+(7, 1, 'Vishnu', 'thomas', '1232321321', 'test@gmail.com', 'trivandrum', 'kerala', NULL, 2019),
+(8, 1, 'Guna', 'Sundari', '7550168101', 'guna@sqindia.net', 'Chennai', 'Tamilnadu', NULL, 2019);
 
 -- --------------------------------------------------------
 

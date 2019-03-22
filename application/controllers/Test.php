@@ -37,7 +37,7 @@ class Test extends MY_Controller {
 
   
 
-$image = \Cloudinary\Uploader :: $api->resources_by_tag("animal");
+		$image = \Cloudinary\Uploader :: $api->resources_by_tag("animal");
 
 
         // $image = \Cloudinary\Uploader::upload($file_temp, array("tags" => "animal"));

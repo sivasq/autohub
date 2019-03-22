@@ -360,4 +360,76 @@ class Generic_model extends CI_Model
 		return $selectArray;
 	}
 
+	public function getArrayFiltered($FilterKey, $FilterValue, $array)
+	{
+		$filtered_array = array();
+		foreach ($array as $value) {
+			if (isset($value->$FilterKey)) {
+				if ($value->$FilterKey == $FilterValue) {
+					$filtered_array[] = $value;
+				}
+			}
+		}
+
+		return $filtered_array;
+	}
+
+	/*
+	 * $a = [
+    (object)['size' => 15, 'person' => (object)['name' => 'Andy', 'job' => 'developer'], 'pet' => 'dog'],
+    (object)['size' => 9, 'person' => (object)['name' => 'Candy', 'job' => 'stripper'], 'pet' => 'hamster'],
+    (object)['person' => (object)['name' => 'Bubbles', 'job' => 'painter'], 'pet' => 'fish'],
+    (object)['person' => (object)['name' => 'Bob', 'job' => 'Breeder'], 'pet' => 'hamster'],
+    (object)['person' => (object)['name' => 'Bob', 'job' => 'Bus conductor'], 'pet' => ''],
+	];
+	var_dump(ofilter($a, ['pet' => 'hamster', 'size']));
+	 */
+	function ofilter($array, $properties)
+	{
+		if (empty($array)) {
+			return;
+		}
+		if (is_string($properties)) {
+			$properties = [$properties];
+		}
+		$isValid = function($obj, $propKey, $propVal) {
+			if (is_int($propKey)) {
+				if (!property_exists($obj, $propVal) || empty($obj->{$propVal})) {
+					return false;
+				}
+			} else {
+				if (!property_exists($obj, $propKey)) {
+					return false;
+				}
+				if (is_callable($propVal)) {
+					return call_user_func($propVal, $obj->{$propKey});
+				}
+				if (strtolower($obj->{$propKey}) != strtolower($propVal)) {
+					return false;
+				}
+			}
+			return true;
+		};
+		return array_filter($array, function($v) use ($properties, $isValid) {
+			foreach ($properties as $propKey => $propVal) {
+				if (is_array($propVal)) {
+					$prop = array_shift($propVal);
+					if (!property_exists($v, $prop)) {
+						return false;
+					}
+					reset($propVal);
+					$key = key($propVal);
+					if (!$isValid($v->{$prop}, $key, $propVal[$key])) {
+						return false;
+					}
+				} else {
+					if (!$isValid($v, $propKey, $propVal)) {
+						return false;
+					}
+				}
+			}
+			return true;
+		});
+	}
+
 }

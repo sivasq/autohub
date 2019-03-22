@@ -119,9 +119,11 @@ $route['order/delete/id/(:num)'] = 'order/delete_order';
 $route['order/create-message'] = 'order/create_order_message';
 $route['order/list-message/order-id/(:num)'] = 'order/list_order_message';
 $route['order/list-shipping-methods'] = 'order/get_all_shipping_methods';
-
 #$route['order/status/orderId/(:num)'] = 'order/update_order_status';
 
+
+//Order Routes
+$route['quote/create'] = 'quote/create_quote';
 
 //Payment
 $route['payment/create-bank'] = 'payment/create_payment_bank';
