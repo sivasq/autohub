@@ -15,10 +15,20 @@ class Quote extends MY_Controller
     public function create_quote_post()
     {
         $response = $this->Quote_model->create();
-//	    $response = $this->Quote_model->DuplicateMySQLRecord('crt_id', Array(1,9));
-//        $this->response($response);
-	    echo json_encode($response);
+        $this->response($response);
     }
+
+	public function add_item_to_quote_post()
+	{
+		$response = $this->Quote_model->add_item();
+		$this->response($response);
+	}
+
+	public function remove_item_from_quote_post()
+	{
+		$response = $this->Quote_model->remove_item();
+		$this->response($response);
+	}
 
     public function update_order_put()
     {
@@ -92,7 +102,7 @@ class Quote extends MY_Controller
         return $this->response($cart_items);
     }
 
-    ///Order shippings
+    //Order shippings
     public function get_all_shipping_methods_get()
     {
         $shipping_method_list = $this->Quote_model->list_shipping_methods();

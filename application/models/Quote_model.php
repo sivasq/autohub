@@ -36,41 +36,42 @@ class Quote_model extends Generic_model
 		$this->load->model(array('Product_model'));
 	}
 
-	function DuplicateMySQLRecord($primary_key_field, $primary_key_val, $quoteReqExtraItems)
+	function DuplicateMySQLRecord($source_table, $where_key_field, $where_key_val, $del_element_from_source, $extra_elements = null)
 	{
 		/* generate the select query for get quote req items from db */
-		$this->db->where_in($primary_key_field, $primary_key_val);
-		$quoteReqItems = $this->db->get($this->cart_table)->result();
+		$this->db->where_in($where_key_field, $where_key_val);
+		$copiedItems = $this->db->get($source_table)->result();
 
-		$quoteItems_array = array();
-		foreach ($quoteReqItems as $row) {
+		if (!count($copiedItems) > 0)
+			return $this->build_response_array($copiedItems);;
+
+		$finalItems_array = array();
+		foreach ($copiedItems as $row) {
 			$element_array = array();
 			foreach ($row as $key => $val) {
-//				if ($key != $primary_key_field) {
-//					$filtered_array1[$key] = $val;
-//				}
-				if (!in_array($key, array($primary_key_field, "crt_userId", "crt_cartType"))) {
+				if (!in_array($key, $del_element_from_source)) {
 					$element_array[$key] = $val;
 				}
 			}
 
-			$orderItems = $this->getArrayFiltered('id', $row->crt_id, $quoteReqExtraItems);
-
-			foreach ($orderItems[0] as $key => $val) {
-				if (!in_array($key, array("id"))) {
-					$element_array[$key] = $val;
+			if ($extra_elements != null) {
+				$extraElement = $this->getArrayFiltered('id', $row->crt_id, $extra_elements);
+				foreach ($extraElement[0] as $key => $val) {
+					if (!in_array($key, array("id"))) {
+						$element_array[$key] = $val;
+					}
 				}
 			}
-			array_push($quoteItems_array, $element_array);
+			array_push($finalItems_array, $element_array);
 		}
 
-		return $this->build_response_array($quoteItems_array);
+		return $this->build_response_array($finalItems_array);
 	}
 
 	public function create()
 	{
-		$data = $this->httpRequest;
-		$quoteReqExtraItems = $data->quoteReqItems;
+		$inputData = $this->httpRequest;
+		$quoteReqExtraItems = $inputData->quoteReqItems;
 
 		/* Cart Ids Array */
 		$cart_ids = array();
@@ -79,18 +80,105 @@ class Quote_model extends Generic_model
 		}
 
 		/* Generate Data from cart table */
-		$quoteReqItems = $this->DuplicateMySQLRecord('crt_id', $cart_ids, $quoteReqExtraItems);
+		$quoteItems = $this->DuplicateMySQLRecord($this->cart_table, 'crt_id', $cart_ids, array("crt_id", "crt_userId", "crt_cartType"), $quoteReqExtraItems);
 
-		unset($data->quoteReqItems);
-		$data->quotStatusId = 1;
+		if (!count($quoteItems) > 0)
+			return $this->model_response(false, 500, array(), "No Cart Items Found");
 
+		unset($inputData->quoteReqItems);
+
+		/* Assign Quot Status ID */
+		$inputData->quotStatusId = 1;
+
+		/* Create Quote Data */
 		$QuotData = $this->build_model_data($data, $this->prefix);
 
-		return $quoteReqItems;
+		/* Insert Quote data */
+		$this->db->insert($this->table, $QuotData);
+		$quoteId = $this->db->insert_id();
+		if (!empty($db_error)) {
+			return $this->model_response(false, 500, array(), "Error on creating Quote");
+		}
 
+		/* Update Quote Number */
+		$this->update(array('ord_quoteId' => $this->generate_quote_number($quoteId)), $quoteId);
+
+		/* Create quote Items data */
+		$quoteItemsData = $this->build_model_array($quoteItems, $this->prfx_order_details, array("orderId" => $quoteId));
+
+		/* insert Quote Items data */
+		$this->db->insert_batch($this->table_order_detail, (array)$quoteItemsData);
+		if (!empty($db_error)) {
+			/* Delete Quote if error in create quote items */
+			$this->db->delete($quoteId);
+			return $this->model_response(false, 500, array(), "Error on creating Quote Items");
+		}
+//		$this->delete($cart_ids, $this->cart_table, 'crt_id');
+		return $this->model_response(true, 202, array("quoteId" => $quoteId));
 	}
 
-	public function createnew()
+	public function add_item()
+	{
+		$inputData = $this->httpRequest;
+		$quoteReqExtraItems = $inputData->quoteReqItems;
+
+		/* Cart Ids Array */
+		$cart_ids = array();
+		foreach ($quoteReqExtraItems as $item) {
+			array_push($cart_ids, $item->id);
+		}
+
+		/* Generate Data from cart table */
+		$quoteItems = $this->DuplicateMySQLRecord($this->cart_table, 'crt_id', $cart_ids, array("crt_id", "crt_userId", "crt_cartType"), $quoteReqExtraItems);
+
+		if (!count($quoteItems) > 0)
+			return $this->model_response(false, 500, array(), "No Cart Items Found");
+
+		unset($inputData->quoteReqItems);
+
+		/* Create quote Items data */
+		$quoteItemsData = $this->build_model_array($quoteItems, $this->prfx_order_details, array("orderId" => $inputData->quoteId));
+
+		/* insert Quote Items data */
+		$this->db->insert_batch($this->table_order_detail, (array)$quoteItemsData);
+		if (!empty($db_error)) {
+			/* Delete Quote if error in create quote items */
+			return $this->model_response(false, 500, array(), "Error on creating Quote Items");
+		}
+
+		$this->delete($cart_ids, $this->cart_table, 'crt_id');
+
+		return $this->model_response(true, 202, array("quoteId" => $inputData->quoteId));
+	}
+
+	public function remove_item()
+	{
+		$inputData = $this->httpRequest;
+
+		/* Quote Item Id */
+		$quoteItemId = array($inputData->quoteItemId);
+
+		/* Generate Data from cart table */
+		$cartItems = $this->DuplicateMySQLRecord($this->table_order_detail, 'ode_id', $quoteItemId, array("ode_id", "ode_orderId", "ode_price", "ode_statusId", "ode_discount", "ode_total", "ode_createdDate", "ode_createdBy", "ode_updatedDate", "ode_updatedBy"));
+
+		if (!count($cartItems) > 0)
+			return $this->model_response(false, 500, array(), "No Quote Items Found");
+
+
+		/* Create cart Items data */
+		$cartItemsData = $this->build_model_data($cartItems[0], 'crt_', array("userId" => $inputData->userId, "cartType" => 'quotreq', 'createdAt' => date('Y-m-d H:i:s')));
+
+		/* insert Cart Items data */
+		$this->db->insert($this->cart_table, $cartItemsData);
+		if (!empty($db_error)) {
+			return $this->model_response(false, 500, array(), "Error on creating Cart Items");
+		}
+
+		$this->delete($inputData->quoteItemId, $this->table_order_detail, 'ode_id');
+		return $this->model_response(true, 202, array());
+	}
+
+	public function create_old()
 	{
 		$data = $this->httpRequest;
 		$quoteReqItems = $data->quoteReqItems;
@@ -347,6 +435,12 @@ class Quote_model extends Generic_model
 	{
 		$order_number = "OC-" . substr(date("Y"), -2) . "-" . str_pad($orderId, 6, '0', STR_PAD_LEFT);
 		return $order_number;
+	}
+
+	public function generate_quote_number($quoteId)
+	{
+		$quote_number = "OC-" . substr(date("Y"), -2) . "-" . str_pad($quoteId, 6, '0', STR_PAD_LEFT);
+		return $quote_number;
 	}
 
 	public function update_order_items_price($orderItems)

@@ -109,6 +109,12 @@ $route['quotreq/delete-items/user-id/(:num)'] = 'quotreq/delete_items';
 $route['quotreq/delete/quotreq-id/(:num)'] = 'quotreq/delete';
 
 
+//Quote Routes
+$route['quote/create'] = 'quote/create_order';
+$route['quote/addItem'] = 'quote/add_item_to_quote';
+$route['quote/removeItem'] = 'quote/remove_item_from_quote';
+
+
 //Order Routes
 $route['order/create'] = 'order/create_order';
 $route['order/get/id/(:num)']['get'] = 'order/get_order';
