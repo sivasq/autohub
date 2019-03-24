@@ -1,6 +1,6 @@
 'use strict';
 var tableName = '#products_subItem_datatable';
-var baseUrl = window.location.origin + '/autohubbapi/index.php/product/index/sub-item';
+var baseUrl = window.location.origin + '/autohubb/index.php/product/index/sub-item';
 var data_id = 'prdId';
 var dataColumns = [
     {"data": "prdId"},

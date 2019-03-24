@@ -10,7 +10,7 @@
     <link rel="shortcut icon" href="<?php echo base_url(); ?>assets/images/favicon.ico">
 
     <!-- App title -->
-    <title>::Autolane360- Admin::</title>
+    <title>::AutoHubb-Admin::</title>
 
     <!--Morris Chart CSS -->
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/morris/morris.css">
@@ -194,9 +194,12 @@
                     </li>
 
                     <li class="has_sub">
-                        <a href="<?php echo api_url('orders/index'); ?>" class="waves-effect"><i class="zmdi zmdi-view-list"></i>
+                        <a href="javascript:void(0);" class="waves-effect"><i class="zmdi zmdi-view-list"></i>
                             <span> Orders </span> <span class="menu-arrow"></span></a>
                         <ul class="list-unstyled">
+                            <li>
+                                <a href="<?php echo api_url('orders/index'); ?>">Orders</a>
+                            </li>
                             <li>
                                 <a href="<?php echo api_url('admin/shipping/methods'); ?>">Methods</a>
                             </li>

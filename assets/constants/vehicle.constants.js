@@ -2,8 +2,8 @@
 var tableName = '#vehicle_datatable';
 var groupColumn = 1;
 var groupTableName = tableName
-var baseUrl = window.location.origin + '/autohubbapi/index.php/vehicles';
-var viewUrl = window.location.origin + '/autohubbapi/index.php/vehicle';
+var baseUrl = window.location.origin + '/autohubb/index.php/vehicles';
+var viewUrl = window.location.origin + '/autohubb/index.php/vehicle';
 var data_id = 'pcaId';
 var dataColumns = [
     {

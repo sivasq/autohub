@@ -1,7 +1,7 @@
 'use strict';
 var tableName = '#order_datatable';
-var baseUrl = window.location.origin + '/autohubbapi/index.php/order';
-var viewUrl = window.location.origin + '/autohubbapi/index.php/orders';
+var baseUrl = window.location.origin + '/autohubb/index.php/order';
+var viewUrl = window.location.origin + '/autohubb/index.php/orders';
 var data_id = 'pcaId';
 orderBy = [[ 6, "desc" ]];
 var dataColumns = [

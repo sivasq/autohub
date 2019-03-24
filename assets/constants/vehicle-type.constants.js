@@ -1,6 +1,6 @@
 'use strict';
 var tableName = '#type_datatable';
-var baseUrl = window.location.origin + '/autohubbapi/index.php/vehicle/type';
+var baseUrl = window.location.origin + '/autohubb/index.php/vehicle/type';
 var data_id = 'id';
 var dataColumns = [
     {"data": "id"},

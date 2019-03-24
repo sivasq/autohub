@@ -1,6 +1,6 @@
 'use strict';
 var tableName = '#condition_datatable';
-var baseUrl = window.location.origin + '/autohubbapi/index.php/product/condition';
+var baseUrl = window.location.origin + '/autohubb/index.php/product/condition';
 var data_id = 'pcoId';
 var dataColumns = [
     {"data": "pcoId"},
