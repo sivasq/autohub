@@ -16,7 +16,7 @@ class Quotreq_model extends Generic_model
 
 	public function list_by_userId($user_id, $message = NULL)
 	{
-		$this->db->select($this->prfx . "id as " . $this->prfx . "quotReqId, " . $this->prfx . "userId, " . $this->prfx . "mileage, " . $this->prfx . "comment, " . $this->Product_model->get_product_select_items() . "," . $this->Vehicle_model->get_vehicle_select_items() . "," . $this->Productcondition_model->get_product_condition_select_items());
+		$this->db->select($this->prfx . "id as " . $this->prfx . "quotReqId, " . $this->prfx . "userId, " . $this->prfx . "currentMileage, " . $this->prfx . "comment, " . $this->Product_model->get_product_select_items() . "," . $this->Vehicle_model->get_vehicle_select_items() . "," . $this->Productcondition_model->get_product_condition_select_items());
 		$this->db->from($this->table);
 		$this->Product_model->get_product_joins($this->db, $this->prfx . "productId");
 		$this->Vehicle_model->get_vehicle_joins($this->db, $this->prfx . "vehicleId");

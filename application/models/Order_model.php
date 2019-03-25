@@ -20,7 +20,7 @@ class Order_model extends Generic_model
     var $tbl_order_message = "order_messages";
     var $tbl_order_payment = "order_payments";
     var $tbl_shipping_method = "shipping_methods";
-    var $tbl_users = 'register';
+    var $tbl_users = 'users';
 
     const SHA = 'sha_';
     var $prefix = 'ord_';

@@ -26,14 +26,14 @@ class Generic_model extends CI_Model
 		return $this->model_response(true, 202, array($idField => $this->db->insert_id()), $message);
 	}
 
-	public function insert_batch($data_array, $table = NULL)
+	public function insert_batch($data_array, $table = NULL, $message = NULL)
 	{
 		if ($table != NULL) {
 			$this->db->insert_batch($this->table, $data_array);
 			return $this->model_response(true, 202, array());
 		}
 		$this->db->insert_batch($this->table, $data_array);
-		return $this->model_response(true, 202, array());
+		return $this->model_response(true, 202, array(), $message);
 	}
 
 	public function update($data, $id, $table = NULL, $primary_key = NULL, $message = NULL)
@@ -63,13 +63,31 @@ class Generic_model extends CI_Model
 	public function delete($id, $table = NULL, $primary_key = NULL)
 	{
 		if ($table != NULL) {
-			$this->db->where($primary_key, $id);
+			if (is_array($id)) {
+				$this->db->where_in($primary_key, $id);
+			} else {
+				$this->db->where($primary_key, $id);
+			}
 			$this->db->delete($table);
 			return $this->model_response(true, 202, array(), 'Delete Success');
 		}
 		$this->db->where_in($this->primary_key, $id);
 		$this->db->delete($this->table);
 		return $this->model_response(true, 202, array(), 'Delete Success');
+	}
+
+	public function delete_inner($id, $table = NULL, $primary_key = NULL)
+	{
+		if ($table != NULL) {
+			if (is_array($id)) {
+				$this->db->where_in($primary_key, $id);
+			} else {
+				$this->db->where($primary_key, $id);
+			}
+			return $this->db->delete($table);
+		}
+		$this->db->where_in($this->primary_key, $id);
+		return $this->db->delete($this->table);
 	}
 
 	public function list_by_field($fieldName, $value, $table = NULL, $orderby = "createdAt", $responseField)
@@ -392,7 +410,7 @@ class Generic_model extends CI_Model
 		if (is_string($properties)) {
 			$properties = [$properties];
 		}
-		$isValid = function($obj, $propKey, $propVal) {
+		$isValid = function ($obj, $propKey, $propVal) {
 			if (is_int($propKey)) {
 				if (!property_exists($obj, $propVal) || empty($obj->{$propVal})) {
 					return false;
@@ -410,7 +428,7 @@ class Generic_model extends CI_Model
 			}
 			return true;
 		};
-		return array_filter($array, function($v) use ($properties, $isValid) {
+		return array_filter($array, function ($v) use ($properties, $isValid) {
 			foreach ($properties as $propKey => $propVal) {
 				if (is_array($propVal)) {
 					$prop = array_shift($propVal);
@@ -432,4 +450,11 @@ class Generic_model extends CI_Model
 		});
 	}
 
+	function sum_index($arr, $col_name){
+		$sum = 0;
+		foreach ($arr as $item) {
+			$sum += $item[$col_name];
+		}
+		return $sum;
+	}
 }

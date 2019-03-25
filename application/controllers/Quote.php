@@ -30,24 +30,24 @@ class Quote extends MY_Controller
 		$this->response($response);
 	}
 
+	public function get_quote_by_id_get()
+	{
+		$quoteId = $this->get_path_variable('quote-id');
+		$response = $this->Quote_model->get_quote_by_id($quoteId);
+		return $this->response($response);
+	}
+
+	public function list_user_quotes_get()
+	{
+		$user_id = $this->get_path_variable('user-id');
+		$response = $this->Quote_model->get_quotes_by_userId($user_id);
+		return $this->response($response);
+	}
+
     public function update_order_put()
     {
         $orderId = $this->get_path_variable('id');
         $response = $this->Quote_model->update_order($this->httpRequest, $orderId);
-        return $this->response($response);
-    }
-
-    public function get_order_get()
-    {
-        $orderId = $this->get_path_variable('id');
-        $response = $this->Quote_model->get_order_by_id($orderId);
-        return $this->response($response);
-    }
-
-    public function list_all_user_order_get()
-    {
-        $user_id = $this->get_path_variable('user-id');
-        $response = $this->Quote_model->get_orders_by_userId($user_id);
         return $this->response($response);
     }
 

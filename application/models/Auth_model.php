@@ -3,7 +3,7 @@ require_once APPPATH . 'core/Generic_model.php';
 
 class Auth_model extends Generic_model
 {
-	var $table = 'register';
+	var $table = 'users';
 	var $table_api_key = 'apikeys';
 	var $prfx = '';
 

@@ -11,7 +11,7 @@ class Vehicle_model extends Generic_model
 	var $tbl_vehicle_type = "vehicle_types";
 	var $tbl_vehicle_company = 'vehicle_companies';
 	var $prefix_vehicle_company = 'vcm_';
-	var $tbl_users = 'register';
+	var $tbl_users = 'users';
 
 	var $tbl_vehicle_driver = "vehicle_drivers";
 	var $tbl_business_type = "vehicle_business_type";

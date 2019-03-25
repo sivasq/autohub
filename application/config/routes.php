@@ -110,9 +110,11 @@ $route['quotreq/delete/quotreq-id/(:num)'] = 'quotreq/delete';
 
 
 //Quote Routes
-$route['quote/create'] = 'quote/create_order';
+$route['quote/create'] = 'quote/create_quote';
 $route['quote/addItem'] = 'quote/add_item_to_quote';
 $route['quote/removeItem'] = 'quote/remove_item_from_quote';
+$route['quote/listQuotes/user-id/(:num)'] = 'quote/list_user_quotes';
+$route['quote/getQuote/quote-id/(:num)'] = 'quote/get_quote_by_id';
 
 
 //Order Routes
@@ -127,9 +129,6 @@ $route['order/list-message/order-id/(:num)'] = 'order/list_order_message';
 $route['order/list-shipping-methods'] = 'order/get_all_shipping_methods';
 #$route['order/status/orderId/(:num)'] = 'order/update_order_status';
 
-
-//Order Routes
-$route['quote/create'] = 'quote/create_quote';
 
 //Payment
 $route['payment/create-bank'] = 'payment/create_payment_bank';
