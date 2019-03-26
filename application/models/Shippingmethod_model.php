@@ -31,5 +31,11 @@ class Shippingmethod_model extends Generic_model
     {
         return $this->prfx;
     }
+
+	public function select_fields_for_quot_list()
+	{
+		return $this->prfx . "id as shippingMethodId, " .
+			$this->prfx . "name as shippingMethodName";
+	}
     
 }

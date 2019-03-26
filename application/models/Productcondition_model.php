@@ -18,4 +18,11 @@ class Productcondition_model extends Generic_model
 	        $this->prfx."name as productCondition";
 
     }
+
+	public function  get_product_condition_fields_for_quot_list(){
+
+		return $this->prfx."id as itemConditionId, ".
+			$this->prfx."name as itemConditionName";
+
+	}
 }

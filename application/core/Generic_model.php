@@ -231,7 +231,6 @@ class Generic_model extends CI_Model
 
 	public function map_response($data, $model_array_items, $repeated = false)
 	{
-
 		$mapped_array = array();
 
 		foreach ($model_array_items as $model_key => $model_array) {
@@ -239,6 +238,7 @@ class Generic_model extends CI_Model
 			$mapped_array[$model_key] = array();
 
 			$mapped_items = array();
+
 			foreach ($data as $items) {
 				foreach ($items as $attr_key => $attributes) {
 					//var_dump($item);
@@ -246,23 +246,19 @@ class Generic_model extends CI_Model
 					//     continue;
 
 					if (in_array($attr_key, $model_array)) {
-
 						$mapped_items[$attr_key] = $attributes;
 					} elseif (!array_key_exists($attr_key, $mapped_array)) {
 						$mapped_array[$attr_key] = $items[$attr_key];
 					}
-
 				}
-
 
 				array_push($mapped_array[$model_key], $mapped_items);
 
-				//   if(!$repeated)
-				//      break;
+//				   if(!$repeated)
+//				      break;
 			}
 		}
 		return $mapped_array;
-
 	}
 
 	//  public function map_su
@@ -450,7 +446,8 @@ class Generic_model extends CI_Model
 		});
 	}
 
-	function sum_index($arr, $col_name){
+	function sum_index($arr, $col_name)
+	{
 		$sum = 0;
 		foreach ($arr as $item) {
 			$sum += $item[$col_name];

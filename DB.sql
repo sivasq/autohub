@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Mar 25, 2019 at 12:35 PM
+-- Generation Time: Mar 26, 2019 at 12:54 PM
 -- Server version: 8.0.13
 -- PHP Version: 7.2.12
 
@@ -219,8 +219,8 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `ord_quotCreatedBy` int(11) DEFAULT NULL,
   `ord_quotUpdatedAt` datetime DEFAULT NULL,
   `ord_quotUpdatedBy` int(11) DEFAULT NULL,
-  `ord_discount_amount` decimal(20,2) DEFAULT NULL,
-  `ord_discount_percent` decimal(20,2) DEFAULT NULL,
+  `ord_discountAmount` decimal(20,2) DEFAULT NULL,
+  `ord_discountPercent` decimal(20,2) DEFAULT NULL,
   `ord_isOrder` tinyint(1) NOT NULL DEFAULT '0',
   `ord_isQuote` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`ord_id`)
@@ -230,9 +230,9 @@ CREATE TABLE IF NOT EXISTS `orders` (
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`ord_id`, `ord_orderId`, `ord_quoteId`, `ord_userId`, `ord_statusId`, `ord_quotStatusId`, `ord_shippingAddressId`, `ord_shippingMethodId`, `ord_itemTotal`, `ord_shippingTotal`, `ord_grandTotal`, `ord_createdAt`, `ord_createdBy`, `ord_updatedAt`, `ord_updatedBy`, `ord_quotCreatedAt`, `ord_quotCreatedBy`, `ord_quotUpdatedAt`, `ord_quotUpdatedBy`, `ord_discount_amount`, `ord_discount_percent`, `ord_isOrder`, `ord_isQuote`) VALUES
-(76, NULL, 'QT-19-000076', 1, NULL, 1, NULL, NULL, '470.00', NULL, NULL, NULL, NULL, NULL, NULL, '2019-03-25 17:50:41', NULL, NULL, NULL, NULL, NULL, 0, 1),
-(77, NULL, 'QT-19-000077', 1, NULL, 1, NULL, NULL, '470.00', NULL, '0.00', NULL, NULL, NULL, NULL, '2019-03-25 18:03:27', NULL, NULL, NULL, NULL, NULL, 0, 1);
+INSERT INTO `orders` (`ord_id`, `ord_orderId`, `ord_quoteId`, `ord_userId`, `ord_statusId`, `ord_quotStatusId`, `ord_shippingAddressId`, `ord_shippingMethodId`, `ord_itemTotal`, `ord_shippingTotal`, `ord_grandTotal`, `ord_createdAt`, `ord_createdBy`, `ord_updatedAt`, `ord_updatedBy`, `ord_quotCreatedAt`, `ord_quotCreatedBy`, `ord_quotUpdatedAt`, `ord_quotUpdatedBy`, `ord_discountAmount`, `ord_discountPercent`, `ord_isOrder`, `ord_isQuote`) VALUES
+(76, 'OC-19-000076', 'QT-19-000076', 2, 1, 2, NULL, NULL, '500.00', NULL, NULL, '2019-03-26 18:03:50', NULL, NULL, NULL, '2019-03-25 17:50:41', NULL, NULL, NULL, NULL, NULL, 1, 1),
+(77, NULL, 'QT-19-000077', 2, NULL, 1, NULL, NULL, '470.00', NULL, '0.00', NULL, NULL, NULL, NULL, '2019-03-25 18:03:27', NULL, NULL, NULL, NULL, NULL, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -260,15 +260,16 @@ CREATE TABLE IF NOT EXISTS `order_details` (
   `ode_updatedBy` varchar(45) DEFAULT NULL,
   `ode_images` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`ode_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=79 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `order_details`
 --
 
 INSERT INTO `order_details` (`ode_id`, `ode_orderId`, `ode_vehicleId`, `ode_productId`, `ode_productConditionId`, `ode_quantity`, `ode_statusId`, `ode_comment`, `ode_currentMileage`, `ode_price`, `ode_discount`, `ode_total`, `ode_createdDate`, `ode_createdBy`, `ode_updatedDate`, `ode_updatedBy`, `ode_images`) VALUES
-(74, 76, 5, 2, 6, 1, NULL, 'Test comment', '270', '470.00', '0.00', '470.00', NULL, NULL, NULL, NULL, 'image1,image2'),
-(75, 77, 5, 3, 6, 1, NULL, 'Test comment', '240', '470.00', '0.00', '470.00', '2019-03-25 18:03:27', NULL, NULL, NULL, 'image1,image2');
+(74, 76, 5, 2, 5, 1, NULL, 'Test comment', '270', '470.00', '0.00', '470.00', NULL, NULL, NULL, NULL, 'image1,image2'),
+(75, 76, 5, 3, 6, 1, NULL, 'Test comment', '240', '280.00', '0.00', '280.00', '2019-03-25 18:03:27', NULL, NULL, NULL, 'image1,image2'),
+(76, 76, 5, 17, NULL, 1, NULL, 'Test comment', '280', '220.00', '0.00', '220.00', '2019-03-26 13:12:28', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -314,7 +315,7 @@ CREATE TABLE IF NOT EXISTS `order_payments` (
   `orp_updatedAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `orp_updatedBy` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`orp_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `order_payments`
@@ -322,7 +323,8 @@ CREATE TABLE IF NOT EXISTS `order_payments` (
 
 INSERT INTO `order_payments` (`orp_id`, `orp_orderId`, `orp_methodId`, `orp_bankId`, `orp_status`, `orp_createdBy`, `orp_updatedBy`) VALUES
 (1, 1, '2', 1, 'PAID', NULL, NULL),
-(2, 1, '2', 1, 'PAID', NULL, NULL);
+(2, 1, '2', 1, 'PAID', NULL, NULL),
+(3, 76, '2', 1, 'PAID', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -649,7 +651,7 @@ CREATE TABLE IF NOT EXISTS `shipping_addresses` (
 --
 
 INSERT INTO `shipping_addresses` (`sha_id`, `sha_userId`, `sha_firstName`, `sha_lastName`, `sha_addressLine1`, `sha_addressLine2`, `sha_city`, `sha_state`, `sha_country`, `sha_postCode`, `sha_phone`, `sha_email`, `sha_createdAt`) VALUES
-(1, 1, 'Gopinath', 'Parthasarathy ', 'Abuja main road', '', 'Abuja', 'Abuja', 'Nygeria', '', '3121315551', 'pgnath02@gmail.com', '2019-03-25 00:00:00'),
+(1, 1, 'Gopinath', 'Parthasarathy ', 'Abuja main road', '', 'Abuja', 'Abuja', 'Nygeria', '123456', '3121315551', 'pgnath02@gmail.com', '2019-03-25 00:00:00'),
 (2, 2, 'Ebin', 'Chandy', 'trivandrum', 'Kazhakuttam', 'Thrissur', 'Kerala', 'India', '680671', '8788787', 'muffed@gmail.com', '2019-03-18 14:06:14'),
 (3, 2, 'Ebin', 'Chandy', 'trivandrum', 'Kazhakuttam', 'Thrissur', 'Kerala', 'India', '680671', '8788787', 'muffed@gmail.com', '2019-03-19 11:15:15');
 
@@ -699,17 +701,16 @@ CREATE TABLE IF NOT EXISTS `shopping_cart` (
   `crt_cartType` varchar(12) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
   `crt_createdAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`crt_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `shopping_cart`
 --
 
 INSERT INTO `shopping_cart` (`crt_id`, `crt_userId`, `crt_productId`, `crt_vehicleId`, `crt_quantity`, `crt_productConditionId`, `crt_currentMileage`, `crt_comment`, `crt_images`, `crt_cartType`) VALUES
-(23, 1, 17, 5, 1, NULL, '280', 'Test comment', NULL, 'quotreq'),
 (24, 1, 17, 5, 1, NULL, '270', 'Test comment', 'image1,image2', 'quotreq'),
 (34, 2, 17, 12, 1, NULL, '866888', 'Xggxcggx', NULL, 'quotreq'),
-(35, 2, 18, 14, 1, NULL, '568606', 'Xggcgcgc', NULL, 'quotreq');
+(36, 1, 17, 5, 1, NULL, '270', 'Test comment', 'image1,image2', 'quotreq');
 
 -- --------------------------------------------------------
 

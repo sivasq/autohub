@@ -37,7 +37,6 @@ class Vehicle_model extends Generic_model
 		$this->db->where($this->prfx_vehicle . "userId", $userId);
 		$result = $this->build_response_array($this->db->get()->result_array());
 		return $this->model_response(true, 200, array('vehicles' => $result));
-
 	}
 
 	/*
@@ -110,6 +109,16 @@ class Vehicle_model extends Generic_model
 			$this->prfx_business_type . "name as businessType, " .
 			$this->prefix_vehicle_company . "companyName , " .
 			$this->prefix_vehicle_driver . "firstName as driverName";
+	}
+
+	public function select_vehicle_fields_for_quot_list()
+	{
+		return $this->prfx_vehicle . "id as vehicleId, " .
+			$this->prfx_vehicle . "vin as vehicleVin, " .
+			$this->prfx_vehicle . "year as vehicleYear, " .
+			$this->prfx_vehicle . "make as vehicleMake, " .
+			$this->prfx_vehicle . "model as vehicleModel, " .
+			$this->prfx_vehicle . "image as vehicleImage";
 	}
 
 	public function get_vehicles()

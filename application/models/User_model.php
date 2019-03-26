@@ -1,5 +1,5 @@
 <?php
-require APPPATH . 'core/Generic_model.php';
+require_once APPPATH . 'core/Generic_model.php';
 
 class User_model extends Generic_model
 {
@@ -26,7 +26,7 @@ class User_model extends Generic_model
 		$this->db->where("sha_id", $shippingId);
 		$this->db->update(self::TBL_SHIPPING_ADDRESS, $shippingAddressData);
 		//$this->db->affected_rows()->get();
-		return $this->model_response(true, 200,  array(), 'Shipping Address Updated Successfully');
+		return $this->model_response(true, 200, array(), 'Shipping Address Updated Successfully');
 	}
 
 	public function list_shipping_address($userId)
@@ -49,6 +49,21 @@ class User_model extends Generic_model
 		$response_data = $this->build_response($result->row());
 //		return $this->model_response(true, 200, $response_data);
 		return $this->model_response(true, 200, array('shippingAddress' => $response_data));
+	}
+
+	public function select_fields_for_quot_list()
+	{
+		return self::SHA . "id as shaId, " .
+			self::SHA . "firstName as shaFirstName, " .
+			self::SHA . "lastName as shaLastName, " .
+			self::SHA . "addressLine1 as shaAddressLine1, " .
+			self::SHA . "addressLine2 as shaAddressLine2, " .
+			self::SHA . "city as shaCity, " .
+			self::SHA . "state as shaState, " .
+			self::SHA . "country as shaCountry, " .
+			self::SHA . "postCode as shaPostCode, " .
+			self::SHA . "phone as shaPhone, " .
+			self::SHA . "email as shaEmail";
 	}
 
 }
