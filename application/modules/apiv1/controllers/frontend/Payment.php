@@ -3,7 +3,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Payment extends CI_Controller
+class Payment extends MX_Controller
 {
     var $tableMethod = 'payment_banks';
     var $tableBanks = 'payment_methods';

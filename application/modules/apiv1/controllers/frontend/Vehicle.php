@@ -3,7 +3,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Vehicle extends CI_Controller
+class Vehicle extends MX_Controller
 {
 
     public function __construct()
