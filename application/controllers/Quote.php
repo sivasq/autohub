@@ -1,6 +1,6 @@
 <?php
 
-use Restserver\Libraries\REST_Controller;
+ use Libraries\REST_Controller;
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
@@ -15,7 +15,7 @@ class Quote extends MY_Controller
 
 	public function create_quote_post()
 	{
-		$response = $this->Quote_model->create();
+		$response = $this->Quote_model->create( $this->httpRequest);
 		$this->response($response);
 	}
 
@@ -35,19 +35,19 @@ class Quote extends MY_Controller
 
 	public function add_item_to_quote_post()
 	{
-		$response = $this->Quote_model->add_item();
+		$response = $this->Quote_model->add_item( $this->httpRequest);
 		$this->response($response);
 	}
 
 	public function remove_item_from_quote_post()
 	{
-		$response = $this->Quote_model->remove_item();
+		$response = $this->Quote_model->remove_item( $this->httpRequest);
 		$this->response($response);
 	}
 
 	public function update_price_for_quote_item_post()
 	{
-		$response = $this->Quote_model->update_quote_price();
+		$response = $this->Quote_model->update_quote_price( $this->httpRequest);
 		$this->response($response);
 	}
 
@@ -55,7 +55,7 @@ class Quote extends MY_Controller
 	{
 		$quoteId = $this->get_path_variable('quote-id');
 
-		$response = $this->Quote_model->update_status($quoteId);
+		$response = $this->Quote_model->update_status( $this->httpRequest,$quoteId);
 		if ($response) {
 			$this->response($response, REST_Controller::HTTP_OK);
 		} else {
@@ -66,7 +66,7 @@ class Quote extends MY_Controller
 	public function update_quote_shipping_post()
 	{
 		$quoteId = $this->get_path_variable('quote-id');
-		$response = $this->Quote_model->update_quote_shipping($quoteId);
+		$response = $this->Quote_model->update_quote_shipping( $this->httpRequest,$quoteId);
 		$this->response($response);
 	}
 

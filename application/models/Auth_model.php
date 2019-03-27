@@ -12,9 +12,9 @@ class Auth_model extends Generic_model
 		parent::__construct($this->table, $this->prfx);
 	}
 
-	public function email_availability()
+	public function email_availability($httpRequest)
 	{
-		$this->db->where('email', $this->httpRequest->email);
+		$this->db->where('email', $httpRequest->email);
 		$query = $this->db->get($this->table);
 
 		if ($query->num_rows() > 0) {
@@ -24,9 +24,9 @@ class Auth_model extends Generic_model
 		}
 	}
 
-	public function is_email_verified()
+	public function is_email_verified($httpRequest)
 	{
-		$this->db->where(array('email' => $this->httpRequest->email, 'is_email_verified' => 1));
+		$this->db->where(array('email' => $httpRequest->email, 'is_email_verified' => 1));
 		$query = $this->db->get($this->table);
 		if ($query->num_rows() > 0) {
 			return true;
@@ -35,9 +35,9 @@ class Auth_model extends Generic_model
 		}
 	}
 
-	public function user_reg()
+	public function user_reg($httpRequest)
 	{
-		$userData = $this->build_model_data($this->httpRequest, $this->prfx, array("otp" => rand(1000, 9999), 'otp_is_expired' => 0, 'is_email_verified' => 0, 'created_at' => date('Y-m-d H:i:s'), 'otp_created_at' => date('Y-m-d H:i:s')));
+		$userData = $this->build_model_data($httpRequest, $this->prfx, array("otp" => rand(1000, 9999), 'otp_is_expired' => 0, 'is_email_verified' => 0, 'created_at' => date('Y-m-d H:i:s'), 'otp_created_at' => date('Y-m-d H:i:s')));
 		$this->db->insert($this->table, (array)$userData);
 
 		if (!empty($db_error)) {
@@ -46,20 +46,20 @@ class Auth_model extends Generic_model
 		return $this->model_response(true, 202, $userData, "User Registered Successfully! Gohead...");
 	}
 
-	public function send_otp()
+	public function send_otp($httpRequest)
 	{
-		if (!$this->email_availability()) {
+		if (!$this->email_availability( $httpRequest)) {
 			return $this->model_response(false, 500, array(), "Invalid Email");
 		}
 
-		if ($this->is_email_verified()) {
+		if ($this->is_email_verified( $httpRequest)) {
 			return $this->model_response(true, 500, array(), "This Email Already Verified");
 		}
 
-		$otpData = $this->build_model_data($this->httpRequest, $this->prfx, array("otp" => rand(1000, 9999), 'otp_is_expired' => 0, 'is_email_verified' => 0, 'otp_created_at' => date('Y-m-d H:i:s')));
+		$otpData = $this->build_model_data($httpRequest, $this->prfx, array("otp" => rand(1000, 9999), 'otp_is_expired' => 0, 'is_email_verified' => 0, 'otp_created_at' => date('Y-m-d H:i:s')));
 
 		unset($otpData['email']);
-		$this->db->where('email', $this->httpRequest->email);
+		$this->db->where('email', $httpRequest->email);
 		$this->db->update($this->table, $otpData);
 
 		if (!empty($db_error)) {
@@ -68,29 +68,29 @@ class Auth_model extends Generic_model
 
 		$this->db->select('*');
 		$this->db->from($this->table);
-		$this->db->where('email', $this->httpRequest->email);
+		$this->db->where('email', $httpRequest->email);
 		$userData = $this->db->get()->row();
 
 		return $this->model_response(true, 202, json_decode(json_encode($userData), True), "success on OTP Generation");
 	}
 
-	public function verify_otp()
+	public function verify_otp($httpRequest)
 	{
-		if (!$this->email_availability()) {
+		if (!$this->email_availability( $httpRequest)) {
 			return $this->model_response(false, 500, array(), "Email not exists!");
 		}
 
-		if ($this->is_email_verified()) {
+		if ($this->is_email_verified( $httpRequest)) {
 			return $this->model_response(true, 500, array(), "This Email Already Verified");
 		}
 
-		$this->db->where("email='" . $this->httpRequest->email . "' AND otp='" . $this->httpRequest->otp . "' AND otp_is_expired = 0 AND DATE_ADD(otp_created_at, INTERVAL 5 MINUTE) >= NOW()");
+		$this->db->where("email='" . $httpRequest->email . "' AND otp='" . $httpRequest->otp . "' AND otp_is_expired = 0 AND DATE_ADD(otp_created_at, INTERVAL 5 MINUTE) >= NOW()");
 		$query = $this->db->get($this->table);
 
 		if ($query->num_rows() > 0) {
-			$otpData = $this->build_model_data($this->httpRequest, $this->prfx, array('otp_is_expired' => 1, 'is_email_verified' => 1));
+			$otpData = $this->build_model_data($httpRequest, $this->prfx, array('otp_is_expired' => 1, 'is_email_verified' => 1));
 
-			$this->db->where(array('email' => $this->httpRequest->email, 'otp' => $this->httpRequest->otp));
+			$this->db->where(array('email' => $httpRequest->email, 'otp' => $httpRequest->otp));
 			$this->db->update($this->table, $otpData);
 		} else {
 			return $this->model_response(false, 202, array(), "Invalid OTP / OTP Expired");
@@ -99,9 +99,9 @@ class Auth_model extends Generic_model
 		return $this->model_response(true, 202, array(), "OTP Verified");
 	}
 
-	public function login_auth1()
+	public function login_auth1($httpRequest)
 	{
-		$this->db->where(array('email' => $this->httpRequest->email, 'password' => $this->httpRequest->password));
+		$this->db->where(array('email' => $httpRequest->email, 'password' => $httpRequest->password));
 		$query = $this->db->get($this->table);
 		$response = array();
 		if ($query->num_rows() > 0) {
@@ -132,9 +132,9 @@ class Auth_model extends Generic_model
 		return $this->model_response(true, 202, $response, "Login Success");
 	}
 
-	public function login_auth()
+	public function login_auth( $httpRequest)
 	{
-		$this->db->where(array('email' => $this->httpRequest->email, 'password' => $this->httpRequest->password));
+		$this->db->where(array('email' => $httpRequest->email, 'password' => $httpRequest->password));
 		$query = $this->db->get($this->table);
 		return $query;
 	}

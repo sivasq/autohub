@@ -1,6 +1,6 @@
 <?php
 
-namespace Restserver\Libraries;
+namespace Libraries;
 use CI_Controller;
 use Exception;
 use stdClass;

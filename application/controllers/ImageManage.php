@@ -5,7 +5,7 @@
  * Date: 22-03-2019 022
  * Time: 14:43
  */
-use Restserver\Libraries\REST_Controller;
+ use Libraries\REST_Controller;
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class ImageManage extends MY_Controller

@@ -1,6 +1,6 @@
 <?php
 
-use Restserver\Libraries\REST_Controller;
+ use Libraries\REST_Controller;
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
@@ -17,7 +17,7 @@ class Auth extends My_Controller
 	 */
 	public function email_validate_post()
 	{
-		$availability = $this->Auth_model->email_availability();
+		$availability = $this->Auth_model->email_availability($this->httpRequest);
 
 		if ($availability) {
 			$response['status'] = false;
@@ -34,10 +34,10 @@ class Auth extends My_Controller
 	 */
 	public function user_registration_post()
 	{
-		if ($this->Auth_model->email_availability())
+		if ($this->Auth_model->email_availability( $this->httpRequest))
 			$this->response(array(false, 202, "This Email Already Registered"), REST_Controller::HTTP_OK);
 
-		$response = $this->Auth_model->user_reg();
+		$response = $this->Auth_model->user_reg( $this->httpRequest);
 		if ($response[0]) {
 			$otp = $response[3]['otp'];
 			$firstName = $response[3]['first_name'];
@@ -61,7 +61,7 @@ class Auth extends My_Controller
 	 */
 	public function send_otp_post()
 	{
-		$response = $this->Auth_model->send_otp();
+		$response = $this->Auth_model->send_otp( $this->httpRequest);
 
 		if ($response[0]) {
 			$otp = $response[3]['otp'];
@@ -83,7 +83,7 @@ class Auth extends My_Controller
 	 */
 	public function otp_verify_post()
 	{
-		$response = $this->Auth_model->verify_otp();
+		$response = $this->Auth_model->verify_otp( $this->httpRequest);
 		$this->response($response, REST_Controller::HTTP_OK);
 	}
 
@@ -92,7 +92,7 @@ class Auth extends My_Controller
 	 */
 	public function user_login_auth1_post()
 	{
-		$response = $this->Auth_model->login_auth();
+		$response = $this->Auth_model->login_auth( $this->httpRequest);
 		$this->response($response, REST_Controller::HTTP_OK);
 	}
 
@@ -101,10 +101,10 @@ class Auth extends My_Controller
 	 */
 	public function user_login_auth_post()
 	{
-		if (!$this->Auth_model->is_email_verified())
+		if (!$this->Auth_model->is_email_verified( $this->httpRequest))
 			$this->response($this->Auth_model->model_response(true, 202, array(), "Email Not Verified"), REST_Controller::HTTP_OK);
 
-		$response_query = $this->Auth_model->login_auth();
+		$response_query = $this->Auth_model->login_auth( $this->httpRequest);
 		$response = array();
 		if ($response_query->num_rows() > 0) {
 			$userData = $response_query->row();

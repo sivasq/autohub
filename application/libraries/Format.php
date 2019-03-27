@@ -1,5 +1,5 @@
 <?php
-namespace Restserver\Libraries;
+namespace Libraries;
 use Exception;
 
 defined('BASEPATH') OR exit('No direct script access allowed');

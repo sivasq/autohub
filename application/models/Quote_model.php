@@ -69,9 +69,9 @@ class Quote_model extends Generic_model
 		return $this->build_response_array($finalItems_array);
 	}
 
-	public function create()
+	public function create($httpRequest)
 	{
-		$inputData = $this->httpRequest;
+		$inputData = $httpRequest;
 		$quoteItemExtraElements = $inputData->quoteItems;
 
 		/* Cart Ids Array */
@@ -155,9 +155,9 @@ class Quote_model extends Generic_model
 		return $this->model_response(true, 200, $response_data);
 	}
 
-	public function add_item()
+	public function add_item( $httpRequest)
 	{
-		$inputData = $this->httpRequest;
+		$inputData = $httpRequest;
 		$quoteItemExtraElements = $inputData->quoteItems;
 
 		/* Cart Ids Array */
@@ -197,9 +197,9 @@ class Quote_model extends Generic_model
 		return $this->model_response(true, 202, array("quoteId" => $inputData->quoteId), 'Item successfully added to Quotation');
 	}
 
-	public function remove_item()
+	public function remove_item( $httpRequest)
 	{
-		$inputData = $this->httpRequest;
+		$inputData = $httpRequest;
 
 		/* Quote Item Id */
 		$quoteItemId = array($inputData->quoteItemId);
@@ -242,12 +242,12 @@ class Quote_model extends Generic_model
 		return $this->db->get()->result_array();
 	}
 
-	public function update_quote_price()
+	public function update_quote_price( $httpRequest)
 	{
 		/* Build Item Ids Array */
-		$itemIds = array_column($this->httpRequest->quoteItems, 'id');
+		$itemIds = array_column($httpRequest->quoteItems, 'id');
 
-		$itemNewTotal = array_sum(array_column($this->httpRequest->quoteItems, 'total'));
+		$itemNewTotal = array_sum(array_column($httpRequest->quoteItems, 'total'));
 
 		/* Select Items */
 		$items = $this->get_quot_item_by_ids($itemIds);
@@ -256,13 +256,13 @@ class Quote_model extends Generic_model
 		$itemPreviousTotal = array_sum(array_column($items, 'ode_total'));
 
 		/* build New price array */
-		$quoteItems = $this->build_model_array($this->httpRequest->quoteItems, $this->prfx_order_details);
+		$quoteItems = $this->build_model_array($httpRequest->quoteItems, $this->prfx_order_details);
 
 		/* Update Price for item*/
 		$this->db->update_batch($this->table_order_detail, $quoteItems, 'ode_id');
 
 		/* Update Price In Quote */
-		$this->db->where('ord_id', $this->httpRequest->quoteId);
+		$this->db->where('ord_id', $httpRequest->quoteId);
 		$this->db->set('ord_itemTotal', 'ord_itemTotal -' . $itemPreviousTotal . '+' . $itemNewTotal, FALSE);
 		$this->db->set('ord_grandTotal', 'ord_grandTotal -' . $itemPreviousTotal . '+' . $itemNewTotal, FALSE);
 		$this->db->update($this->table);
@@ -270,10 +270,10 @@ class Quote_model extends Generic_model
 		return $this->model_response(true, 200, array(), 'Price Updated');
 	}
 
-	public function update_status($quoteId)
+	public function update_status( $httpRequest, $quoteId)
 	{
 		$statusData = array(
-			'ord_quotStatusId' => $this->validate_input($this->httpRequest, "statusId")
+			'ord_quotStatusId' => $this->validate_input($httpRequest, "statusId")
 		);
 		if (isset($statusData)) {
 			$this->db->where("ord_id", $quoteId);
@@ -284,12 +284,12 @@ class Quote_model extends Generic_model
 		}
 	}
 
-	public function update_quote_shipping($quoteId)
+	public function update_quote_shipping( $httpRequest, $quoteId)
 	{
 		$shippingData = array(
-			'ord_shippingAddressId' => $this->validate_input($this->httpRequest, "shippingAddressId"),
-			'ord_shippingMethodId' => $this->validate_input($this->httpRequest, "shippingMethodId"),
-			'ord_shippingTotal' => $this->validate_input($this->httpRequest, "shippingTotal")
+			'ord_shippingAddressId' => $this->validate_input($httpRequest, "shippingAddressId"),
+			'ord_shippingMethodId' => $this->validate_input($httpRequest, "shippingMethodId"),
+			'ord_shippingTotal' => $this->validate_input($httpRequest, "shippingTotal")
 		);
 		if (isset($shippingData)) {
 			$this->db->where("ord_id", $quoteId);
@@ -339,9 +339,9 @@ class Quote_model extends Generic_model
 	}
 
 
-	public function create_old()
+	public function create_old( $httpRequest)
 	{
-		$data = $this->httpRequest;
+		$data = $httpRequest;
 		$quoteReqItems = $data->quoteReqItems;
 
 		unset($data->quoteReqItems);
