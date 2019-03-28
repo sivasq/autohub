@@ -9,37 +9,38 @@
                             <div class="card-box">
                                 <h4 class="header-title m-t-0 m-b-30">Add Product Type</h4>
 
-                                <form class="form-horizontal"
+                                <form id="myForm" class="form-horizontal"
                                       action="<?php echo api_url("product/type/create"); ?>"
                                       data-parsley-validate
-                                      novalidate method="post" onReset="updateForm();">
+                                      novalidate method="post" onReset="updateForm(event);">
                                     <?php
                                     $error = validation_errors();
                                     if (!empty($error)) {
                                         ?>
-                                        <div class="alert alert-danger">
+                                        <div class="alert alert-danger alert-dismissible">
+	                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                                             <strong>Warning!</strong> <?php echo $error ?>
                                         </div>
                                         <?php
                                     }
                                     ?>
-                                    <input type="hidden" name="ptyId">
+                                    <input type="hidden" id="ptyId" name="ptyId">
                                     <div class="form-group">
-                                        <label for="inputEmail3" class="col-sm-4 control-label">Type
+                                        <label for="ptyName" class="col-sm-4 control-label">Type
                                             Name*</label>
                                         <div class="col-sm-7">
                                             <input type="text" required="" class="form-control"
-                                                   id="userName" name="ptyName"
+                                                   id="ptyName" name="ptyName"
                                                    placeholder="Type Name">
                                         </div>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="inputEmail3" class="col-sm-4 control-label">Type
+                                        <label for="ptyDescription" class="col-sm-4 control-label">Type
                                             Description</label>
                                         <div class="col-sm-7">
                                             <input type="text" required="" class="form-control"
-                                                   id="userName" name="ptyDescription"
+                                                   id="ptyDescription" name="ptyDescription"
                                                    placeholder="Type Description">
                                         </div>
                                     </div>

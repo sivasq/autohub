@@ -1,5 +1,6 @@
-function updateForm() {
+function updateForm(event) {
     document.getElementById("save-button").innerHTML = "Create";
+    $("#"+event.target.id+" input[type=hidden]").val('');
 }
 
 function updateStatus() {
@@ -31,19 +32,19 @@ function updateStatus() {
 
 function getProductUpdate() {
 
-
     var productType = document.getElementById("productType").value;
 
-    if (productType == "1") {
+    if (productType === "1") {
         $('#productCategoryDiv').prop('hidden', false);
         $('#subItems').prop('hidden', true);
-    } else if (productType == "2") {
+    } else if (productType === "2") {
         $('#productCategoryDiv').prop('hidden', true);
         $('#subItems').prop('hidden', false);
-    } else if (productType == "3") {
+    } else if (productType === "3") {
         $('#productCategoryDiv').prop('hidden', true);
         $('#subItems').prop('hidden', true);
     } else {
-
+        $('#productCategoryDiv').prop('hidden', false);
+        $('#subItems').prop('hidden', true);
     }
 }

@@ -228,6 +228,6 @@ $route['shipping-method'] = 'apiv1/frontend/ShippingMethod/index';
 $route['shipping-method/create'] = 'apiv1/frontend/ShippingMethod/create';
 $route['shipping-method/delete'] = 'apiv1/frontend/ShippingMethod/delete';
 
-
-
+//Image Manage
+$route['imagemanage/upload'] = 'apiv1/imagemanage/upload';
 

@@ -3,7 +3,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class ShippingMethod extends MX_Controller
+class ShippingMethod extends Base_Controller
 {
 
     var $viewClass = "admin/shipping/ShippingMethod";

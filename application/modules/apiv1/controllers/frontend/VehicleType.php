@@ -3,7 +3,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class VehicleType extends MX_Controller
+class VehicleType extends Base_Controller
 {
 
     var $viewClass = "admin/vehicle/VehicleType";

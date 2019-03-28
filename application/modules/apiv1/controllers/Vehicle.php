@@ -2,10 +2,10 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-require APPPATH . 'models/dto/vehicle/VehicleDTO.php';
-require APPPATH . 'models/dto/vehicle/CommercialDataDTO.php';
-require APPPATH . 'models/dto/vehicle/CompanyDataDTO.php';
-require APPPATH . 'models/dto/vehicle/DriverDTO.php';
+//require APPPATH . 'models/dto/vehicle/VehicleDTO.php';
+//require APPPATH . 'models/dto/vehicle/CommercialDataDTO.php';
+//require APPPATH . 'models/dto/vehicle/CompanyDataDTO.php';
+//require APPPATH . 'models/dto/vehicle/DriverDTO.php';
 
 class Vehicle extends MY_Controller
 {
