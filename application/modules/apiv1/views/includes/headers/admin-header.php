@@ -116,7 +116,7 @@
                         <img src="<?php echo base_url(); ?>assets/images/users/avatar-1.jpg" alt="user-img" title="Admin" class="img-circle img-thumbnail img-responsive">
                         <div class="user-status offline"><i class="zmdi zmdi-dot-circle"></i></div>
                     </div>
-                    <h5><a href="#"><?php echo $this->session->userdata('username'); ?></h5>
+                    <h5><a href="#"><?php echo $this->session->userdata('username'); ?></a></h5>
                     <ul class="list-inline">
                         <li>
                             <a href="#">
@@ -176,6 +176,19 @@
                             <ul class="list-unstyled">
                                 <li>
                                     <a href="<?php echo api_url('shipping-method'); ?>">Methods</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="has_sub">
+                            <a href="javascript:void(0);" class="waves-effect"><i class="zmdi zmdi-view-list"></i>
+                                <span> Quotes </span> <span class="menu-arrow"></span></a>
+                            <ul class="list-unstyled">
+                                <li>
+                                    <a href="<?php echo api_url('quotes/index'); ?>">Quotes</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo api_url('quotes/reqs'); ?>">Quote Reqs.</a>
                                 </li>
                             </ul>
                         </li>

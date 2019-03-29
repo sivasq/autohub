@@ -156,6 +156,7 @@ class Order_model extends Generic_model
 //        $this->db->join($this->table_vehicles, "ode_vehicleId = vhl_id", "left");
 //        $this->db->join($this->tbl_product_condition, "ode_productConditionId = pco_id", "left");
 //        $this->db->join($this->tbl_shipping_address, "sha_id = ord_shippingAddressId");
+	    $this->db->where('ord_isOrder',1);
         $result = $this->db->get()->result_array();
         $response_data = $this->build_response_array($result, NULL, array("createdAt"));
 

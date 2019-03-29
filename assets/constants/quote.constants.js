@@ -1,15 +1,15 @@
 'use strict';
-var tableName = '#order_datatable';
-var baseUrl = window.location.origin + '/autohubb/index.php/order';
-var viewUrl = window.location.origin + '/autohubb/index.php/orders';
+var tableName = '#quote_datatable';
+var baseUrl = window.location.origin + '/autohubb/index.php/quote';
+var viewUrl = window.location.origin + '/autohubb/index.php/quotes';
 var data_id = 'pcaId';
 orderBy = [[ 6, "desc" ]];
 var dataColumns = [
     {
-        "data": "orderId",
+        "data": "quoteId",
         render: function (dataField, type, row) {
             var dataField = (dataField != null) ? dataField : ".......";
-            var url = viewUrl + '/viewdata/order-id/' + row.id;
+            var url = viewUrl + '/viewdata/quote-id/' + row.id;
             return '<a href="' + url + '">' + dataField + '</a>';
         }
     },
@@ -18,26 +18,24 @@ var dataColumns = [
     {"data": "shippingTotal"},
     {"data": "grandTotal"},
     {
-        "data": "status", render: function (dataField) {
-            if (dataField == 'order placed') {
+        "data": "status",
+        render: function (dataField) {
+            if (dataField == 'Placed') {
                 return '<span class="label label-default">' + dataField + '</span>';
             }
-            if (dataField == 'price added') {
+            if (dataField == 'Accepted') {
                 return '<span class="label label-info">' + dataField + '</span>';
             }
-            if (dataField == 'payment made') {
+            if (dataField == 'Declined') {
                 return '<span class="label label-warning">' + dataField + '</span>';
             }
-            if (dataField == 'shipped') {
+            if (dataField == 'Paid') {
                 return '<span class="label label-pink">' + dataField + '</span>';
             }
-            if (dataField == 'delivered') {
-                return '<span class="label label-success">' + dataField + '</span>';
-            }
-            if (dataField == 'cancelled') {
+            if (dataField == 'Closed') {
                 return '<span class="label label-danger">' + dataField + '</span>';
             }
         }
     },
-    {"data": "createdAt"},
+    {"data": "quotCreatedAt"},
 ];

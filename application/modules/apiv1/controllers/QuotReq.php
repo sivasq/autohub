@@ -26,6 +26,11 @@ class QuotReq extends MY_Controller
 		$this->response($this->Quotreq_model->list_by_userId($userId));
 	}
 
+	public function get_reqs_get()
+	{
+		$this->response($this->Quotreq_model->list_quote_reqs());
+	}
+
 	public function delete_items_post()
 	{
 		$userId = $this->get_path_variable('user-id');

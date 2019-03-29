@@ -117,7 +117,7 @@
         // ==========================================================================================
         rowAdd: function () {
             this.$addButton.attr({'disabled': 'disabled'});
-
+            
             var actions,
                 data,
                 $row;
@@ -131,7 +131,7 @@
 
             data = this.datatable.row.add(['', '', '', '', actions]);
             $row = this.datatable.row(data[0]).nodes().to$();
-
+            
             $row
                 .addClass('adding')
                 .find('td:last')

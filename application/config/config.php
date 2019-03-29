@@ -26,9 +26,9 @@ date_default_timezone_set('Asia/Kolkata');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://localhost/autohubb/';
+$config['base_url'] = 'http://192.168.1.10/autohubb/';
 
-$config['api_url'] = 'http://localhost/autohubb/index.php';
+$config['api_url'] = 'http://192.168.1.10/autohubb/index.php';
 
 /*
 |--------------------------------------------------------------------------

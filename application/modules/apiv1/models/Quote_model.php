@@ -3,14 +3,15 @@ require_once APPPATH . 'core/Generic_model.php';
 
 class Quote_model extends Generic_model
 {
+	const TBL_ORDER_ADDRESS = 'shipping_addresses';
+	const SHA = 'sha_';
 	var $table = 'orders';
 	var $cart_table = 'shopping_cart';
 	var $table_order_detail = 'order_details';
-	var $table_order_status = 'order_status';
-	var $table_quote_status = 'quote_status';
 //	const TBL_ORDER_PAYMENT = 'order_payment';
 //	const TBL_ORDER_SHIPPING = 'order_shipping';
-	const TBL_ORDER_ADDRESS = 'shipping_addresses';
+	var $table_order_status = 'order_status';
+	var $table_quote_status = 'quote_status';
 	var $table_shipping_methods = 'shipping_methods';
 	var $table_vehicles = 'vehicles';
 	var $table_products = 'products';
@@ -23,8 +24,6 @@ class Quote_model extends Generic_model
 	var $tbl_order_payment = "order_payments";
 	var $tbl_shipping_method = "shipping_methods";
 	var $tbl_users = 'users';
-
-	const SHA = 'sha_';
 	var $prefix = 'ord_';
 	var $prfx_order_details = "ode_";
 	var $ordItemsprefix = 'ode_';
@@ -35,6 +34,82 @@ class Quote_model extends Generic_model
 	{
 		parent::__construct($this->table, $this->prefix);
 		$this->load->model(array('Product_model', 'Shippingmethod_model', 'User_model', 'Productcondition_model', 'Vehicle_model'));
+	}
+
+	public function create($httpRequest)
+	{
+		$inputData = $httpRequest;
+		$quoteCartExtraElements = $inputData->quoteItems;
+
+		$finalQuoteCartExtraElements = array();
+		foreach ($quoteCartExtraElements as $row) {
+			$element_array = array();
+
+			if (!array_key_exists("price", $row)) {
+				$element_array['price'] = 0;
+			}
+
+			if (!array_key_exists("discount", $row)) {
+				$element_array['discount'] = 0;
+			}
+
+			if (!array_key_exists("total", $row)) {
+				$element_array['total'] = 0;
+			}
+
+			foreach ($row as $key => $val) {
+				$element_array[$key] = $val;
+			}
+
+			array_push($finalQuoteCartExtraElements, (object) $element_array);
+		}
+
+//		$sum = array_sum(array_map(function($item) {
+//			return $item->price * $item->quantity - $item->discount;
+//		}, $finalQuoteCartExtraElements));
+
+		/* Cart Ids Array */
+		$cart_ids = array_column($finalQuoteCartExtraElements, 'id');
+
+		/* Generate Data from cart table */
+		$quoteItems = $this->DuplicateMySQLRecord($this->cart_table, 'crt_id', $cart_ids, array("crt_id", "crt_userId", "crt_cartType"), $finalQuoteCartExtraElements);
+
+		if (!count($quoteItems) > 0)
+			return $this->model_response(false, 500, array(), "No Request Items Found");
+
+		unset($inputData->quoteItems);
+
+		/* Sum Item Price */
+		$itemTotal = array_sum(array_column($quoteItems, 'total'));
+		$shippingTotal = 0;
+		$grandTotal = $shippingTotal + array_sum(array_column($quoteItems, 'total'));
+
+		/* Create Quote Data */
+		$QuotData = $this->build_model_data($inputData, $this->prefix, array("quotStatusId" => 1, "isQuote" => 1, "itemTotal" => $itemTotal, "shippingTotal" => $shippingTotal, "grandTotal" => $grandTotal, "quotCreatedAt" => date('Y-m-d H:i:s'), "quotCreatedBy" => NULL));
+
+		/* Insert Quote data */
+		$this->db->insert($this->table, $QuotData);
+		$quoteId = $this->db->insert_id();
+		if (!empty($db_error)) {
+			return $this->model_response(false, 500, array(), "Error on creating Quote");
+		}
+
+		/* Update Quote Number */
+		$this->update(array('ord_quoteId' => $this->generate_quote_number($quoteId)), $quoteId);
+
+		/* Create quote Items data */
+		$quoteItemsData = $this->build_model_array($quoteItems, $this->prfx_order_details, array("orderId" => $quoteId, "createdDate" => date('Y-m-d H:i:s'), "createdBy" => NULL));
+
+		/* insert Quote Items data */
+		$this->db->insert_batch($this->table_order_detail, (array)$quoteItemsData);
+		if (!empty($db_error)) {
+			/* Delete Quote if error in create quote items */
+			$this->db->delete($quoteId);
+			return $this->model_response(false, 500, array(), "Error on creating Quote Items");
+		}
+		$this->delete_inner($cart_ids, $this->cart_table, 'crt_id');
+
+		return $this->model_response(true, 202, array("quoteId" => $quoteId), "Quotation Created Successfully");
 	}
 
 	function DuplicateMySQLRecord($source_table, $where_key_field, $where_key_val, $del_element_from_source, $extra_elements = null)
@@ -69,57 +144,6 @@ class Quote_model extends Generic_model
 		return $this->build_response_array($finalItems_array);
 	}
 
-	public function create($httpRequest)
-	{
-		$inputData = $httpRequest;
-		$quoteItemExtraElements = $inputData->quoteItems;
-
-		/* Cart Ids Array */
-		$cart_ids = array();
-		foreach ($quoteItemExtraElements as $item) {
-			array_push($cart_ids, $item->id);
-		}
-
-		/* Generate Data from cart table */
-		$quoteItems = $this->DuplicateMySQLRecord($this->cart_table, 'crt_id', $cart_ids, array("crt_id", "crt_userId", "crt_cartType"), $quoteItemExtraElements);
-
-		if (!count($quoteItems) > 0)
-			return $this->model_response(false, 500, array(), "No Request Items Found");
-
-		unset($inputData->quoteItems);
-
-		/* Sum Item Price */
-		$itemTotal = array_sum(array_column($quoteItems, 'total'));
-		$grandTotal = 0;
-
-		/* Create Quote Data */
-		$QuotData = $this->build_model_data($inputData, $this->prefix, array("quotStatusId" => 1, "isQuote" => 1, "itemTotal" => $itemTotal, "grandTotal" => $grandTotal, "quotCreatedAt" => date('Y-m-d H:i:s'), "quotCreatedBy" => NULL));
-
-		/* Insert Quote data */
-		$this->db->insert($this->table, $QuotData);
-		$quoteId = $this->db->insert_id();
-		if (!empty($db_error)) {
-			return $this->model_response(false, 500, array(), "Error on creating Quote");
-		}
-
-		/* Update Quote Number */
-		$this->update(array('ord_quoteId' => $this->generate_quote_number($quoteId)), $quoteId);
-
-		/* Create quote Items data */
-		$quoteItemsData = $this->build_model_array($quoteItems, $this->prfx_order_details, array("orderId" => $quoteId, "createdDate" => date('Y-m-d H:i:s'), "createdBy" => NULL));
-
-		/* insert Quote Items data */
-		$this->db->insert_batch($this->table_order_detail, (array)$quoteItemsData);
-		if (!empty($db_error)) {
-			/* Delete Quote if error in create quote items */
-			$this->db->delete($quoteId);
-			return $this->model_response(false, 500, array(), "Error on creating Quote Items");
-		}
-		$this->delete_inner($cart_ids, $this->cart_table, 'crt_id');
-
-		return $this->model_response(true, 202, array("quoteId" => $quoteId), "Quotation Created Successfully");
-	}
-
 	public function get_quotes_by_userId($user_id)
 	{
 		$this->db->select($this->select_fields_for_quot_list() . ", qst_name as quotStatus, concat(first_name, ' ', last_name) as userName");
@@ -127,10 +151,27 @@ class Quote_model extends Generic_model
 		$this->db->join($this->table_quote_status, "ord_quotStatusId = qst_id", "left");
 		$this->db->join($this->tbl_users, "user_id = ord_userId", "left");
 		$this->db->where(array("ord_userId" => $user_id, "ord_isQuote" => 1));
-		$this->db->order_by('ord_quotCreatedAt');
+		$this->db->order_by('ord_quotCreatedAt', 'DESC');
 		$result = $this->db->get()->result_array();
 		$response_data = $this->build_response_array($result, NULL, array("createdAt"));
 		return $this->model_response(true, 200, array("quotes" => $response_data));
+	}
+
+	public function select_fields_for_quot_list()
+	{
+		return $this->prefix . "id as quoteId, " .
+			$this->prefix . "quoteId as quoteNumber, " .
+			$this->prefix . "userId, " .
+			$this->prefix . "quotStatusId, " .
+			$this->prefix . "shippingAddressId, " .
+			$this->prefix . "shippingMethodId, " .
+			$this->prefix . "itemTotal, " .
+			$this->prefix . "shippingTotal, " .
+			$this->prefix . "grandTotal, " .
+			$this->prefix . "discountAmount, " .
+			$this->prefix . "discountPercent, " .
+			$this->prefix . "quotCreatedAt as createdAt, " .
+			$this->prefix . "quotCreatedBy as createdBy";
 	}
 
 	public function get_quote_by_id($quoteId)
@@ -144,6 +185,8 @@ class Quote_model extends Generic_model
 		$this->db->join($this->tbl_product_condition, "ode_productConditionId = pco_id", "left");
 		$this->db->join($this->tbl_shipping_address, "sha_id = ord_shippingAddressId", "left");
 		$this->db->join($this->tbl_shipping_method, "shm_id = ord_shippingMethodId", "left");
+		$this->db->join($this->table_product_type, "pty_id = prd_typeId", "left");
+		$this->db->join($this->table_product_categories, "pca_id = prd_categoryId", "left");
 		$this->db->where(array("ord_id" => $quoteId, "ord_isQuote" => 1));
 		$result = $this->db->get()->result_array();
 		$response_data = $this->build_response_array($result, "category");
@@ -153,9 +196,19 @@ class Quote_model extends Generic_model
 
 //		  $response_data = $this->map_response($response_data, array("shippingAddress"=>array("shaId, shaFirstName, shaLastName, shaAddressLine1, shaAddressLine2, shaCity, shaState, shaCountry, shaPostCode, shaPhone, shaEmail")));
 		return $this->model_response(true, 200, $response_data);
+//		return $response_data;
 	}
 
-	public function add_item( $httpRequest)
+	public function select_ode_fields_for_quot_list()
+	{
+		return $this->prfx_order_details . "id as itemId," .
+			$this->prfx_order_details . "price as itemPrice, " .
+			$this->prfx_order_details . "comment, " .
+			$this->prfx_order_details . "currentMileage, " .
+			$this->prfx_order_details . "vehicleId";
+	}
+
+	public function add_item($httpRequest)
 	{
 		$inputData = $httpRequest;
 		$quoteItemExtraElements = $inputData->quoteItems;
@@ -197,7 +250,7 @@ class Quote_model extends Generic_model
 		return $this->model_response(true, 202, array("quoteId" => $inputData->quoteId), 'Item successfully added to Quotation');
 	}
 
-	public function remove_item( $httpRequest)
+	public function remove_item($httpRequest)
 	{
 		$inputData = $httpRequest;
 
@@ -235,14 +288,7 @@ class Quote_model extends Generic_model
 		return $this->model_response(true, 202, array(), 'Product removed from Quote');
 	}
 
-	public function get_quot_item_by_ids($ids)
-	{
-		$this->db->from($this->table_order_detail);
-		$this->db->where_in($this->prfx_order_details . 'id', $ids);
-		return $this->db->get()->result_array();
-	}
-
-	public function update_quote_price( $httpRequest)
+	public function update_quote_price($httpRequest)
 	{
 		/* Build Item Ids Array */
 		$itemIds = array_column($httpRequest->quoteItems, 'id');
@@ -270,7 +316,14 @@ class Quote_model extends Generic_model
 		return $this->model_response(true, 200, array(), 'Price Updated');
 	}
 
-	public function update_status( $httpRequest, $quoteId)
+	public function get_quot_item_by_ids($ids)
+	{
+		$this->db->from($this->table_order_detail);
+		$this->db->where_in($this->prfx_order_details . 'id', $ids);
+		return $this->db->get()->result_array();
+	}
+
+	public function update_status($httpRequest, $quoteId)
 	{
 		$statusData = array(
 			'ord_quotStatusId' => $this->validate_input($httpRequest, "statusId")
@@ -284,7 +337,7 @@ class Quote_model extends Generic_model
 		}
 	}
 
-	public function update_quote_shipping( $httpRequest, $quoteId)
+	public function update_quote_shipping($httpRequest, $quoteId)
 	{
 		$shippingData = array(
 			'ord_shippingAddressId' => $this->validate_input($httpRequest, "shippingAddressId"),
@@ -312,34 +365,13 @@ class Quote_model extends Generic_model
 		return $this->model_response(true, 200, array(), 'Quote Converted To Order');
 	}
 
-	public function select_fields_for_quot_list()
+	public function generate_order_number($orderId)
 	{
-		return $this->prefix . "id as quoteId, " .
-			$this->prefix . "quoteId as quoteNumber, " .
-			$this->prefix . "userId, " .
-			$this->prefix . "quotStatusId, " .
-			$this->prefix . "shippingAddressId, " .
-			$this->prefix . "shippingMethodId, " .
-			$this->prefix . "itemTotal, " .
-			$this->prefix . "shippingTotal, " .
-			$this->prefix . "grandTotal, " .
-			$this->prefix . "discountAmount, " .
-			$this->prefix . "discountPercent, " .
-			$this->prefix . "quotCreatedAt as createdAt, " .
-			$this->prefix . "quotCreatedBy as createdBy";
+		$order_number = "OC-" . substr(date("Y"), -2) . "-" . str_pad($orderId, 6, '0', STR_PAD_LEFT);
+		return $order_number;
 	}
 
-	public function select_ode_fields_for_quot_list()
-	{
-		return $this->prfx_order_details . "id as itemId," .
-			$this->prfx_order_details . "price as itemPrice, " .
-			$this->prfx_order_details . "comment, " .
-			$this->prfx_order_details . "currentMileage, " .
-			$this->prfx_order_details . "vehicleId";
-	}
-
-
-	public function create_old( $httpRequest)
+	public function create_old($httpRequest)
 	{
 		$data = $httpRequest;
 		$quoteReqItems = $data->quoteReqItems;
@@ -364,6 +396,8 @@ class Quote_model extends Generic_model
 
 		return $this->model_response(true, 202, array("orderId" => $orderId));
 	}
+
+	/* For Web View */
 
 	public function update_order($data, $order_id)
 	{
@@ -412,20 +446,23 @@ class Quote_model extends Generic_model
 		return $this->model_response(true, 200);
 	}
 
-	public function get_orders()
+	/* For Web View */
+
+	public function get_quotes()
 	{
-		$this->db->select($this->table . ".*,ost_name as status,concat(first_name, ' ', last_name) as userName");
+		$this->db->select($this->table . ".*,qst_name as status, concat(first_name, ' ', last_name) as userName");
 		$this->db->from($this->table);
-		$this->db->join($this->table_order_status, "ord_statusId = ost_id", "left");
+		$this->db->join($this->table_quote_status, "ord_quotStatusId = qst_id", "left");
 		$this->db->join($this->tbl_users, "user_id = ord_userId", "left");
-		$this->db->order_by('ord_createdAt');
+		$this->db->order_by('ord_quotCreatedAt');
 //        $this->db->join($this->table_order_detail, "ord_id = ode_orderId", "left");
 //        $this->db->join($this->table_products, "ode_productId = prd_id", "left");
 //        $this->db->join($this->table_vehicles, "ode_vehicleId = vhl_id", "left");
 //        $this->db->join($this->tbl_product_condition, "ode_productConditionId = pco_id", "left");
 //        $this->db->join($this->tbl_shipping_address, "sha_id = ord_shippingAddressId");
+		$this->db->where('ord_isQuote', 1);
 		$result = $this->db->get()->result_array();
-		$response_data = $this->build_response_array($result, NULL, array("createdAt"));
+		$response_data = $this->build_response_array($result, NULL, array("quotCreatedAt"));
 
 		//Mapping order items
 		// $response_data = $this->map_response($response_data, array("orderItems"=>array("itemName","itemPrice","itemConditionId", "itemConditionName", "comment", "currentMileage", "vehicleId", "vehicleVin","vehicleMake", "vehicleModel", "vehicleYear", "vehicleImage")),true);
@@ -436,24 +473,12 @@ class Quote_model extends Generic_model
 
 	}
 
-	public function get_order_items_by_id($orderId)
+	public function get_quote_items_by_id($quoteId)
 	{
-		$this->db->select("ord_id,
-        concat(first_name, ' ', last_name) as userName,
-        sha_id as shippingAddressId,concat(sha_firstName, ' ', sha_lastName) as shippingUser,concat(sha_addressLine1, ' ', sha_addressLine2,' ', sha_city,' ', sha_state,' ', sha_country) as shippingAddress,sha_city,sha_state,sha_country,sha_postCode,sha_phone,sha_email,
-        ode_id as itemId, ode_productConditionId as itemConditionId, 
-        pco_name as itemConditionName, 
-        ost_name as ost_orderStatus, 
-        prd_name as ord_itemName,ode_id as orderDetailsId, 
-        ode_price as itemPrice, ode_vehicleId, 
-        concat(vhl_make,' ',vhl_model,' ',vhl_year) as vehicleInfo,vhl_vin as vehicleVin, vhl_make as vehicleMake, vhl_model as vehicleModel, vhl_year as vehicleYear, vhl_image as vehicleImage, 
-        ode_comment, ode_currentMileage, 
-        shm_name as shippingMethod, shm_price as shippingCost,
-        pty_name as productType,
-        pca_name as productCategory");
+		$this->db->select("concat(first_name, ' ', last_name) as userName, ord_id, ord_quoteId, ord_orderId, ord_quotStatusId, ord_shippingAddressId as shippingAddressId, concat(sha_firstName, ' ', sha_lastName) as shippingUser, concat(sha_addressLine1, ', ', sha_addressLine2,', ', sha_city,', ', sha_state,', ', sha_country) as shippingAddress, sha_city, sha_state, sha_country, sha_postCode, sha_phone, sha_email, ord_shippingMethodId as shippingMethodId, shm_name as shippingMethod, ord_shippingTotal as shippingCost, ord_quotStatusId, qst_name as quoteStatus, ode_id as itemId, ode_productConditionId as itemConditionId, pco_name as itemConditionName, ode_productId, prd_name as ord_itemName, ode_price as itemPrice, ode_discount as itemDiscount, ode_total as itemTotal, ode_comment, ode_currentMileage, ode_vehicleId, concat(vhl_make,' ',vhl_model,' ',vhl_year) as vehicleInfo, vhl_vin as vehicleVin, vhl_make as vehicleMake, vhl_model as vehicleModel, vhl_year as vehicleYear, vhl_image as vehicleImage, pty_name as productType, pca_name as productCategory");
 		$this->db->from($this->table);
 		$this->db->join($this->tbl_users, "user_id = ord_userId", "left");
-		$this->db->join($this->table_order_status, "ord_statusId = ost_id", "left");
+		$this->db->join($this->table_quote_status, "ord_quotStatusId = qst_id", "left");
 		$this->db->join($this->table_order_detail, "ord_id = ode_orderId");
 		$this->db->join($this->table_products, "ode_productId = prd_id", "left");
 		$this->db->join($this->table_vehicles, "ode_vehicleId = vhl_id", "left");
@@ -462,20 +487,15 @@ class Quote_model extends Generic_model
 		$this->db->join($this->table_shipping_methods, "shm_id = ord_shippingMethodId", "left");
 		$this->db->join($this->table_product_type, "pty_id = prd_typeId", "left");
 		$this->db->join($this->table_product_categories, "pca_id = prd_categoryId", "left");
-		$this->db->where('ode_orderId', $orderId);
+		$this->db->where('ode_orderId', $quoteId);
 		$result = $this->db->get()->result_array();
 		$response_data = $this->build_response_array($result, "category");
 
 		//Mapping order items
-		$response_data = $this->map_response($response_data, array("orderItems" => array("itemName", "itemPrice", "itemConditionId", "itemConditionName", "comment", "currentMileage", "vehicleId", "vehicleVin", "vehicleMake", "vehicleModel", "vehicleYear", "vehicleImage", "productType", "productCategory", "vehicleInfo", "orderDetailsId")), true);
+		$response_data = $this->map_response($response_data, array("orderItems" => array("itemName", "itemPrice", "itemConditionId", "itemConditionName", "comment", "currentMileage", "vehicleId", "vehicleVin", "vehicleMake", "vehicleModel", "vehicleYear", "vehicleImage", "productType", "productCategory", "vehicleInfo", "itemId")), true);
 
 		//  $response_data = $this->map_response($response_data, array("shippingAddress"=>array("id,firstName,lastName,addressLine1,addressLine2,city,state,country,postCode,phone,email")));
 		return $response_data;
-	}
-
-	public function get_order_details_by_id($orderId)
-	{
-		return $this->model_response(true, 200, $this->get_order_items_by_id($orderId)['orderItems']);
 	}
 
 
@@ -487,6 +507,11 @@ class Quote_model extends Generic_model
 		return $result->result_array();
 	}*/
 
+	public function get_order_details_by_id($orderId)
+	{
+		return $this->model_response(true, 200, $this->get_order_items_by_id($orderId)['orderItems']);
+	}
+
 	public function get_cart_items($order_id)
 	{
 		$this->db->from($this->table_order_detail);
@@ -495,7 +520,6 @@ class Quote_model extends Generic_model
 		$response_data = $this->camelize_array_data($result);
 		return $response_data;
 	}
-
 
 	public function update_status1($request, $orderId)
 	{
@@ -511,6 +535,7 @@ class Quote_model extends Generic_model
 		}
 	}
 
+	//Shipping methods
 
 	/**
 	 * @param $shippingAddress
@@ -526,7 +551,6 @@ class Quote_model extends Generic_model
 		return $this->model_response(true, 200, array("shippingAddressId" => $this->db->insert_id()));
 	}
 
-	//Shipping methods
 	public function list_shipping_methods()
 	{
 		$this->db->from($this->table_shipping_methods);
@@ -552,12 +576,6 @@ class Quote_model extends Generic_model
 		return $this->model_response(true, 200, $response_data);
 	}
 
-	public function generate_order_number($orderId)
-	{
-		$order_number = "OC-" . substr(date("Y"), -2) . "-" . str_pad($orderId, 6, '0', STR_PAD_LEFT);
-		return $order_number;
-	}
-
 	public function generate_quote_number($quoteId)
 	{
 		$quote_number = "QT-" . substr(date("Y"), -2) . "-" . str_pad($quoteId, 6, '0', STR_PAD_LEFT);
@@ -580,10 +598,10 @@ class Quote_model extends Generic_model
 		return $this->model_response(true, 200, $response_data);
 	}
 
-	public function get_order_status()
+	public function get_quote_status()
 	{
-		$this->db->select("ost_name,ost_order");
-		$this->db->from($this->table_order_status);
+		$this->db->select("qst_name, qst_order");
+		$this->db->from($this->table_quote_status);
 		$result = $this->db->get()->result_array();
 		$response_data = $this->camelize_array_data($result);
 		return $response_data;

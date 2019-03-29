@@ -32,11 +32,9 @@ class Order extends MY_Controller
 
     public function get_order_get()
     {
-
         $orderId = $this->get_path_variable('id');
         $response = $this->Order_model->get_order_by_id($orderId);
         return $this->response($response);
-
     }
 
     public function list_all_user_order_get()

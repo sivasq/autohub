@@ -15,7 +15,7 @@ class Quote extends MY_Controller
 
 	public function create_quote_post()
 	{
-		$response = $this->Quote_model->create( $this->httpRequest);
+		$response = $this->Quote_model->create($this->httpRequest);
 		$this->response($response);
 	}
 
@@ -144,9 +144,14 @@ class Quote extends MY_Controller
 		return $this->response($this->Quote_model->get_order_messages($orderId));
 	}
 
-	public function get_orders_get()
+	public function get_quotes_get()
 	{
-		return $this->response($this->Quote_model->get_orders());
+		return $this->response($this->Quote_model->get_quotes());
+	}
+
+	public function get_quote_reqs_get()
+	{
+		return $this->response($this->Quote_model->get_quote_reqs());
 	}
 
 	public function get_orders_by_orderId_get()

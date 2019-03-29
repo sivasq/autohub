@@ -159,6 +159,10 @@ $route['payment/method/getdata'] = 'apiv1/payment/list_payment_method';
 $route['order/getdata'] = 'apiv1/order/get_orders';
 $route['order/get-details/order-id/(:num)/getdata'] = 'apiv1/order/get_orders_by_orderId';
 
+//Quote
+$route['quote/getdata'] = 'apiv1/quote/get_quotes';
+$route['quotes/req/getdata'] = 'apiv1/quotReq/get_reqs';
+$route['quote/get-details/quote-id/(:num)/getdata'] = 'apiv1/order/get_orders_by_orderId';
 
 //Vehicle
 $route['vehicles/getdata'] = 'apiv1/vehicle/get_vehicles';
@@ -173,7 +177,7 @@ $route['notification/list/user-id/(:num)'] = 'apiv1/notification/list_by_userid'
 $route['shipping-method/getdata'] = 'apiv1/ShippingMethod/get_all_shipping_methods';
 
 
-//----->Front End Routes<------------///
+//----->Front End Routes<------------//
 
 //---------Product------------//
 $route['product/category'] = 'apiv1/frontend/product/category';
@@ -217,11 +221,23 @@ $route['payment/method/create'] = 'apiv1/frontend/payment/methods_create';
 $route['payment/bank/delete'] = 'apiv1/frontend/payment/banks_delete';
 $route['payment/method/delete'] = 'apiv1/frontend/payment/methods_delete';
 
+
 //---------Orders------------//
 $route['orders/index'] = 'apiv1/frontend/orders/index';
 $route['orders/viewdata/order-id/(:any)'] = 'apiv1/frontend/orders/detail_view';
 $route['order-items/price/update'] = 'apiv1/order/update_items_price';
 $route['order/status/update'] = 'apiv1/order/update_status';
+
+
+//---------Quotes------------//
+$route['quotes/index'] = 'apiv1/frontend/quotes/index';
+$route['quotes/viewdata/quote-id/(:any)'] = 'apiv1/frontend/quotes/detail_view';
+
+$route['quotes/reqs'] = 'apiv1/frontend/quotes/reqs';
+$route['quotes/reqsviewdata/item-id/(:any)'] = 'apiv1/frontend/quotes/req_detail_view';
+
+$route['quote-items/price/update'] = 'apiv1/quote/update_items_price';
+$route['quote/status/update'] = 'apiv1/quote/update_status';
 
 //---------Shipping Method------------//
 $route['shipping-method'] = 'apiv1/frontend/ShippingMethod/index';
@@ -230,4 +246,3 @@ $route['shipping-method/delete'] = 'apiv1/frontend/ShippingMethod/delete';
 
 //Image Manage
 $route['imagemanage/upload'] = 'apiv1/imagemanage/upload';
-

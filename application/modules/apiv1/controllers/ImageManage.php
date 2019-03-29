@@ -21,7 +21,7 @@ class ImageManage extends MY_Controller
 	// insert commercial car
 	public function upload_post()
 	{
-		if (!empty($_FILES['cloudImage']['name'])) {
+		if (($_FILES['cloudImage']['size']) > 0) {
 			$img = $_FILES['cloudImage']['name'];
 			$file_temp = $_FILES['cloudImage']['tmp_name'];
 

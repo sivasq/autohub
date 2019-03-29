@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Mar 26, 2019 at 12:54 PM
+-- Generation Time: Mar 29, 2019 at 12:49 PM
 -- Server version: 8.0.13
 -- PHP Version: 7.2.12
 
@@ -77,7 +77,7 @@ CREATE TABLE IF NOT EXISTS `apikeys` (
   `ip_addresses` text,
   `date_created` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `apikeys`
@@ -89,7 +89,20 @@ INSERT INTO `apikeys` (`id`, `user_id`, `apikey`, `level`, `ignore_limits`, `is_
 (45, 2, 'g4c0o848k840ww00w44gskw8k8w00cwo4gko0g04', 1, 1, 0, '192.168.1.23', '2019-03-20 15:10:03'),
 (46, 2, '4sww808gs808k4o8884wgs0o0ggccckow00oo44w', 1, 1, 0, '192.168.1.6', '2019-03-20 16:13:00'),
 (48, 2, 'kk0skww80w0k8o4kcskowo880okww80w4kwcwcc4', 1, 1, 0, '192.168.1.6', '2019-03-20 16:24:10'),
-(49, 2, 'cccoc40gccso80wkcwcwk0cooo4gsw0woc0s8w8s', 1, 1, 0, '192.168.1.6', '2019-03-20 16:26:22');
+(50, 2, 'scg8wsw44wg0wsgo4cwwgcs4wws480s8w8w0088o', 1, 1, 0, '192.168.1.6', '2019-03-27 11:23:17'),
+(51, 2, '00c04gggkks8go8480sg84kw4ok88c4gg8wc0gwg', 1, 1, 0, '192.168.1.23', '2019-03-27 15:54:37'),
+(52, 2, 'wogks4c0ogsg44k4cogg8884o4w00s4sg4w8cw08', 1, 1, 0, '192.168.1.10', '2019-03-27 16:03:22'),
+(53, 2, 'sowoccswo8s8csss0gw08g44gs8g8wocscg4c480', 1, 1, 0, '192.168.1.10', '2019-03-27 17:27:12'),
+(54, 2, '0wgss4o448kwk4owks8880080448kocskwgs08w0', 1, 1, 0, '192.168.1.6', '2019-03-27 18:10:34'),
+(55, 2, 'scwcg8oggcsko8occ04ccckkc008c848www8cggk', 1, 1, 0, '192.168.1.6', '2019-03-28 11:10:39'),
+(56, 2, '4sc0ccwkckcg0sw484w4scw44ogo0o84owocs84s', 1, 1, 0, '192.168.1.6', '2019-03-28 18:08:16'),
+(57, 2, 'kow8wso0c4w8kkwgwc88sgggc44kco88ss0gco4w', 1, 1, 0, '192.168.1.6', '2019-03-29 12:41:59'),
+(58, 2, 'c08kgw48k0w8wkcgw44wcw4owccoo8owcc4kokk0', 1, 1, 0, '192.168.1.6', '2019-03-29 12:55:58'),
+(59, 2, 'gkso40s4oc844scwwk0gg04cgoko0ws088wscg8g', 1, 1, 0, '192.168.1.6', '2019-03-29 14:47:48'),
+(60, 2, 'kokok08k80k0w808sw4gwgcccoscw8w8o0cggkw0', 1, 1, 0, '192.168.1.6', '2019-03-29 15:24:47'),
+(61, 2, 'cggo8ggkcwoc8okcwgkkkwck4ck8g8sgwc044skg', 1, 1, 0, '192.168.1.6', '2019-03-29 15:27:06'),
+(62, 2, 'o4oc0s8s4wg448gscok0skgwsgoss0k8cwow0ogc', 1, 1, 0, '192.168.1.6', '2019-03-29 15:42:34'),
+(63, 2, 'sc08800oc8s44wcs0kg4c8oc4s4s0wgkwkccs8cg', 1, 1, 0, '192.168.1.6', '2019-03-29 16:55:24');
 
 -- --------------------------------------------------------
 
@@ -224,15 +237,15 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `ord_isOrder` tinyint(1) NOT NULL DEFAULT '0',
   `ord_isQuote` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`ord_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=79 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `orders`
 --
 
 INSERT INTO `orders` (`ord_id`, `ord_orderId`, `ord_quoteId`, `ord_userId`, `ord_statusId`, `ord_quotStatusId`, `ord_shippingAddressId`, `ord_shippingMethodId`, `ord_itemTotal`, `ord_shippingTotal`, `ord_grandTotal`, `ord_createdAt`, `ord_createdBy`, `ord_updatedAt`, `ord_updatedBy`, `ord_quotCreatedAt`, `ord_quotCreatedBy`, `ord_quotUpdatedAt`, `ord_quotUpdatedBy`, `ord_discountAmount`, `ord_discountPercent`, `ord_isOrder`, `ord_isQuote`) VALUES
-(76, 'OC-19-000076', 'QT-19-000076', 2, 1, 2, NULL, NULL, '500.00', NULL, NULL, '2019-03-26 18:03:50', NULL, NULL, NULL, '2019-03-25 17:50:41', NULL, NULL, NULL, NULL, NULL, 1, 1),
-(77, NULL, 'QT-19-000077', 2, NULL, 1, NULL, NULL, '470.00', NULL, '0.00', NULL, NULL, NULL, NULL, '2019-03-25 18:03:27', NULL, NULL, NULL, NULL, NULL, 0, 1);
+(76, 'OC-19-000076', 'QT-19-000076', 2, 1, 1, 0, 2, '1120.00', '20000.00', '21120.00', '2019-03-26 18:03:50', NULL, NULL, NULL, '2019-03-25 17:50:41', NULL, NULL, NULL, NULL, NULL, 1, 1),
+(78, NULL, 'QT-19-000078', 2, NULL, 2, NULL, NULL, '940.00', NULL, '0.00', NULL, NULL, NULL, NULL, '2019-03-29 17:57:39', NULL, NULL, NULL, NULL, NULL, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -260,7 +273,7 @@ CREATE TABLE IF NOT EXISTS `order_details` (
   `ode_updatedBy` varchar(45) DEFAULT NULL,
   `ode_images` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`ode_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=79 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=83 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `order_details`
@@ -268,8 +281,10 @@ CREATE TABLE IF NOT EXISTS `order_details` (
 
 INSERT INTO `order_details` (`ode_id`, `ode_orderId`, `ode_vehicleId`, `ode_productId`, `ode_productConditionId`, `ode_quantity`, `ode_statusId`, `ode_comment`, `ode_currentMileage`, `ode_price`, `ode_discount`, `ode_total`, `ode_createdDate`, `ode_createdBy`, `ode_updatedDate`, `ode_updatedBy`, `ode_images`) VALUES
 (74, 76, 5, 2, 5, 1, NULL, 'Test comment', '270', '470.00', '0.00', '470.00', NULL, NULL, NULL, NULL, 'image1,image2'),
-(75, 76, 5, 3, 6, 1, NULL, 'Test comment', '240', '280.00', '0.00', '280.00', '2019-03-25 18:03:27', NULL, NULL, NULL, 'image1,image2'),
-(76, 76, 5, 17, NULL, 1, NULL, 'Test comment', '280', '220.00', '0.00', '220.00', '2019-03-26 13:12:28', NULL, NULL, NULL, NULL);
+(79, 76, 12, 17, NULL, 1, NULL, 'Xggxcggx', '866888', '250.00', '0.00', '250.00', '2019-03-29 16:13:19', NULL, NULL, NULL, NULL),
+(80, 76, 7, 17, NULL, 1, NULL, 'I need it immediately', '758800', '400.00', '0.00', '400.00', '2019-03-29 16:13:19', NULL, NULL, NULL, NULL),
+(81, 78, 14, 18, NULL, 1, NULL, 'I need it immediately.', '455688', '470.00', '0.00', '470.00', '2019-03-29 17:57:39', NULL, NULL, NULL, NULL),
+(82, 78, 13, 18, NULL, 1, NULL, 'I need it immediately', '458969', '470.00', '0.00', '470.00', '2019-03-29 17:57:39', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -315,7 +330,7 @@ CREATE TABLE IF NOT EXISTS `order_payments` (
   `orp_updatedAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `orp_updatedBy` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`orp_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `order_payments`
@@ -324,7 +339,8 @@ CREATE TABLE IF NOT EXISTS `order_payments` (
 INSERT INTO `order_payments` (`orp_id`, `orp_orderId`, `orp_methodId`, `orp_bankId`, `orp_status`, `orp_createdBy`, `orp_updatedBy`) VALUES
 (1, 1, '2', 1, 'PAID', NULL, NULL),
 (2, 1, '2', 1, 'PAID', NULL, NULL),
-(3, 76, '2', 1, 'PAID', NULL, NULL);
+(3, 76, '2', 1, 'PAID', NULL, NULL),
+(4, 76, '2', 1, 'PAID', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -399,8 +415,7 @@ CREATE TABLE IF NOT EXISTS `payment_banks` (
 --
 
 INSERT INTO `payment_banks` (`bnk_id`, `bnk_name`, `bnk_accountName`, `bnk_accountNumber`, `bnk_sortCode`, `bnk_branch`, `bnk_createdBy`, `bnk_updatedAt`, `bnk_updatedBy`) VALUES
-(1, 'HDFC', 'mufeed k k', '123123213213', '123213', 'trivandrum', NULL, NULL, NULL),
-(2, 'ICICI', 'mufeed k k', '123123213213', '123213', 'trivandrum', NULL, NULL, NULL);
+(1, 'HDFC', 'Autolane360 NIG LTD', '95-345-0678', '123213', 'trivandrum', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -444,7 +459,7 @@ CREATE TABLE IF NOT EXISTS `products` (
   `prd_createdAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `prd_createdBy` int(11) DEFAULT NULL,
   PRIMARY KEY (`prd_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 --
 -- Dumping data for table `products`
@@ -489,7 +504,7 @@ CREATE TABLE IF NOT EXISTS `product_categories` (
   `pca_createdAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `pca_createdBy` int(11) DEFAULT NULL,
   PRIMARY KEY (`pca_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 --
 -- Dumping data for table `product_categories`
@@ -528,7 +543,7 @@ CREATE TABLE IF NOT EXISTS `product_conditions` (
   `pco_createdAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `pco_createdBy` int(11) DEFAULT NULL,
   PRIMARY KEY (`pco_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `product_conditions`
@@ -551,7 +566,7 @@ CREATE TABLE IF NOT EXISTS `product_sub_products` (
   `psp_productId` int(11) DEFAULT NULL,
   `psp_subProductId` int(11) DEFAULT NULL,
   PRIMARY KEY (`psp_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
 -- Dumping data for table `product_sub_products`
@@ -581,7 +596,7 @@ CREATE TABLE IF NOT EXISTS `product_types` (
   `pty_createdAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `pty_createdBy` int(11) DEFAULT NULL,
   PRIMARY KEY (`pty_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `product_types`
@@ -614,13 +629,11 @@ CREATE TABLE IF NOT EXISTS `quote_status` (
 --
 
 INSERT INTO `quote_status` (`qst_id`, `qst_name`, `qst_Description`, `qst_order`, `qst_createdBy`) VALUES
-(1, 'draft', NULL, 1, NULL),
-(2, 'sent', NULL, 2, NULL),
-(3, 'viewed', NULL, 3, NULL),
-(4, 'accepted', NULL, 4, NULL),
-(5, 'declined', NULL, 5, NULL),
-(6, 'cenceled', NULL, 6, NULL),
-(7, 'closed', NULL, 7, NULL);
+(1, 'Placed', NULL, 1, NULL),
+(2, 'Accepted', NULL, 2, NULL),
+(3, 'Declined', NULL, 3, NULL),
+(4, 'Paid', NULL, 4, NULL),
+(5, 'Closed', NULL, 5, NULL);
 
 -- --------------------------------------------------------
 
@@ -670,16 +683,16 @@ CREATE TABLE IF NOT EXISTS `shipping_methods` (
   `shm_createdAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `shm_createdBy` int(11) DEFAULT NULL,
   PRIMARY KEY (`shm_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
 -- Dumping data for table `shipping_methods`
 --
 
 INSERT INTO `shipping_methods` (`shm_id`, `shm_name`, `shm_description`, `shm_price`, `shm_createdBy`) VALUES
-(3, 'Ship By Air Cargo', NULL, '30000.00', NULL),
-(4, 'Ship By Ocean', NULL, '20000.00', NULL),
-(5, 'Ship By Air', NULL, '45000.00', NULL);
+(1, 'Air Cargo', NULL, '30000.00', NULL),
+(2, 'Ocean', NULL, '20000.00', NULL),
+(3, 'Air', NULL, '45000.00', NULL);
 
 -- --------------------------------------------------------
 
@@ -701,16 +714,17 @@ CREATE TABLE IF NOT EXISTS `shopping_cart` (
   `crt_cartType` varchar(12) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
   `crt_createdAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`crt_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `shopping_cart`
 --
 
 INSERT INTO `shopping_cart` (`crt_id`, `crt_userId`, `crt_productId`, `crt_vehicleId`, `crt_quantity`, `crt_productConditionId`, `crt_currentMileage`, `crt_comment`, `crt_images`, `crt_cartType`) VALUES
-(24, 1, 17, 5, 1, NULL, '270', 'Test comment', 'image1,image2', 'quotreq'),
-(34, 2, 17, 12, 1, NULL, '866888', 'Xggxcggx', NULL, 'quotreq'),
-(36, 1, 17, 5, 1, NULL, '270', 'Test comment', 'image1,image2', 'quotreq');
+(24, 1, 17, 5, 1, NULL, '270', 'Test comment', 'image1', 'quotreq'),
+(36, 1, 17, 5, 1, NULL, '270', 'Test comment', 'image1', 'quotreq'),
+(39, 1, 3, 5, 1, 6, '240', 'Test comment', 'image1', 'quotreq'),
+(40, 2, 17, 5, 1, NULL, '280', 'Test comment', NULL, 'quotreq');
 
 -- --------------------------------------------------------
 
@@ -769,14 +783,14 @@ CREATE TABLE IF NOT EXISTS `vehicles` (
   `vhl_createdAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `vhl_updatedAt` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`vhl_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `vehicles`
 --
 
 INSERT INTO `vehicles` (`vhl_id`, `vhl_vin`, `vhl_userId`, `vhl_vehicleTypeId`, `vhl_year`, `vhl_make`, `vhl_model`, `vhl_trim`, `vhl_businessTypeId`, `vhl_companyId`, `vhl_driverId`, `vhl_mileageRange`, `vhl_actualMileage`, `vhl_image`, `vhl_updatedAt`) VALUES
-(5, 'XGHXXHXH467557GXH', 1, 0, '2019', 'Audi', 'A3 e-tron', 'Select Car Trim', 1, 0, 0, '', '875775', 'string', NULL),
+(5, 'XGHXXHXH467557GXH', 1, 0, '2019', 'Audi', 'A3 e-tron', 'Select Car Trim', 0, 0, 0, '', '875775', 'string', NULL),
 (6, 'CHCHCHXH64476464U', 1, 1, '2019', 'Acura', 'MDX', 'Advance and Entertainment Packages 4dr SUV (3', 2, 1, 0, '578555', '866858', 'string', NULL),
 (7, '1GKJWJEJEHSHAUUYG', 2, 0, '2014', 'Ford', 'Escape', 'S 4dr SUV (2.5L 4cyl 6A)', 1, 0, 0, '', '32555', 'string', NULL),
 (8, 'XHXHXXHDDH', 1, 0, '2019', 'Audi', 'A3 e-tron', 'Select Car Trim', 1, 0, 0, '', '878798', 'string', NULL),
@@ -785,7 +799,8 @@ INSERT INTO `vehicles` (`vhl_id`, `vhl_vin`, `vhl_userId`, `vhl_vehicleTypeId`, 
 (11, 'XHHXXHX475886GIHF', 2, 0, '2019', 'Acura', 'NSX', '2dr Coupe AWD (3.5L 6cyl gas/electric hybrid ', 1, 0, 0, '', '857885', 'string', NULL),
 (12, 'DGHFHHCGXHXHCGDXC', 2, 1, '2019', 'Buick', 'Enclave', 'Convenience Group 4dr SUV (3.6L 6cyl 6A)', 2, 1, 0, '864588', '898686', 'string', NULL),
 (13, 'ZGHXXG475575FHFHC', 2, 0, '2012', 'Acura', 'TL', 'SH-AWD Automatic Tech Package', 1, 0, 0, '', '857548', NULL, NULL),
-(14, 'CHHDXGHDXBCHCHCFH', 2, 0, '2019', 'Acura', 'ILX', '4dr Sedan (2.0L 4cyl 5A)', 1, 0, 0, '', '899880', 'https://res.cloudinary.com/sqdevelop/image/upload/v1553322896/natrwuldebmnkxya9pnj.jpg', NULL);
+(14, 'CHHDXGHDXBCHCHCFH', 2, 0, '2019', 'Acura', 'ILX', '4dr Sedan (2.0L 4cyl 5A)', 1, 0, 0, '', '899880', 'https://res.cloudinary.com/sqdevelop/image/upload/v1553322896/natrwuldebmnkxya9pnj.jpg', NULL),
+(15, '123231', 1, 1, '2019', 'nissan', 'kicks', 'string', 1, 1, 1, '1233', '130', 'string', NULL);
 
 -- --------------------------------------------------------
 

@@ -1,11 +1,9 @@
 <?php
 
-
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Orders extends Base_Controller
 {
-
     public function __construct()
     {
         parent:: __construct();
@@ -17,13 +15,15 @@ class Orders extends Base_Controller
 
     public function index()
     {
-        $this->load->view('admin/order/orderdata');
+        $data['page_name'] = "Orders";
+        $this->load->view('admin/order/orderdata', $data);
     }
 
     public function detail_view()
     {
         $orderId = $this->get_path_variable('order-id');
         $data = new stdClass();
+        $data->page_name = "Orders";
         $data->itemData = $this->Order_model->get_order_items_by_id($orderId);
         $data->statusData = $this->Order_model->get_order_status();
 //        echo json_encode($data);
@@ -45,5 +45,4 @@ class Orders extends Base_Controller
         $code = $data[$path];
         return $code;
     }
-
 }

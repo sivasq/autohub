@@ -154,7 +154,7 @@
             }
         },
 
-        rowEdit: function ($row) {
+        rowEdit: function ($row) {            
             var _self = this,
                 data;
             data = this.datatable.row($row.get(0)).data();
