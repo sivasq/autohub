@@ -15,7 +15,6 @@ class Generic_model extends CI_Model
 		$this->load->database();
 	}
 
-
 	public function insert($data, $table = NULL, $idField = 'id', $message = NULL)
 	{
 		if ($table != NULL) {

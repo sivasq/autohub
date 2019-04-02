@@ -35,6 +35,7 @@ class Vehicle_model extends Generic_model
 		$this->db->join($this->tbl_vehicle_driver, $this->prefix_vehicle_driver . "id = " . $this->prfx_vehicle . "driverId", "left");
 		$this->db->join($this->tbl_users, "user_id = vhl_userId", "left");
 		$this->db->where($this->prfx_vehicle . "userId", $userId);
+		$this->db->order_by('vhl_createdAt', 'DESC');
 		$result = $this->build_response_array($this->db->get()->result_array());
 		return $this->model_response(true, 200, array('vehicles' => $result));
 	}

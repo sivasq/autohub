@@ -136,6 +136,20 @@ class Auth extends My_Controller
 		$this->response($this->Auth_model->model_response(true, 202, $response, "Login Success"), REST_Controller::HTTP_OK);
 	}
 
+	public function change_password_post()
+	{
+		if (!$this->Auth_model->email_availability( $this->httpRequest)) {
+			$this->response($this->Auth_model->model_response(false, 500, array(), "This Email Not Registered"), REST_Controller::HTTP_OK);
+		}
+
+		if (!$this->Auth_model->is_email_verified( $this->httpRequest))
+			$this->response($this->Auth_model->model_response(true, 202, array(), "Email Not Verified"), REST_Controller::HTTP_OK);
+
+		$response = $this->Auth_model->update_password( $this->httpRequest);
+
+		$this->response($response, REST_Controller::HTTP_OK);
+	}
+
 	/*
 	 * No Body
 	 */

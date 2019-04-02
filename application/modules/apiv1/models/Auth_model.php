@@ -83,8 +83,8 @@ class Auth_model extends Generic_model
 		if ($this->is_email_verified( $httpRequest)) {
 			return $this->model_response(true, 500, array(), "This Email Already Verified");
 		}
-
-		$this->db->where("email='" . $httpRequest->email . "' AND otp='" . $httpRequest->otp . "' AND otp_is_expired = 0 AND DATE_ADD(otp_created_at, INTERVAL 5 MINUTE) >= NOW()");
+		$currentDateTime = date("Y-m-d H:i:s");
+		$this->db->where("email='" . $httpRequest->email . "' AND otp='" . $httpRequest->otp . "' AND otp_is_expired = 0 AND DATE_ADD(otp_created_at, INTERVAL 5 MINUTE) >=  '$currentDateTime'");
 		$query = $this->db->get($this->table);
 
 		if ($query->num_rows() > 0) {
@@ -137,6 +137,15 @@ class Auth_model extends Generic_model
 		$this->db->where(array('email' => $httpRequest->email, 'password' => $httpRequest->password));
 		$query = $this->db->get($this->table);
 		return $query;
+	}
+
+	public function update_password( $httpRequest)
+	{
+		$this->db->where('email', $httpRequest->email);
+		$this->db->set('password', $httpRequest->password);
+		$this->db->update($this->table);
+
+		return $this->model_response(true, 202, array(), 'Password Updated successfully');
 	}
 
 	public function create_response($message)

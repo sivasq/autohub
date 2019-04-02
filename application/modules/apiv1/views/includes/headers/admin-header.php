@@ -140,7 +140,7 @@
                                 <span> Products </span> <span class="menu-arrow"></span></a>
                             <ul class="list-unstyled">
                                 <li><a href="<?php echo api_url("product/category"); ?>">Category</a></li>
-                                <li><a href="<?php echo api_url("product/type"); ?>">Type</a></li>
+<!--                                <li><a href="--><?php //echo api_url("product/type"); ?><!--">Type</a></li>-->
                                 <li><a href="<?php echo api_url("product/condition"); ?>">Condition</a></li>
                                 <li><a href="<?php echo api_url("product/index"); ?>">Product</a></li>
                             </ul>

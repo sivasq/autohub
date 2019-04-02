@@ -76,7 +76,7 @@ class Product_model extends Generic_Model
 		$this->db->order_by('servicePackName');
 		$result = $this->db->get();
 		$response_data = $this->build_response_array_simple($result->result_array(), "servicePackName");
-		return $this->model_response(true, 200, array('servicePacks' => $response_data));
+		return $this->model_response(true, 200, array('servicePacks' => array($response_data)));
 	}
 
 	public function get_products()

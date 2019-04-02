@@ -60,6 +60,7 @@ $route[ 'auth/register'] = 'apiv1/auth/user_registration';
 $route[ 'auth/sendOtp'] = 'apiv1/auth/send_otp';
 $route[ 'auth/verifyOtp'] = 'apiv1/auth/otp_verify';
 $route[ 'auth/login'] = 'apiv1/auth/user_login_auth';
+$route[ 'auth/changePassword'] = 'apiv1/auth/change_password';
 $route[ 'auth/logout'] = 'apiv1/auth/logout';
 
 
