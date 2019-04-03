@@ -179,6 +179,17 @@ $route['shipping-method/getdata'] = 'apiv1/ShippingMethod/get_all_shipping_metho
 
 
 //----->Front End Routes<------------//
+$route['admin/auth'] = 'apiv1/AdminAuth/index';
+$route['admin/auth/fp'] = 'apiv1/AdminAuth/forgot_password';
+$route['admin/auth/fp/resetLink'] = 'apiv1/AdminAuth/password_reset_link';
+$route['admin/auth/fp/confirmEmail'] = 'apiv1/AdminAuth/email_confirm';
+$route['admin/auth/fp/validate_reset'] = 'apiv1/AdminAuth/validate_reset';
+$route['admin/auth/fp/reset_process'] = 'apiv1/AdminAuth/reset_process';
+
+
+$route['admin/auth/login'] = 'apiv1/AdminAuth/login_auth';
+$route['admin/auth/logout'] = 'apiv1/AdminAuth/logout';
+$route['admin/dashboard'] = 'apiv1/Admin/index';
 
 //---------Product------------//
 $route['product/category'] = 'apiv1/frontend/product/category';

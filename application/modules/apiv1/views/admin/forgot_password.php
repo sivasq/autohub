@@ -13,10 +13,11 @@
 
         <div class="m-t-40 card-box">
             <div class="text-center">
-                <h4 class="text-uppercase font-bold m-b-0">Sign In</h4>
+                <h4 class="text-uppercase font-bold m-b-0">Reset Password</h4>
+	            <p class="text-muted m-b-0 font-13 m-t-20">Enter your email address and we'll send you an email with instructions to reset your password.  </p>
             </div>
             <div class="p-20">
-                <form class="form-horizontal m-t-20" id="login_form" action="<?php echo base_url('index.php/admin/auth/login'); ?>" method="POST" enctype="multipart/form-data">
+                <form class="form-horizontal m-t-20" id="login_form" action="<?php echo base_url('index.php/admin/auth/fp/resetLink'); ?>" method="POST" enctype="multipart/form-data">
 
                     <div id="result"></div>
 
@@ -25,29 +26,14 @@
                             <span style="font-weight: bold;">Email</span>
                         </div>
                         <div class="col-xs-12">
-                            <input class="form-control" type="text" name="email" placeholder="Email">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="col-xs-12">
-                            <span style="font-weight: bold;">Password</span>
-                        </div>
-                        <div class="col-xs-12">
-                            <input class="form-control" type="password" name="password" placeholder="Password">
+                            <input class="form-control" type="text" name="email" placeholder="Enter Email">
                         </div>
                     </div>
 
                     <div class="form-group text-center m-t-30">
                         <div class="col-xs-12">
-                            <button class="btn btn-custom btn-bordred btn-block waves-effect waves-light" type="submit">LogIn
+                            <button class="btn btn-custom btn-bordred btn-block waves-effect waves-light" type="submit">Send Email
                             </button>
-                        </div>
-                    </div>
-
-                    <div class="form-group m-t-30 m-b-0">
-                        <div class="col-sm-12">
-                            <a href="<?php echo base_url('index.php/admin/auth/fp'); ?>" class="text-muted"><i class="fa fa-lock m-r-5"></i> Forgot your password?</a>
                         </div>
                     </div>
                 </form>
@@ -55,6 +41,12 @@
             </div>
         </div>
         <!-- end card-box-->
+
+	    <div class="row">
+		    <div class="col-sm-12 text-center">
+			    <p class="text-muted">Remembered Password?<a href="<?php echo base_url('index.php/admin/auth'); ?>" class="text-primary m-l-5"><b>Sign In</b></a></p>
+		    </div>
+	    </div>
     </div>
     <!-- end wrapper page -->
 
@@ -65,7 +57,6 @@
         var base_url = '<?php echo base_url() ?>'; //form submited
 
         $(document).on("submit", "#login_form", function(e) {
-            console.log("welcome");
             e.preventDefault();
 
             $(this).validate({
@@ -73,16 +64,12 @@
                     email: {
                         required: true,
                         email: true
-                    },
-                    password: "required",
+                    }
                 },
                 messages: {
                     email: {
                         required: "Please Enter a Valid Email Address",
-                    },
-                    password: {
-                        required: "Password Required",
-                    },
+                    }
                 },
             });
 
@@ -102,9 +89,10 @@
                     },
                     success: function(response) {
                         if (response.status) {
-                            window.location.href = "<?php echo base_url('index.php/admin/auth'); ?>";
+                            window.location.href = "<?php echo base_url('index.php/admin/auth/fp/confirmEmail?mail='); ?>"+response.email;
+	                        console.log(response);
                         } else {
-                            $("#result").html('<div class="alert alert-danger alert-dismissable"> <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a> <strong>Try again!</strong> Invalid Login Credentials. </div>');
+                            $("#result").html('<div class="alert alert-danger alert-dismissable"> <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a> <strong>Try again!</strong> This Email Not Registered With AutoHub. </div>');
                         }
                     }
                 });

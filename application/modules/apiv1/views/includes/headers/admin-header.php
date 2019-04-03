@@ -56,7 +56,10 @@
 
             <!-- LOGO -->
             <div class="topbar-left">
-                <a href="<?php echo base_url(); ?>index.php/admin/index" class="logo"><span>AutoHubb-Admin</span></a>
+                <a href="<?php echo base_url(); ?>index.php/admin/index" class="logo">
+	                <img alt="" style="width:80%;" src="<?php echo base_url('assets/admin-assets/img/logo.png'); ?>">
+<!--	                <span>AutoHubb-Admin</span>-->
+                </a>
             </div>
 
             <!-- Button mobile view to collapse sidebar menu -->
@@ -118,14 +121,14 @@
                     </div>
                     <h5><a href="#"><?php echo $this->session->userdata('username'); ?></a></h5>
                     <ul class="list-inline">
-                        <li>
-                            <a href="#">
-                                <i class="zmdi zmdi-settings"></i>
-                            </a>
-                        </li>
+<!--                        <li>-->
+<!--                            <a href="#">-->
+<!--                                <i class="zmdi zmdi-settings"></i>-->
+<!--                            </a>-->
+<!--                        </li>-->
 
                         <li>
-                            <a href="<?php echo base_url(); ?>index.php/user/logout" class="text-custom" id="logout">
+                            <a href="<?php echo base_url(); ?>index.php/admin/auth/logout" class="text-custom">
                                 <i class="zmdi zmdi-power"></i>
                             </a>
                         </li>
