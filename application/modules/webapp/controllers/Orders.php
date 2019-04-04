@@ -10,7 +10,7 @@ class Orders extends User_Controller
         $this->load->helper('url');
         $this->load->library('session');
         $this->load->library('form_validation');
-        $this->load->model('Order_model');
+        $this->load->model('apiv1/Order_model');
     }
 
     public function index()

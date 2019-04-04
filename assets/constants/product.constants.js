@@ -1,6 +1,6 @@
 'use strict';
 var proTableName = '#products_datatable';
-var proBaseUrl = window.location.origin + '/autohubb/index.php/product/index';
+var proBaseUrl = window.location.origin + '/autohub/index.php/product/index';
 var pro_data_id = 'prdId';
 rowGroup = null;
 var proDataColumns = [

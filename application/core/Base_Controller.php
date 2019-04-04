@@ -44,7 +44,7 @@ class Base_Controller extends MX_Controller
 		$this->email->initialize($config);
 
 		//send mail
-		$this->email->from($from_email, 'Autohubb');
+		$this->email->from($from_email, 'Autohub');
 		$this->email->to($to_email);
 
 		$this->email->subject($subject);

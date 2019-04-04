@@ -3,15 +3,16 @@
 
 <head>
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="AutoHubb-Admin">
+    <meta name="description" content="AutoHub-Admin">
     <meta name="author" content="">
 
     <!-- App Favicon -->
     <link rel="shortcut icon" href="<?php echo base_url(); ?>assets/images/favicon.ico">
 
     <!-- App title -->
-    <title>::AutoHubb-Admin::</title>
+    <title>::AutoHub-Admin::</title>
 
     <!--Morris Chart CSS -->
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/morris/morris.css">
@@ -57,8 +58,8 @@
             <!-- LOGO -->
             <div class="topbar-left">
                 <a href="<?php echo base_url(); ?>index.php/admin/index" class="logo">
-	                <img alt="" style="width:80%;" src="<?php echo base_url('assets/admin-assets/img/logo.png'); ?>">
-<!--	                <span>AutoHubb-Admin</span>-->
+                    <img alt="" style="width:80%;" src="<?php echo base_url('assets/admin-assets/img/logo.png'); ?>">
+                    <!--<span>AutoHub-Admin</span>-->
                 </a>
             </div>
 
@@ -117,16 +118,15 @@
                 <div class="user-box">
                     <div class="user-img">
                         <img src="<?php echo base_url(); ?>assets/images/users/avatar-1.jpg" alt="user-img" title="Admin" class="img-circle img-thumbnail img-responsive">
-                        <div class="user-status offline"><i class="zmdi zmdi-dot-circle"></i></div>
+						<!-- <div class="user-status offline"><i class="zmdi zmdi-dot-circle"></i></div>-->
                     </div>
                     <h5><a href="#"><?php echo $this->session->userdata('username'); ?></a></h5>
                     <ul class="list-inline">
-<!--                        <li>-->
-<!--                            <a href="#">-->
-<!--                                <i class="zmdi zmdi-settings"></i>-->
-<!--                            </a>-->
-<!--                        </li>-->
-
+                        <!-- <li>-->
+                        <!-- <a href="#">-->
+                        <!-- <i class="zmdi zmdi-settings"></i>-->
+                        <!-- </a>-->
+                        <!-- </li>-->
                         <li>
                             <a href="<?php echo base_url(); ?>index.php/admin/auth/logout" class="text-custom">
                                 <i class="zmdi zmdi-power"></i>
@@ -143,7 +143,8 @@
                                 <span> Products </span> <span class="menu-arrow"></span></a>
                             <ul class="list-unstyled">
                                 <li><a href="<?php echo api_url("product/category"); ?>">Category</a></li>
-<!--                                <li><a href="--><?php //echo api_url("product/type"); ?><!--">Type</a></li>-->
+                                <!--                                <li><a href="--><?php  ?>
+                                <!--">Type</a></li>-->
                                 <li><a href="<?php echo api_url("product/condition"); ?>">Condition</a></li>
                                 <li><a href="<?php echo api_url("product/index"); ?>">Product</a></li>
                             </ul>

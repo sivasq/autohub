@@ -9,9 +9,9 @@ class Shippingmethod_model extends Generic_model
     public function __construct()
     {
         parent::__construct($this->table, $this->prfx);
-        $this->load->model(array('Product_model'));
-        $this->load->model(array('Vehicle_model'));
-        $this->load->model(array('Productcondition_model'));
+        $this->load->model(array( 'apiv1/Product_model'));
+        $this->load->model(array( 'apiv1/Vehicle_model'));
+        $this->load->model(array( 'apiv1/Productcondition_model'));
 
     }
 

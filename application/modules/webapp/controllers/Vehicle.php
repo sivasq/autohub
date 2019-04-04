@@ -12,7 +12,7 @@ class Vehicle extends User_Controller
         $this->load->helper('url');
         $this->load->library('session');
         $this->load->library('form_validation');
-        $this->load->model('Vehicle_model');
+        $this->load->model('apiv1/Vehicle_model');
     }
 
     public function index()

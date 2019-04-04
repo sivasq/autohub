@@ -1,6 +1,6 @@
 'use strict';
 var tableName = '#category_datatable';
-var baseUrl = window.location.origin + '/autohubb/index.php/product/category';
+var baseUrl = window.location.origin + '/autohub/index.php/product/category';
 var data_id = 'pcaId';
 var dataColumns = [
     {"data": "pcaId"},

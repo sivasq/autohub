@@ -16,10 +16,21 @@ class Product extends User_Controller
 	public function __construct()
 	{
 		parent:: __construct();
-		$this->load->model('Product_model');
+		$this->load->model('apiv1/Product_model');
 	}
 
 	public function index()
+	{
+//		$this->products();
+		$data = new stdClass();
+		$data->page_name = 'Products';
+		$data->categoryData = $this->get_categories();
+		$data->typeData = $this->get_types();
+		$data->subItems = $this->get_subItems();
+		$this->load->view('admin/product/product', $data);
+	}
+
+	public function products()
 	{
 		$data = new stdClass();
 		$data->page_name = 'Products';
@@ -27,6 +38,24 @@ class Product extends User_Controller
 		$data->typeData = $this->get_types();
 		$data->subItems = $this->get_subItems();
 		$this->load->view('admin/product/product', $data);
+	}
+
+	public function category()
+	{
+		$data['page_name'] = 'Product Category';
+		$this->load->view('admin/product/category', $data);
+	}
+
+	public function condition()
+	{
+		$data['page_name'] = 'Product Conditions';
+		$this->load->view('admin/product/condition', $data);
+	}
+
+	public function type()
+	{
+		$data['page_name'] = 'Product Types';
+		$this->load->view('admin/product/type', $data);
 	}
 
 	public function get_categories()
@@ -64,23 +93,7 @@ class Product extends User_Controller
 		return $output;
 	}
 
-	public function category()
-	{
-		$data['page_name'] = 'Product Category';
-		$this->load->view('admin/product/category', $data);
-	}
 
-	public function condition()
-	{
-		$data['page_name'] = 'Product Conditions';
-		$this->load->view('admin/product/condition', $data);
-	}
-
-	public function type()
-	{
-		$data['page_name'] = 'Product Types';
-		$this->load->view('admin/product/type', $data);
-	}
 
 	public function product_create()
 	{

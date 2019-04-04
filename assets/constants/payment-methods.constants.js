@@ -1,6 +1,6 @@
 'use strict';
 var tableName = '#method_datatable';
-var baseUrl = window.location.origin + '/autohubb/index.php/payment/method';
+var baseUrl = window.location.origin + '/autohub/index.php/payment/method';
 var data_id = 'ptyId';
 var dataColumns = [
     {"data": "id"},

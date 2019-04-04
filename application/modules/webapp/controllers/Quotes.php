@@ -10,8 +10,8 @@ class Quotes extends User_Controller
         $this->load->helper('url');
         $this->load->library('session');
         $this->load->library('form_validation');
-        $this->load->model('Quote_model');
-	    $this->load->model('Quotreq_model');
+        $this->load->model('apiv1/Quote_model');
+	    $this->load->model( 'apiv1/Quotreq_model');
     }
 
     public function index()

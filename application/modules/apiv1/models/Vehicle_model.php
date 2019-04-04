@@ -269,4 +269,8 @@ class Vehicle_model extends Generic_model
 		return $this->db->insert_id();
 	}
 
+	public function get_vehicle_count($userId, $vehicleBusinessTypeId)
+	{
+		return $this->db->where(array('vhl_userId' => $userId, 'vhl_businessTypeId' => $vehicleBusinessTypeId))->count_all_results($this->tbl_vehicle);
+	}
 }

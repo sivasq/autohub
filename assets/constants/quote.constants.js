@@ -1,7 +1,7 @@
 'use strict';
 var tableName = '#quote_datatable';
-var baseUrl = window.location.origin + '/autohubb/index.php/quote';
-var viewUrl = window.location.origin + '/autohubb/index.php/quotes';
+var baseUrl = window.location.origin + '/autohub/index.php/quote';
+var viewUrl = window.location.origin + '/autohub/index.php/quotes';
 var data_id = 'pcaId';
 orderBy = [[ 6, "desc" ]];
 var dataColumns = [

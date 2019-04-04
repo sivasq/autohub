@@ -1,6 +1,6 @@
 </div> <!-- container -->
 </div> <!-- content -->
-<footer class="footer"><span class="heading-font-family">Copyright @ <?php echo date('Y'); ?>. All rights reserved. Autohubb Admin</span>
+<footer class="footer"><span class="heading-font-family">Copyright @ <?php echo date('Y'); ?>. All rights reserved. Autohub Admin</span>
 </footer>
 </div> <!-- content-page -->
 </div> <!-- wrapper -->

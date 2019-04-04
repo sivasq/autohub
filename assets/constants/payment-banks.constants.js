@@ -1,6 +1,6 @@
 'use strict';
 var tableName = '#banks_datatable';
-var baseUrl = window.location.origin + '/autohubb/index.php/payment/bank';
+var baseUrl = window.location.origin + '/autohub/index.php/payment/bank';
 var data_id = 'id';
 var dataColumns = [
     {"data": "id"},

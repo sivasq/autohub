@@ -49,8 +49,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-//$route['default_controller'] = 'apiv1/Admin/index';
-$route['default_controller'] = 'apiv1/frontend/AdminAuth/index';
+//$route['default_controller'] = 'webapp/Admin/index';
+$route['default_controller'] = 'webapp/AdminAuth/index';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
@@ -89,6 +89,8 @@ $route['vehicle/list-driver/company-id/(:num)'] = "apiv1/vehicle/get_all_user_dr
 
 $route['vehicle/list-business-types'] = "apiv1/vehicle/list_business_types";
 $route['vehicle/list-vehicle-types'] = "apiv1/vehicle/list_vehicle_types";
+
+$route['vehicle/count/user-id/(:num)'] = "apiv1/vehicle/get_vehicle_count";
 
 
 //Product Routes
@@ -180,82 +182,84 @@ $route['shipping-method/getdata'] = 'apiv1/ShippingMethod/get_all_shipping_metho
 
 
 //----->Front End Routes<------------//
-$route['admin/auth'] = 'apiv1/frontend/AdminAuth/index';
-$route['admin/auth/fp'] = 'apiv1/frontend/AdminAuth/forgot_password';
-$route['admin/auth/fp/resetLink'] = 'apiv1/frontend/AdminAuth/password_reset_link';
-$route['admin/auth/fp/confirmEmail'] = 'apiv1/frontend/AdminAuth/email_confirm';
-$route['admin/auth/fp/validate_reset'] = 'apiv1/frontend/AdminAuth/validate_reset';
-$route['admin/auth/fp/reset_process'] = 'apiv1/frontend/AdminAuth/reset_process';
+$route['admin/auth'] = 'webapp/AdminAuth/index';
 
+$route['admin/auth/fp'] = 'webapp/AdminAuth/forgot_password';
+$route['admin/auth/fp/resetLink'] = 'webapp/AdminAuth/password_reset_link';
+$route['admin/auth/fp/confirmEmail'] = 'webapp/AdminAuth/email_confirm';
+$route['admin/auth/fp/validate_reset'] = 'webapp/AdminAuth/validate_reset';
+$route['admin/auth/fp/reset_process'] = 'webapp/AdminAuth/reset_process';
 
-$route['admin/auth/login'] = 'apiv1/frontend/AdminAuth/login_auth';
-$route['admin/auth/logout'] = 'apiv1/frontend/Admin/logout';
-$route['admin/dashboard'] = 'apiv1/frontend/admin/index';
+$route['admin/auth/login'] = 'webapp/AdminAuth/login_auth';
+$route['admin/auth/logout'] = 'webapp/Admin/logout';
+
+//Dashboard
+$route['admin/dashboard'] = 'webapp/admin/index';
 
 //---------Product------------//
-$route['product/category'] = 'apiv1/frontend/product/category';
-$route['product/condition'] = 'apiv1/frontend/product/condition';
-$route['product/type'] = 'apiv1/frontend/product/type';
-$route['product/index'] = 'apiv1/frontend/product/index';
+$route['product/category'] = 'webapp/product/category';
+$route['product/condition'] = 'webapp/product/condition';
+//$route['product/type'] = 'webapp/product/type';
+$route['product/index'] = 'webapp/product';
 
 //create
-$route['product/category/create'] = 'apiv1/frontend/product/category_create';
-$route['product/type/create'] = 'apiv1/frontend/product/type_create';
-$route['product/create'] = 'apiv1/frontend/product/product_create';
-$route['product/condition/create'] = 'apiv1/frontend/product/condition_create';
+$route['product/category/create'] = 'webapp/product/category_create';
+$route['product/type/create'] = 'webapp/product/type_create';
+$route['product/create'] = 'webapp/product/product_create';
+$route['product/condition/create'] = 'webapp/product/condition_create';
 
 //delete
-$route['product/category/delete'] = 'apiv1/frontend/product/category_delete';
-$route['product/type/delete'] = 'apiv1/frontend/product/type_delete';
-$route['product/index/delete'] = 'apiv1/frontend/product/product_delete';
-$route['product/condition/delete'] = 'apiv1/frontend/product/condition_delete';
+$route['product/category/delete'] = 'webapp/product/category_delete';
+$route['product/type/delete'] = 'webapp/product/type_delete';
+$route['product/index/delete'] = 'webapp/product/product_delete';
+$route['product/condition/delete'] = 'webapp/product/condition_delete';
 
-$route['product/index/sub-items'] = 'apiv1/frontend/product/get_subItems';
+$route['product/index/sub-items'] = 'webapp/product/get_subItems';
 
 //---------Vehicle------------//
-$route['vehicle/index'] = 'apiv1/frontend/vehicle/index';
-$route['vehicle/viewdata/vehicle-id/(:any)'] = 'apiv1/frontend/vehicle/detail_view';
+$route['vehicle/index'] = 'webapp/vehicle/index';
+$route['vehicle/viewdata/vehicle-id/(:any)'] = 'webapp/vehicle/detail_view';
 
 //---------Vehicle Type------------//
-$route['vehicle/type'] = 'apiv1/frontend/VehicleType/index';
-$route['vehicle/type/create'] = 'apiv1/frontend/VehicleType/create';
-$route['vehicle/type/delete'] = 'apiv1/frontend/VehicleType/delete';
+$route['vehicle/type'] = 'webapp/VehicleType/index';
+$route['vehicle/type/create'] = 'webapp/VehicleType/create';
+$route['vehicle/type/delete'] = 'webapp/VehicleType/delete';
 $route['vehicle/type/getdata'] = 'apiv1/Vehicle/list_vehicle_types';
 
 //---------Payment------------//
-$route['payment/bank'] = 'apiv1/frontend/payment/banks';
-$route['payment/method'] = 'apiv1/frontend/payment/methods';
+$route['payment/bank'] = 'webapp/payment/banks';
+$route['payment/method'] = 'webapp/payment/methods';
 
 //create
-$route['payment/bank/create'] = 'apiv1/frontend/payment/banks_create';
-$route['payment/method/create'] = 'apiv1/frontend/payment/methods_create';
+$route['payment/bank/create'] = 'webapp/payment/banks_create';
+$route['payment/method/create'] = 'webapp/payment/methods_create';
 
 //delete
-$route['payment/bank/delete'] = 'apiv1/frontend/payment/banks_delete';
-$route['payment/method/delete'] = 'apiv1/frontend/payment/methods_delete';
+$route['payment/bank/delete'] = 'webapp/payment/banks_delete';
+$route['payment/method/delete'] = 'webapp/payment/methods_delete';
 
 
 //---------Orders------------//
-$route['orders/index'] = 'apiv1/frontend/orders/index';
-$route['orders/viewdata/order-id/(:any)'] = 'apiv1/frontend/orders/detail_view';
+$route['orders/index'] = 'webapp/orders/index';
+$route['orders/viewdata/order-id/(:any)'] = 'webapp/orders/detail_view';
 $route['order-items/price/update'] = 'apiv1/order/update_items_price';
 $route['order/status/update'] = 'apiv1/order/update_status';
 
 
 //---------Quotes------------//
-$route['quotes/index'] = 'apiv1/frontend/quotes/index';
-$route['quotes/viewdata/quote-id/(:any)'] = 'apiv1/frontend/quotes/detail_view';
+$route['quotes/index'] = 'webapp/quotes/index';
+$route['quotes/viewdata/quote-id/(:any)'] = 'webapp/quotes/detail_view';
 
-$route['quotes/reqs'] = 'apiv1/frontend/quotes/reqs';
-$route['quotes/reqsviewdata/item-id/(:any)'] = 'apiv1/frontend/quotes/req_detail_view';
+$route['quotes/reqs'] = 'webapp/quotes/reqs';
+$route['quotes/reqsviewdata/item-id/(:any)'] = 'webapp/quotes/req_detail_view';
 
 $route['quote-items/price/update'] = 'apiv1/quote/update_items_price';
 $route['quote/status/update'] = 'apiv1/quote/update_status';
 
 //---------Shipping Method------------//
-$route['shipping-method'] = 'apiv1/frontend/ShippingMethod/index';
-$route['shipping-method/create'] = 'apiv1/frontend/ShippingMethod/create';
-$route['shipping-method/delete'] = 'apiv1/frontend/ShippingMethod/delete';
+$route['shipping-method'] = 'webapp/ShippingMethod/index';
+$route['shipping-method/create'] = 'webapp/ShippingMethod/create';
+$route['shipping-method/delete'] = 'webapp/ShippingMethod/delete';
 
 //Image Manage
 $route['imagemanage/upload'] = 'apiv1/imagemanage/upload';

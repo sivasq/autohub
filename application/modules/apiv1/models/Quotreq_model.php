@@ -9,9 +9,9 @@ class Quotreq_model extends Generic_model
 	public function __construct()
 	{
 		parent::__construct($this->table, $this->prfx);
-		$this->load->model(array('Product_model'));
-		$this->load->model(array('Vehicle_model'));
-		$this->load->model(array('Productcondition_model'));
+		$this->load->model('apiv1/Product_model');
+		$this->load->model('apiv1/Vehicle_model');
+		$this->load->model('apiv1/Productcondition_model');
 	}
 
 	public function list_by_userId($user_id, $message = NULL)

@@ -147,4 +147,11 @@ class Vehicle extends MY_Controller
 		return $this->response($this->Vehicle_model->get_vehicles_by_vehicle_id($vehicleId));
 	}
 
+	public function get_vehicle_count_get()
+	{
+		$userId = $this->get_path_variable('user-id');
+		$private = $this->Vehicle_model->get_vehicle_count($userId, 1);
+		$commercial = $this->Vehicle_model->get_vehicle_count($userId, 2);
+		return $this->response($this->Vehicle_model->model_response(true, 200, array('private' => $private, 'commercial' => $commercial)));
+	}
 }

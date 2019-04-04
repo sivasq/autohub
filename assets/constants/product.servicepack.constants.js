@@ -1,6 +1,6 @@
 'use strict';
 var tableName = '#products_servicePack_datatable';
-var baseUrl = window.location.origin + '/autohubb/index.php/product/index/service-pack';
+var baseUrl = window.location.origin + '/autohub/index.php/product/index/service-pack';
 var data_id = 'prdId';
 var dataColumns = [
     {"data": "prdId"},

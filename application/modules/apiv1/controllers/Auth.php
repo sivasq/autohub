@@ -43,9 +43,9 @@ class Auth extends My_Controller
 			$firstName = $response[3]['first_name'];
 			$lastName = $response[3]['last_name'];
 
-			$message = 'Welcome to Autohubb!.' . "<br>" . ' Hai ' . " " . $firstName . ' ' . $lastName . " " . 'Your OTP is :' . $otp . "<br>";
+			$message = 'Welcome to Autohub!.' . "<br>" . ' Hai ' . " " . $firstName . ' ' . $lastName . " " . 'Your OTP is :' . $otp . "<br>";
 			$email = $response[3]['email'];
-			$subject = "AutoHubb OTP";
+			$subject = "AutoHub OTP";
 
 			$this->sendEmail($message, $email, $subject);
 		}
@@ -68,9 +68,9 @@ class Auth extends My_Controller
 			$firstName = $response[3]['first_name'];
 			$lastName = $response[3]['last_name'];
 
-			$message = 'Welcome to Autohubb!.' . "<br>" . ' Hai ' . " " . $firstName . ' ' . $lastName . " " . 'Your OTP is :' . $otp . "<br>";
+			$message = 'Welcome to !.' . "<br>" . ' Hai ' . " " . $firstName . ' ' . $lastName . " " . 'Your OTP is :' . $otp . "<br>";
 			$email = $response[3]['email'];
-			$subject = "AutoHubb OTP";
+			$subject = "AutoHub OTP";
 
 			$this->sendEmail($message, $email, $subject);
 		}

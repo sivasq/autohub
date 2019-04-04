@@ -1,7 +1,7 @@
 'use strict';
 var tableName = '#quotereq_datatable';
-var baseUrl = window.location.origin + '/autohubb/index.php/quotes/req';
-var viewUrl = window.location.origin + '/autohubb/index.php/quotes';
+var baseUrl = window.location.origin + '/autohub/index.php/quotes/req';
+var viewUrl = window.location.origin + '/autohub/index.php/quotes';
 var data_id = 'quotReqId';
 // orderBy = [[5, "desc"]];
 var dataColumns = [

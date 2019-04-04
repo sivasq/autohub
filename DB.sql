@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Mar 29, 2019 at 12:49 PM
+-- Generation Time: Apr 04, 2019 at 12:38 PM
 -- Server version: 8.0.13
 -- PHP Version: 7.2.12
 
@@ -33,20 +33,20 @@ USE `autohubb`;
 DROP TABLE IF EXISTS `admin_user`;
 CREATE TABLE IF NOT EXISTS `admin_user` (
   `admin_id` int(20) NOT NULL AUTO_INCREMENT,
-  `user_type` varchar(50) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
-  `admin_fname` varchar(50) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
-  `admin_lname` varchar(50) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
-  `admin_email` varchar(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
-  `admin_password` varchar(200) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
-  `admin_phone` varchar(20) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
-  `admin_country` varchar(50) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `user_type` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `admin_fname` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `admin_lname` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `admin_email` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `admin_password` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `admin_phone` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `admin_country` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `admin_city` varchar(50) DEFAULT NULL,
   `admin_address` varchar(80) DEFAULT NULL,
   `admin_zipcode` varchar(10) DEFAULT NULL,
   `comments` varchar(100) DEFAULT NULL,
-  `delegate` varchar(70) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
-  `agent_code` varchar(50) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
-  `image` varchar(324) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `delegate` varchar(70) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `agent_code` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `image` varchar(324) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `first_time` tinyint(1) NOT NULL DEFAULT '1',
   `Active` varchar(2) NOT NULL DEFAULT '1',
@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS `admin_user` (
 --
 
 INSERT INTO `admin_user` (`admin_id`, `user_type`, `admin_fname`, `admin_lname`, `admin_email`, `admin_password`, `admin_phone`, `admin_country`, `admin_city`, `admin_address`, `admin_zipcode`, `comments`, `delegate`, `agent_code`, `image`, `first_time`, `Active`) VALUES
-(15, 'super_admin', 'emeka', 'danial', 'hou.admin@autolane360.com', '123456', '7639964076', 'United States', 'houston', NULL, NULL, '', 'Post Cars,Add Members', '', ' ', 1, '0');
+(15, 'super_admin', 'Emeka', 'Daniells', 'siva@sqindia.net', 'admin1', '7639964076', 'United States', 'houston', NULL, NULL, '', 'Post Cars,Add Members', '', ' ', 1, '0');
 
 -- --------------------------------------------------------
 
@@ -77,15 +77,14 @@ CREATE TABLE IF NOT EXISTS `apikeys` (
   `ip_addresses` text,
   `date_created` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `apikeys`
 --
 
 INSERT INTO `apikeys` (`id`, `user_id`, `apikey`, `level`, `ignore_limits`, `is_private_key`, `ip_addresses`, `date_created`) VALUES
-(43, 61, 'w8s4k8g48gg00o8k0k0c0gs8cowwc0sccocso4ks', 1, 1, 0, '192.168.1.23', '2019-03-19 12:07:48'),
-(44, 65, 'c8wgokg04ocggk080kk48gc4gwkwkckc8840gkw4', 1, 1, 0, '192.168.1.10', '2019-03-20 12:27:30'),
+(44, 65, 'w8s4k8g48gg00o8k0k0c0gs8cowwc0sccocso4ks', 1, 1, 0, '192.168.1.10', '2019-03-20 12:27:30'),
 (45, 2, 'g4c0o848k840ww00w44gskw8k8w00cwo4gko0g04', 1, 1, 0, '192.168.1.23', '2019-03-20 15:10:03'),
 (46, 2, '4sww808gs808k4o8884wgs0o0ggccckow00oo44w', 1, 1, 0, '192.168.1.6', '2019-03-20 16:13:00'),
 (48, 2, 'kk0skww80w0k8o4kcskowo880okww80w4kwcwcc4', 1, 1, 0, '192.168.1.6', '2019-03-20 16:24:10'),
@@ -102,7 +101,9 @@ INSERT INTO `apikeys` (`id`, `user_id`, `apikey`, `level`, `ignore_limits`, `is_
 (60, 2, 'kokok08k80k0w808sw4gwgcccoscw8w8o0cggkw0', 1, 1, 0, '192.168.1.6', '2019-03-29 15:24:47'),
 (61, 2, 'cggo8ggkcwoc8okcwgkkkwck4ck8g8sgwc044skg', 1, 1, 0, '192.168.1.6', '2019-03-29 15:27:06'),
 (62, 2, 'o4oc0s8s4wg448gscok0skgwsgoss0k8cwow0ogc', 1, 1, 0, '192.168.1.6', '2019-03-29 15:42:34'),
-(63, 2, 'sc08800oc8s44wcs0kg4c8oc4s4s0wgkwkccs8cg', 1, 1, 0, '192.168.1.6', '2019-03-29 16:55:24');
+(63, 2, 'sc08800oc8s44wcs0kg4c8oc4s4s0wgkwkccs8cg', 1, 1, 0, '192.168.1.6', '2019-03-29 16:55:24'),
+(66, 2, 'ok44c8k4wg8c8w0cckokc8gokckgos8okgwkco8g', 1, 1, 0, '192.168.1.6', '2019-04-01 18:59:13'),
+(67, 2, '4s8k0808oc88g40gow8sw84sk004s40k8wcw4gcw', 1, 1, 0, '192.168.1.6', '2019-04-02 17:07:56');
 
 -- --------------------------------------------------------
 
@@ -237,7 +238,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `ord_isOrder` tinyint(1) NOT NULL DEFAULT '0',
   `ord_isQuote` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`ord_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=79 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=89 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `orders`
@@ -245,7 +246,17 @@ CREATE TABLE IF NOT EXISTS `orders` (
 
 INSERT INTO `orders` (`ord_id`, `ord_orderId`, `ord_quoteId`, `ord_userId`, `ord_statusId`, `ord_quotStatusId`, `ord_shippingAddressId`, `ord_shippingMethodId`, `ord_itemTotal`, `ord_shippingTotal`, `ord_grandTotal`, `ord_createdAt`, `ord_createdBy`, `ord_updatedAt`, `ord_updatedBy`, `ord_quotCreatedAt`, `ord_quotCreatedBy`, `ord_quotUpdatedAt`, `ord_quotUpdatedBy`, `ord_discountAmount`, `ord_discountPercent`, `ord_isOrder`, `ord_isQuote`) VALUES
 (76, 'OC-19-000076', 'QT-19-000076', 2, 1, 1, 0, 2, '1120.00', '20000.00', '21120.00', '2019-03-26 18:03:50', NULL, NULL, NULL, '2019-03-25 17:50:41', NULL, NULL, NULL, NULL, NULL, 1, 1),
-(78, NULL, 'QT-19-000078', 2, NULL, 2, NULL, NULL, '940.00', NULL, '0.00', NULL, NULL, NULL, NULL, '2019-03-29 17:57:39', NULL, NULL, NULL, NULL, NULL, 0, 1);
+(78, NULL, 'QT-19-000078', 2, NULL, 2, NULL, NULL, '942.00', '0.00', '942.00', NULL, NULL, NULL, NULL, '2019-03-29 17:57:39', NULL, NULL, NULL, NULL, NULL, 0, 1),
+(79, NULL, 'QT-19-000079', 1, NULL, 2, NULL, NULL, '0.00', NULL, '-940.00', NULL, NULL, NULL, NULL, '2019-04-01 16:16:05', NULL, NULL, NULL, NULL, NULL, 0, 1),
+(80, NULL, 'QT-19-000080', 1, NULL, 1, NULL, NULL, '470.00', NULL, '0.00', NULL, NULL, NULL, NULL, '2019-04-01 17:42:19', NULL, NULL, NULL, NULL, NULL, 0, 1),
+(81, NULL, 'QT-19-000081', 1, NULL, 1, NULL, NULL, '940.00', NULL, '0.00', NULL, NULL, NULL, NULL, '2019-04-01 17:43:58', NULL, NULL, NULL, NULL, NULL, 0, 1),
+(82, NULL, 'QT-19-000082', 2, NULL, 1, NULL, NULL, '0.00', NULL, '0.00', NULL, NULL, NULL, NULL, '2019-04-01 17:59:29', NULL, NULL, NULL, NULL, NULL, 0, 1),
+(83, NULL, 'QT-19-000083', 1, NULL, 1, NULL, NULL, '470.00', NULL, '0.00', NULL, NULL, NULL, NULL, '2019-04-01 18:11:15', NULL, NULL, NULL, NULL, NULL, 0, 1),
+(84, NULL, 'QT-19-000084', 1, NULL, 1, NULL, NULL, '890.00', NULL, '0.00', NULL, NULL, NULL, NULL, '2019-04-01 18:12:28', NULL, NULL, NULL, NULL, NULL, 0, 1),
+(85, NULL, 'QT-19-000085', 1, NULL, 2, NULL, NULL, '890.00', NULL, '890.00', NULL, NULL, NULL, NULL, '2019-04-01 18:15:46', NULL, NULL, NULL, NULL, NULL, 0, 1),
+(86, NULL, 'QT-19-000086', 1, NULL, 2, NULL, NULL, '890.00', '0.00', '890.00', NULL, NULL, NULL, NULL, '2019-04-01 18:17:15', NULL, NULL, NULL, NULL, NULL, 0, 1),
+(87, NULL, 'QT-19-000087', 1, NULL, 2, NULL, NULL, '890.00', '0.00', '890.00', NULL, NULL, NULL, NULL, '2019-04-01 18:20:22', NULL, NULL, NULL, NULL, NULL, 0, 1),
+(88, NULL, 'QT-19-000088', 2, NULL, 1, NULL, NULL, '0.00', '0.00', '0.00', NULL, NULL, NULL, NULL, '2019-04-02 19:50:54', NULL, NULL, NULL, NULL, NULL, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -273,7 +284,7 @@ CREATE TABLE IF NOT EXISTS `order_details` (
   `ode_updatedBy` varchar(45) DEFAULT NULL,
   `ode_images` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`ode_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=83 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=111 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `order_details`
@@ -283,8 +294,34 @@ INSERT INTO `order_details` (`ode_id`, `ode_orderId`, `ode_vehicleId`, `ode_prod
 (74, 76, 5, 2, 5, 1, NULL, 'Test comment', '270', '470.00', '0.00', '470.00', NULL, NULL, NULL, NULL, 'image1,image2'),
 (79, 76, 12, 17, NULL, 1, NULL, 'Xggxcggx', '866888', '250.00', '0.00', '250.00', '2019-03-29 16:13:19', NULL, NULL, NULL, NULL),
 (80, 76, 7, 17, NULL, 1, NULL, 'I need it immediately', '758800', '400.00', '0.00', '400.00', '2019-03-29 16:13:19', NULL, NULL, NULL, NULL),
-(81, 78, 14, 18, NULL, 1, NULL, 'I need it immediately.', '455688', '470.00', '0.00', '470.00', '2019-03-29 17:57:39', NULL, NULL, NULL, NULL),
-(82, 78, 13, 18, NULL, 1, NULL, 'I need it immediately', '458969', '470.00', '0.00', '470.00', '2019-03-29 17:57:39', NULL, NULL, NULL, NULL);
+(81, 78, 14, 18, NULL, 1, NULL, 'I need it immediately.', '455688', '471.00', '0.00', '470.00', '2019-03-29 17:57:39', NULL, NULL, NULL, NULL),
+(82, 78, 13, 18, NULL, 1, NULL, 'I need it immediately', '458969', '471.00', '0.00', '470.00', '2019-03-29 17:57:39', NULL, NULL, NULL, NULL),
+(85, 80, 5, 17, NULL, 2, NULL, 'Test comment', '270', '470.00', '0.00', '470.00', '2019-04-01 17:42:19', NULL, NULL, NULL, 'image1'),
+(86, 80, 5, 17, 5, 2, NULL, 'Test comment', '270', '470.00', '0.00', '0.00', '2019-04-01 17:42:19', NULL, NULL, NULL, 'image1'),
+(87, 81, 5, 17, NULL, 2, NULL, 'Test comment', '270', '470.00', '0.00', '470.00', '2019-04-01 17:43:58', NULL, NULL, NULL, 'image1'),
+(88, 81, 5, 17, 5, 2, NULL, 'Test comment', '270', '470.00', '0.00', '470.00', '2019-04-01 17:43:58', NULL, NULL, NULL, 'image1'),
+(89, 82, 5, 3, 6, 1, NULL, 'Test comment', '240', '0.00', '0.00', '0.00', '2019-04-01 17:59:29', NULL, NULL, NULL, 'image1'),
+(90, 82, 5, 17, NULL, 1, NULL, 'Test comment', '280', '0.00', '0.00', '0.00', '2019-04-01 17:59:29', NULL, NULL, NULL, NULL),
+(91, 82, 5, 17, NULL, 1, NULL, 'Test comment', '270', '0.00', '0.00', '0.00', '2019-04-01 17:59:29', NULL, NULL, NULL, 'image1'),
+(92, 82, 5, 17, 5, 1, NULL, 'Test comment', '270', '0.00', '0.00', '0.00', '2019-04-01 17:59:29', NULL, NULL, NULL, 'image1'),
+(93, 82, 5, 17, 5, 1, NULL, 'Test comment', '270', '0.00', '0.00', '0.00', '2019-04-01 17:59:29', NULL, NULL, NULL, 'image1'),
+(94, 83, 5, 17, NULL, 2, NULL, 'Test comment', '270', '450.00', '10.00', '470.00', '2019-04-01 18:11:15', NULL, NULL, NULL, 'image1'),
+(95, 83, 5, 17, 5, 2, NULL, 'Test comment', '270', '450.00', '0.00', '0.00', '2019-04-01 18:11:15', NULL, NULL, NULL, 'image1'),
+(96, 84, 5, 17, NULL, 2, NULL, 'Test comment', '270', '450.00', '10.00', '890.00', '2019-04-01 18:12:28', NULL, NULL, NULL, 'image1'),
+(97, 84, 5, 17, 5, 2, NULL, 'Test comment', '270', '0.00', '0.00', '0.00', '2019-04-01 18:12:28', NULL, NULL, NULL, 'image1'),
+(98, 85, 5, 17, NULL, 2, NULL, 'Test comment', '270', '450.00', '10.00', '890.00', '2019-04-01 18:15:46', NULL, NULL, NULL, 'image1'),
+(99, 85, 5, 17, 5, 2, NULL, 'Test comment', '270', '0.00', '0.00', '0.00', '2019-04-01 18:15:46', NULL, NULL, NULL, 'image1'),
+(100, 86, 5, 17, NULL, 2, NULL, 'Test comment', '270', '450.00', '10.00', '890.00', '2019-04-01 18:17:15', NULL, NULL, NULL, 'image1'),
+(101, 86, 5, 17, 5, 2, NULL, 'Test comment', '270', '0.00', '0.00', '0.00', '2019-04-01 18:17:15', NULL, NULL, NULL, 'image1'),
+(102, 87, 5, 17, NULL, 2, NULL, 'Test comment', '270', '450.00', '10.00', '890.00', '2019-04-01 18:20:22', NULL, NULL, NULL, 'image1'),
+(103, 87, 5, 17, 5, 2, NULL, 'Test comment', '270', '0.00', '0.00', '0.00', '2019-04-01 18:20:22', NULL, NULL, NULL, 'image1'),
+(104, 88, 5, 3, 6, 1, NULL, 'Test comment', '240', '0.00', '0.00', '0.00', '2019-04-02 19:50:54', NULL, NULL, NULL, 'image1'),
+(105, 88, 5, 17, NULL, 1, NULL, 'Test comment', '280', '0.00', '0.00', '0.00', '2019-04-02 19:50:54', NULL, NULL, NULL, NULL),
+(106, 88, 5, 17, 5, 1, NULL, 'Test comment', '270', '0.00', '0.00', '0.00', '2019-04-02 19:50:54', NULL, NULL, NULL, 'image1'),
+(107, 88, 5, 17, 6, 1, NULL, 'Test comment', '270', '0.00', '0.00', '0.00', '2019-04-02 19:50:54', NULL, NULL, NULL, 'image1,image2'),
+(108, 88, 14, 17, NULL, 1, NULL, 'Test comment', '270', '0.00', '0.00', '0.00', '2019-04-02 19:50:54', NULL, NULL, NULL, NULL),
+(109, 88, 14, 18, NULL, 1, NULL, 'Xggdfg', '857575', '0.00', '0.00', '0.00', '2019-04-02 19:50:54', NULL, NULL, NULL, NULL),
+(110, 88, 13, 17, NULL, 1, NULL, 'Hcchyffh', '868885', '0.00', '0.00', '0.00', '2019-04-02 19:50:54', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -297,10 +334,10 @@ CREATE TABLE IF NOT EXISTS `order_messages` (
   `orm_id` int(11) NOT NULL AUTO_INCREMENT,
   `orm_orderId` int(11) DEFAULT NULL,
   `orm_messageType` varchar(2) DEFAULT NULL,
-  `orm_message` text,
+  `orm_message` mediumtext,
   `orm_createdAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`orm_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `order_messages`
@@ -330,7 +367,7 @@ CREATE TABLE IF NOT EXISTS `order_payments` (
   `orp_updatedAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `orp_updatedBy` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`orp_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `order_payments`
@@ -359,7 +396,7 @@ CREATE TABLE IF NOT EXISTS `order_shippings` (
   `osh_createdAt` datetime DEFAULT NULL,
   `osh_createdBy` int(11) DEFAULT NULL,
   PRIMARY KEY (`osh_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -376,7 +413,7 @@ CREATE TABLE IF NOT EXISTS `order_status` (
   `ost_createdDate` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `ost_createdBy` int(11) DEFAULT NULL,
   PRIMARY KEY (`ost_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `order_status`
@@ -388,6 +425,22 @@ INSERT INTO `order_status` (`ost_id`, `ost_name`, `ost_Description`, `ost_order`
 (3, 'payment made', NULL, 3, NULL),
 (4, 'shipped', NULL, 4, NULL),
 (5, 'delivered', NULL, 5, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `password_reset`
+--
+
+DROP TABLE IF EXISTS `password_reset`;
+CREATE TABLE IF NOT EXISTS `password_reset` (
+  `ID` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `email` varchar(255) DEFAULT NULL,
+  `selector` char(16) DEFAULT NULL,
+  `token` char(64) DEFAULT NULL,
+  `expires` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -408,7 +461,7 @@ CREATE TABLE IF NOT EXISTS `payment_banks` (
   `bnk_updatedAt` timestamp NULL DEFAULT NULL,
   `bnk_updatedBy` int(11) DEFAULT NULL,
   PRIMARY KEY (`bnk_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `payment_banks`
@@ -431,7 +484,7 @@ CREATE TABLE IF NOT EXISTS `payment_methods` (
   `pmt_createdAt` int(11) DEFAULT NULL,
   `pmt_createdBy` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`pmt_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `payment_methods`
@@ -449,17 +502,17 @@ INSERT INTO `payment_methods` (`pmt_id`, `pmt_name`, `pmt_description`, `pmt_cre
 DROP TABLE IF EXISTS `products`;
 CREATE TABLE IF NOT EXISTS `products` (
   `prd_id` int(11) NOT NULL AUTO_INCREMENT,
-  `prd_name` varchar(45) CHARACTER SET latin1 DEFAULT NULL,
-  `prd_description` varchar(200) CHARACTER SET latin1 DEFAULT NULL,
+  `prd_name` varchar(45) DEFAULT NULL,
+  `prd_description` varchar(200) DEFAULT NULL,
   `prd_categoryId` int(11) DEFAULT NULL,
   `prd_typeId` int(11) DEFAULT NULL,
   `prd_currentStock` int(11) DEFAULT NULL,
-  `prd_image` varchar(200) CHARACTER SET latin1 DEFAULT NULL,
+  `prd_image` varchar(200) DEFAULT NULL,
   `prd_price` decimal(10,2) DEFAULT '0.00',
   `prd_createdAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `prd_createdBy` int(11) DEFAULT NULL,
   PRIMARY KEY (`prd_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 --
 -- Dumping data for table `products`
@@ -488,7 +541,9 @@ INSERT INTO `products` (`prd_id`, `prd_name`, `prd_description`, `prd_categoryId
 (20, 'Oil Filter', NULL, 0, 3, 0, NULL, '0.00', NULL),
 (21, 'Air Filter', NULL, 0, 3, 0, NULL, '0.00', NULL),
 (22, 'Plugs', NULL, 0, 3, 0, NULL, '0.00', NULL),
-(23, 'Car Engine Treatment', NULL, 0, 3, 0, NULL, '0.00', NULL);
+(23, 'Car Engine Treatment', NULL, 0, 3, 0, NULL, '0.00', NULL),
+(28, 'p1', 'p1 desc', 1, 1, NULL, NULL, NULL, NULL),
+(29, 'tr oil', 'tr oil desc', 0, 3, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -499,12 +554,12 @@ INSERT INTO `products` (`prd_id`, `prd_name`, `prd_description`, `prd_categoryId
 DROP TABLE IF EXISTS `product_categories`;
 CREATE TABLE IF NOT EXISTS `product_categories` (
   `pca_id` int(11) NOT NULL AUTO_INCREMENT,
-  `pca_name` varchar(45) CHARACTER SET latin1 DEFAULT NULL,
-  `pca_description` varchar(200) CHARACTER SET latin1 DEFAULT NULL,
+  `pca_name` varchar(45) DEFAULT NULL,
+  `pca_description` varchar(200) DEFAULT NULL,
   `pca_createdAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `pca_createdBy` int(11) DEFAULT NULL,
   PRIMARY KEY (`pca_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 --
 -- Dumping data for table `product_categories`
@@ -543,7 +598,7 @@ CREATE TABLE IF NOT EXISTS `product_conditions` (
   `pco_createdAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `pco_createdBy` int(11) DEFAULT NULL,
   PRIMARY KEY (`pco_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `product_conditions`
@@ -566,7 +621,7 @@ CREATE TABLE IF NOT EXISTS `product_sub_products` (
   `psp_productId` int(11) DEFAULT NULL,
   `psp_subProductId` int(11) DEFAULT NULL,
   PRIMARY KEY (`psp_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 --
 -- Dumping data for table `product_sub_products`
@@ -596,7 +651,7 @@ CREATE TABLE IF NOT EXISTS `product_types` (
   `pty_createdAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `pty_createdBy` int(11) DEFAULT NULL,
   PRIMARY KEY (`pty_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `product_types`
@@ -622,7 +677,7 @@ CREATE TABLE IF NOT EXISTS `quote_status` (
   `qst_createdDate` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `qst_createdBy` int(11) DEFAULT NULL,
   PRIMARY KEY (`qst_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 --
 -- Dumping data for table `quote_status`
@@ -630,10 +685,11 @@ CREATE TABLE IF NOT EXISTS `quote_status` (
 
 INSERT INTO `quote_status` (`qst_id`, `qst_name`, `qst_Description`, `qst_order`, `qst_createdBy`) VALUES
 (1, 'Placed', NULL, 1, NULL),
-(2, 'Accepted', NULL, 2, NULL),
-(3, 'Declined', NULL, 3, NULL),
-(4, 'Paid', NULL, 4, NULL),
-(5, 'Closed', NULL, 5, NULL);
+(2, 'Price Quoted', NULL, 2, NULL),
+(3, 'Accepted', NULL, 3, NULL),
+(4, 'Declined', NULL, 4, NULL),
+(5, 'Paid', NULL, 5, NULL),
+(6, 'Closed', NULL, 6, NULL);
 
 -- --------------------------------------------------------
 
@@ -657,7 +713,7 @@ CREATE TABLE IF NOT EXISTS `shipping_addresses` (
   `sha_email` varchar(45) DEFAULT NULL,
   `sha_createdAt` datetime DEFAULT NULL,
   PRIMARY KEY (`sha_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 --
 -- Dumping data for table `shipping_addresses`
@@ -683,7 +739,7 @@ CREATE TABLE IF NOT EXISTS `shipping_methods` (
   `shm_createdAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `shm_createdBy` int(11) DEFAULT NULL,
   PRIMARY KEY (`shm_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 --
 -- Dumping data for table `shipping_methods`
@@ -708,23 +764,31 @@ CREATE TABLE IF NOT EXISTS `shopping_cart` (
   `crt_vehicleId` int(11) DEFAULT NULL,
   `crt_quantity` int(11) DEFAULT NULL,
   `crt_productConditionId` int(11) DEFAULT NULL,
-  `crt_currentMileage` varchar(45) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `crt_currentMileage` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `crt_comment` varchar(200) DEFAULT NULL,
-  `crt_images` text,
-  `crt_cartType` varchar(12) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `crt_images` mediumtext,
+  `crt_cartType` varchar(12) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `crt_createdAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`crt_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `shopping_cart`
 --
 
 INSERT INTO `shopping_cart` (`crt_id`, `crt_userId`, `crt_productId`, `crt_vehicleId`, `crt_quantity`, `crt_productConditionId`, `crt_currentMileage`, `crt_comment`, `crt_images`, `crt_cartType`) VALUES
-(24, 1, 17, 5, 1, NULL, '270', 'Test comment', 'image1', 'quotreq'),
-(36, 1, 17, 5, 1, NULL, '270', 'Test comment', 'image1', 'quotreq'),
-(39, 1, 3, 5, 1, 6, '240', 'Test comment', 'image1', 'quotreq'),
-(40, 2, 17, 5, 1, NULL, '280', 'Test comment', NULL, 'quotreq');
+(45, 2, 1, 5, 1, 5, '500', 'Test comment', 'image1,image2', 'shopping'),
+(47, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(48, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(49, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(51, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(52, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(53, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(54, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(55, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(56, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(61, 2, 17, 14, 1, NULL, '270', 'Test comment', NULL, 'quotreq');
 
 -- --------------------------------------------------------
 
@@ -755,8 +819,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `email`, `password`, `otp`, `phone`, `country`, `ref_code`, `created_at`, `otp_is_expired`, `is_email_verified`, `otp_created_at`) VALUES
-(1, 'Siva', 'Raj', 'siva@sqindia.net', 'password', '9212', '999999999', 'India', 'string', '2019-03-20 12:58:19', 0, 0, '2019-03-20 13:11:38'),
-(2, 'Guna', 'Sundari', 'guna@sqindia.net', 'guna06@', '4438', '7550168101', 'Ghana', '', '2019-03-20 14:32:57', 1, 1, '2019-03-20 14:57:11');
+(1, 'Siva', 'Raj', 'siva@sqindia.net', 'password', '9212', '999999999', 'India', 'string', '2019-04-02 10:21:19', 1, 1, '2019-04-02 10:21:19'),
+(2, 'Guna', 'Sundari', 'guna@sqindia.net', 'Guna06@', '4438', '7550168101', 'Ghana', '', '2019-03-20 14:32:57', 1, 1, '2019-03-20 14:57:11');
 
 -- --------------------------------------------------------
 
@@ -779,11 +843,11 @@ CREATE TABLE IF NOT EXISTS `vehicles` (
   `vhl_driverId` int(11) DEFAULT NULL,
   `vhl_mileageRange` varchar(45) DEFAULT NULL,
   `vhl_actualMileage` varchar(45) DEFAULT NULL,
-  `vhl_image` varchar(200) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `vhl_image` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `vhl_createdAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `vhl_updatedAt` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`vhl_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `vehicles`
@@ -800,7 +864,8 @@ INSERT INTO `vehicles` (`vhl_id`, `vhl_vin`, `vhl_userId`, `vhl_vehicleTypeId`, 
 (12, 'DGHFHHCGXHXHCGDXC', 2, 1, '2019', 'Buick', 'Enclave', 'Convenience Group 4dr SUV (3.6L 6cyl 6A)', 2, 1, 0, '864588', '898686', 'string', NULL),
 (13, 'ZGHXXG475575FHFHC', 2, 0, '2012', 'Acura', 'TL', 'SH-AWD Automatic Tech Package', 1, 0, 0, '', '857548', NULL, NULL),
 (14, 'CHHDXGHDXBCHCHCFH', 2, 0, '2019', 'Acura', 'ILX', '4dr Sedan (2.0L 4cyl 5A)', 1, 0, 0, '', '899880', 'https://res.cloudinary.com/sqdevelop/image/upload/v1553322896/natrwuldebmnkxya9pnj.jpg', NULL),
-(15, '123231', 1, 1, '2019', 'nissan', 'kicks', 'string', 1, 1, 1, '1233', '130', 'string', NULL);
+(15, '123231', 1, 1, '2019', 'nissan', 'kicks', 'string', 1, 1, 1, '1233', '130', 'string', NULL),
+(16, 'XBBXXHHC536446HFC', 2, 1, '2019', 'Acura', 'ILX', '4dr Sedan (2.0L 4cyl 5A)', 2, 1, 0, '855775', '069889', 'string', NULL);
 
 -- --------------------------------------------------------
 
@@ -816,7 +881,7 @@ CREATE TABLE IF NOT EXISTS `vehicle_business_type` (
   `vbt_createdAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `vbt_createdBy` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`vbt_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `vehicle_business_type`
@@ -845,7 +910,7 @@ CREATE TABLE IF NOT EXISTS `vehicle_companies` (
   `vcm_createdAt` timestamp NULL DEFAULT NULL,
   `vcm_createdBy` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`vcm_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `vehicle_companies`
@@ -877,7 +942,7 @@ CREATE TABLE IF NOT EXISTS `vehicle_drivers` (
   `vdr_createdAt` int(11) DEFAULT NULL,
   `vdr_createdBy` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`vdr_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `vehicle_drivers`
@@ -907,7 +972,7 @@ CREATE TABLE IF NOT EXISTS `vehicle_types` (
   `vtyp_createdAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `vtyp_createdBy` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`vtyp_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `vehicle_types`

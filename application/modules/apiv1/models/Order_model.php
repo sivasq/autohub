@@ -32,7 +32,7 @@ class Order_model extends Generic_model
     public function __construct()
     {
         parent::__construct($this->table, $this->prefix);
-        $this->load->model(array('Product_model'));
+        $this->load->model(array( 'apiv1/Product_model'));
     }
 
     public function create($data)
