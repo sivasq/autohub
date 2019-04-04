@@ -1,9 +1,8 @@
 <?php
 
-
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class VehicleType extends Base_Controller
+class VehicleType extends User_Controller
 {
 
     var $viewClass = "admin/vehicle/VehicleType";

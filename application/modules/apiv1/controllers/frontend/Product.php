@@ -2,7 +2,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Product extends Base_Controller
+class Product extends User_Controller
 {
 	const PRODUCT_URL = 'product/index';
 	const CATEGORY_URL = 'product/category';

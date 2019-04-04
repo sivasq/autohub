@@ -2,7 +2,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Orders extends Base_Controller
+class Orders extends User_Controller
 {
     public function __construct()
     {

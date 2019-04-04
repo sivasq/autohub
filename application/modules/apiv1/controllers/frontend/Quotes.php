@@ -2,7 +2,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Quotes extends Base_Controller
+class Quotes extends User_Controller
 {
     public function __construct()
     {
