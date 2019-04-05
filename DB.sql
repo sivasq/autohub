@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 04, 2019 at 12:38 PM
+-- Generation Time: Apr 05, 2019 at 12:23 PM
 -- Server version: 8.0.13
 -- PHP Version: 7.2.12
 
@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS `admin_user` (
 --
 
 INSERT INTO `admin_user` (`admin_id`, `user_type`, `admin_fname`, `admin_lname`, `admin_email`, `admin_password`, `admin_phone`, `admin_country`, `admin_city`, `admin_address`, `admin_zipcode`, `comments`, `delegate`, `agent_code`, `image`, `first_time`, `Active`) VALUES
-(15, 'super_admin', 'Emeka', 'Daniells', 'siva@sqindia.net', 'admin1', '7639964076', 'United States', 'houston', NULL, NULL, '', 'Post Cars,Add Members', '', ' ', 1, '0');
+(15, 'super_admin', 'Emeka', 'Daniells', 'siva@sqindia.net', 'admin', '7639964076', 'United States', 'houston', NULL, NULL, '', 'Post Cars,Add Members', '', ' ', 1, '0');
 
 -- --------------------------------------------------------
 
@@ -245,7 +245,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
 --
 
 INSERT INTO `orders` (`ord_id`, `ord_orderId`, `ord_quoteId`, `ord_userId`, `ord_statusId`, `ord_quotStatusId`, `ord_shippingAddressId`, `ord_shippingMethodId`, `ord_itemTotal`, `ord_shippingTotal`, `ord_grandTotal`, `ord_createdAt`, `ord_createdBy`, `ord_updatedAt`, `ord_updatedBy`, `ord_quotCreatedAt`, `ord_quotCreatedBy`, `ord_quotUpdatedAt`, `ord_quotUpdatedBy`, `ord_discountAmount`, `ord_discountPercent`, `ord_isOrder`, `ord_isQuote`) VALUES
-(76, 'OC-19-000076', 'QT-19-000076', 2, 1, 1, 0, 2, '1120.00', '20000.00', '21120.00', '2019-03-26 18:03:50', NULL, NULL, NULL, '2019-03-25 17:50:41', NULL, NULL, NULL, NULL, NULL, 1, 1),
+(76, 'OC-19-000076', 'QT-19-000076', 2, 1, 5, 0, 2, '1120.00', '20000.00', '21120.00', '2019-03-26 18:03:50', NULL, NULL, NULL, '2019-03-25 17:50:41', NULL, NULL, NULL, NULL, NULL, 1, 1),
 (78, NULL, 'QT-19-000078', 2, NULL, 2, NULL, NULL, '942.00', '0.00', '942.00', NULL, NULL, NULL, NULL, '2019-03-29 17:57:39', NULL, NULL, NULL, NULL, NULL, 0, 1),
 (79, NULL, 'QT-19-000079', 1, NULL, 2, NULL, NULL, '0.00', NULL, '-940.00', NULL, NULL, NULL, NULL, '2019-04-01 16:16:05', NULL, NULL, NULL, NULL, NULL, 0, 1),
 (80, NULL, 'QT-19-000080', 1, NULL, 1, NULL, NULL, '470.00', NULL, '0.00', NULL, NULL, NULL, NULL, '2019-04-01 17:42:19', NULL, NULL, NULL, NULL, NULL, 0, 1),
@@ -362,22 +362,20 @@ CREATE TABLE IF NOT EXISTS `order_payments` (
   `orp_methodId` varchar(10) DEFAULT NULL,
   `orp_bankId` int(11) DEFAULT NULL,
   `orp_status` varchar(10) DEFAULT NULL,
+  `orp_txnId` varchar(45) DEFAULT NULL,
   `orp_createdAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `orp_createdBy` varchar(45) DEFAULT NULL,
   `orp_updatedAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `orp_updatedBy` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`orp_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `order_payments`
 --
 
-INSERT INTO `order_payments` (`orp_id`, `orp_orderId`, `orp_methodId`, `orp_bankId`, `orp_status`, `orp_createdBy`, `orp_updatedBy`) VALUES
-(1, 1, '2', 1, 'PAID', NULL, NULL),
-(2, 1, '2', 1, 'PAID', NULL, NULL),
-(3, 76, '2', 1, 'PAID', NULL, NULL),
-(4, 76, '2', 1, 'PAID', NULL, NULL);
+INSERT INTO `order_payments` (`orp_id`, `orp_orderId`, `orp_methodId`, `orp_bankId`, `orp_status`, `orp_txnId`, `orp_createdBy`, `orp_updatedBy`) VALUES
+(5, 76, NULL, 1, NULL, '456456456', NULL, NULL);
 
 -- --------------------------------------------------------
 
