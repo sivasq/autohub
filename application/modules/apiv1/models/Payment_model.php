@@ -1,11 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: enginef
- * Date: 3/2/19
- * Time: 7:46 PM
- */
-require APPPATH . 'core/Generic_model.php';
+
+require_once APPPATH . 'core/Generic_model.php';
 
 class Payment_model extends Generic_model
 {
@@ -49,6 +44,16 @@ class Payment_model extends Generic_model
 	{
 		$this->db->insert($this->tbl_order_payment, $this->build_model_data($order_payment, $this->prfx_order_payments));
 		$payment_id = $this->db->insert_id();
-		return $this->model_response(true, 200, array("paymentId" => $payment_id));
+
+		$status = new stdClass();
+		$status->statusId = 5;
+		$this->quote_model->update_status($status, $order_payment->orderId);
+		return $this->model_response(true, 200, array("paymentId" => $payment_id),'Txn Details Updated.');
+	}
+
+	public function select_fields()
+	{
+		return $this->prfx_order_payments . "status as orp_paymentStatus, " .
+			$this->prfx_order_payments . "txnId";
 	}
 }

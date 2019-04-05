@@ -34,10 +34,11 @@ class Quote_model extends Generic_model
 	{
 		parent::__construct($this->table, $this->prefix);
 		$this->load->model('apiv1/Product_model');
-		$this->load->model( 'apiv1/Shippingmethod_model');
-		$this->load->model( 'apiv1/User_model');
-		$this->load->model( 'apiv1/Productcondition_model');
-		$this->load->model( 'apiv1/Vehicle_model');		
+		$this->load->model('apiv1/Shippingmethod_model');
+		$this->load->model('apiv1/User_model');
+		$this->load->model('apiv1/Productcondition_model');
+		$this->load->model('apiv1/Vehicle_model');
+		$this->load->model('apiv1/Payment_model');
 	}
 
 	public function create($httpRequest)
@@ -65,7 +66,7 @@ class Quote_model extends Generic_model
 				$element_array[$key] = $val;
 			}
 
-			array_push($finalQuoteCartExtraElements, (object) $element_array);
+			array_push($finalQuoteCartExtraElements, (object)$element_array);
 		}
 
 //		$sum = array_sum(array_map(function($item) {
@@ -148,12 +149,19 @@ class Quote_model extends Generic_model
 		return $this->build_response_array($finalItems_array);
 	}
 
+	public function generate_quote_number($quoteId)
+	{
+		$quote_number = "QT-" . substr(date("Y"), -2) . "-" . str_pad($quoteId, 6, '0', STR_PAD_LEFT);
+		return $quote_number;
+	}
+
 	public function get_quotes_by_userId($user_id)
 	{
-		$this->db->select($this->select_fields_for_quot_list() . ", qst_name as quotStatus, concat(first_name, ' ', last_name) as userName");
+		$this->db->select($this->select_fields_for_quot_list() . ", qst_name as quotStatus, concat(first_name, ' ', last_name) as userName, orp_status as orp_paymentStatus, orp_txnId");
 		$this->db->from($this->table);
 		$this->db->join($this->table_quote_status, "ord_quotStatusId = qst_id", "left");
 		$this->db->join($this->tbl_users, "user_id = ord_userId", "left");
+		$this->db->join($this->tbl_order_payment, "orp_orderId = ord_id", "left");
 		$this->db->where(array("ord_userId" => $user_id, "ord_isQuote" => 1));
 		$this->db->order_by('ord_quotCreatedAt', 'DESC');
 		$result = $this->db->get()->result_array();
@@ -180,7 +188,7 @@ class Quote_model extends Generic_model
 
 	public function get_quote_by_id($quoteId)
 	{
-		$this->db->select($this->select_fields_for_quot_list() . "," . $this->Shippingmethod_model->select_fields_for_quot_list() . "," . $this->User_model->select_fields_for_quot_list() . ", " . $this->select_ode_fields_for_quot_list() . ", " . $this->Productcondition_model->get_product_condition_fields_for_quot_list() . ", qst_name as qst_quotStatus, prd_name as itemName, " . $this->Vehicle_model->select_vehicle_fields_for_quot_list());
+		$this->db->select($this->select_fields_for_quot_list() . "," . $this->Shippingmethod_model->select_fields_for_quot_list() . "," . $this->User_model->select_fields_for_quot_list() . ", " . $this->select_ode_fields_for_quot_list() . ", " . $this->Productcondition_model->get_product_condition_fields_for_quot_list() . ", qst_name as qst_quotStatus, prd_name as itemName, " . $this->Vehicle_model->select_vehicle_fields_for_quot_list() . ", orp_status as orp_paymentStatus, orp_txnId");
 		$this->db->from($this->table);
 		$this->db->join($this->table_quote_status, "ord_quotStatusId = qst_id", "left");
 		$this->db->join($this->table_order_detail, "ord_id = ode_orderId", "left");
@@ -191,6 +199,7 @@ class Quote_model extends Generic_model
 		$this->db->join($this->tbl_shipping_method, "shm_id = ord_shippingMethodId", "left");
 		$this->db->join($this->table_product_type, "pty_id = prd_typeId", "left");
 		$this->db->join($this->table_product_categories, "pca_id = prd_categoryId", "left");
+		$this->db->join($this->tbl_order_payment, "orp_orderId = ord_id", "left");
 		$this->db->where(array("ord_id" => $quoteId, "ord_isQuote" => 1));
 		$result = $this->db->get()->result_array();
 		$response_data = $this->build_response_array($result, "category");
@@ -375,6 +384,8 @@ class Quote_model extends Generic_model
 		return $order_number;
 	}
 
+	/* For Web View */
+
 	public function create_old($httpRequest)
 	{
 		$data = $httpRequest;
@@ -450,8 +461,6 @@ class Quote_model extends Generic_model
 		return $this->model_response(true, 200);
 	}
 
-	/* For Web View */
-
 	public function get_quotes()
 	{
 		$this->db->select($this->table . ".*,qst_name as status, concat(first_name, ' ', last_name) as userName");
@@ -476,6 +485,15 @@ class Quote_model extends Generic_model
 
 
 	}
+
+
+	/*public function get_orders()
+	{
+		$this->db->from($this->table);
+		$this->db->join($this->table_order_detail, 'order_detail.order_id = order.order_id', 'left');
+		$result = $this->db->get();
+		return $result->result_array();
+	}*/
 
 	public function get_quote_items_by_id($quoteId)
 	{
@@ -502,15 +520,6 @@ class Quote_model extends Generic_model
 		return $response_data;
 	}
 
-
-	/*public function get_orders()
-	{
-		$this->db->from($this->table);
-		$this->db->join($this->table_order_detail, 'order_detail.order_id = order.order_id', 'left');
-		$result = $this->db->get();
-		return $result->result_array();
-	}*/
-
 	public function get_order_details_by_id($orderId)
 	{
 		return $this->model_response(true, 200, $this->get_order_items_by_id($orderId)['orderItems']);
@@ -525,6 +534,8 @@ class Quote_model extends Generic_model
 		return $response_data;
 	}
 
+	//Shipping methods
+
 	public function update_status1($request, $orderId)
 	{
 		$statusData = array(
@@ -538,8 +549,6 @@ class Quote_model extends Generic_model
 			return $this->model_response(true, 400, array(), "Invalid Request");
 		}
 	}
-
-	//Shipping methods
 
 	/**
 	 * @param $shippingAddress
@@ -578,12 +587,6 @@ class Quote_model extends Generic_model
 		$result_array = $this->db->get($this->tbl_order_message)->result_array();
 		$response_data = $this->build_response_array($result_array, null, array("createdAt"));
 		return $this->model_response(true, 200, $response_data);
-	}
-
-	public function generate_quote_number($quoteId)
-	{
-		$quote_number = "QT-" . substr(date("Y"), -2) . "-" . str_pad($quoteId, 6, '0', STR_PAD_LEFT);
-		return $quote_number;
 	}
 
 	public function update_order_items_price($orderItems)
