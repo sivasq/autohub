@@ -120,12 +120,13 @@
         </div>
     </div>
 </div>
+
 <div class="row">
     <div class="col-sm-12">
         <div class="panel">
             <div class="panel-body">
                 <div class="editable-responsive">
-                    <table id="mainTable" class="table table-striped m-b-0">
+                    <table id="quoteItemsTable" class="table table-striped m-b-0">
                         <thead>
                             <tr>
                                 <th hidden></th>
@@ -185,6 +186,7 @@
         </div> <!-- end panel -->
     </div> <!-- end col-->
 </div>
+
 </div>
 
 <div id="dialog" class="modal-block mfp-hide">
@@ -210,4 +212,8 @@
     </section>
 </div>
 <!-- end row -->
-<?php $this->load->view('includes/footers/admin-footer'); ?> 
+<?php $this->load->view('includes/footers/admin-footer'); ?>
+
+<script>
+	$('#quoteItemsTable').editableTableWidget({needEdits: [6]}).numericInputExample(6).find('td:first').focus();
+</script>

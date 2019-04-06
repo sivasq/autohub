@@ -38,7 +38,6 @@ class Quote_model extends Generic_model
 		$this->load->model('apiv1/User_model');
 		$this->load->model('apiv1/Productcondition_model');
 		$this->load->model('apiv1/Vehicle_model');
-		$this->load->model('apiv1/Payment_model');
 	}
 
 	public function create($httpRequest)
@@ -591,20 +590,33 @@ class Quote_model extends Generic_model
 
 	public function update_order_items_price($orderItems)
 	{
-		$total = 0;
-		$orderId = $orderItems[0]->orderId;
-		$shippingCost = $orderItems[0]->shippingCost;
-		foreach ($orderItems as $items) {
-			$total += $items->ode_price;
-			unset($items->orderId);
-			unset($items->shippingCost);
+		$quotStatus = $this->get_quote_status_by_quot_id($orderItems[0]->orderId);
+
+		if ($quotStatus->ord_quotStatusId == 1 OR $quotStatus->ord_quotStatusId == 2) {
+			$total = 0;
+			$orderId = $orderItems[0]->orderId;
+			foreach ($orderItems as $items) {
+				$total += $items->ode_price;
+				unset($items->orderId);
+			}
+			$grandTotal = $total;
+			$this->update(array("ord_itemTotal" => $total, "ord_grandTotal" => $grandTotal), $orderId);
+			$response_data = $this->db->update_batch($this->table_order_detail, $orderItems, 'ode_id');
+			return $this->model_response(true, 200, $response_data);
+		} else {
+			return $this->model_response(false, 200, array());
 		}
-		$grandTotal = $total + $shippingCost;
-		$this->update(array("ord_itemTotal" => $total, "ord_shippingTotal" => $shippingCost, "ord_grandTotal" => $grandTotal), $orderId);
-		$response_data = $this->db->update_batch($this->table_order_detail, $orderItems, 'ode_id');
-		return $this->model_response(true, 200, $response_data);
 	}
 
+	public function get_quote_status_by_quot_id($quoteId)
+	{
+		$this->db->select('ord_quotStatusId');
+		$this->db->from($this->table);
+		$this->db->where($this->prefix . "id", $quoteId);
+		return $this->db->get()->row();
+	}
+
+	//	get List of quot status
 	public function get_quote_status()
 	{
 		$this->db->select("qst_name, qst_order");

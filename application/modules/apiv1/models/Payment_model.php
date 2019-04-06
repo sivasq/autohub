@@ -15,6 +15,7 @@ class Payment_model extends Generic_model
 	{
 		parent::__construct($this->tbl_order_payment, $this->prfx_payment_banks);
 		$this->load->helper('inflector');
+		$this->load->model('apiv1/Quote_model');
 	}
 
 	public function create_bank($bank_data)
@@ -42,18 +43,21 @@ class Payment_model extends Generic_model
 
 	public function create_payment($order_payment)
 	{
-		$this->db->insert($this->tbl_order_payment, $this->build_model_data($order_payment, $this->prfx_order_payments));
-		$payment_id = $this->db->insert_id();
+		//Check Payment Status for quote
+		$quotStatus = $this->Quote_model->get_quote_status_by_quot_id($order_payment->orderId);
 
-		$status = new stdClass();
-		$status->statusId = 5;
-		$this->quote_model->update_status($status, $order_payment->orderId);
-		return $this->model_response(true, 200, array("paymentId" => $payment_id),'Txn Details Updated.');
-	}
-
-	public function select_fields()
-	{
-		return $this->prfx_order_payments . "status as orp_paymentStatus, " .
-			$this->prfx_order_payments . "txnId";
+		//If already payment Done
+		if ($quotStatus->ord_quotStatusId == 5) {
+			return $this->model_response(true, 200, array(), 'Already Payment Made for this Quote');
+		} elseif ($quotStatus->ord_quotStatusId == 3) {
+			$this->db->insert($this->tbl_order_payment, $this->build_model_data($order_payment, $this->prfx_order_payments));
+			$payment_id = $this->db->insert_id();
+			$status = new stdClass();
+			$status->statusId = 5;
+			$this->quote_model->update_status($status, $order_payment->orderId);
+			return $this->model_response(true, 200, array("paymentId" => $payment_id), 'Txn Details Updated.');
+		} elseif ($quotStatus->ord_quotStatusId == 6) {
+			return $this->model_response(true, 200, array(), "You can't process For This Quote");
+		}
 	}
 }

@@ -20,19 +20,22 @@ var dataColumns = [
     {
         "data": "status",
         render: function (dataField) {
-            if (dataField == 'Placed') {
+            if (dataField === 'Placed') {
                 return '<span class="label label-default">' + dataField + '</span>';
             }
-            if (dataField == 'Accepted') {
+            if (dataField === 'Price Quoted') {
                 return '<span class="label label-info">' + dataField + '</span>';
             }
-            if (dataField == 'Declined') {
+            if (dataField === 'Accepted') {
+                return '<span class="label label-info">' + dataField + '</span>';
+            }
+            if (dataField === 'Declined') {
                 return '<span class="label label-warning">' + dataField + '</span>';
             }
-            if (dataField == 'Paid') {
+            if (dataField === 'Paid') {
                 return '<span class="label label-pink">' + dataField + '</span>';
             }
-            if (dataField == 'Closed') {
+            if (dataField === 'Closed') {
                 return '<span class="label label-danger">' + dataField + '</span>';
             }
         }

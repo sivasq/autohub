@@ -68,7 +68,7 @@
 <script src="<?php echo base_url(); ?>assets/plugins/jquery-datatables-editable/jquery.dataTables.js"></script>
 <script src="<?php echo base_url(); ?>assets/plugins/datatables/dataTables.bootstrap.js"></script>
 <script src="<?php echo base_url(); ?>assets/plugins/tiny-editable/mindmup-editabletable.js"></script>
-<script src="<?php echo base_url(); ?>assets/plugins/tiny-editable/numeric-input-example.js"></script>
+<script src="<?php echo base_url(); ?>assets/pages/quote-item-inline-editable.js"></script>
 
 <!-- init -->
 <script src="<?php echo base_url(); ?>assets/pages/dataTables.rowGroup.min.js"></script>
@@ -169,7 +169,7 @@
 </script>
 
 <script>
-	$('#mainTable').editableTableWidget({needEdits: [6]}).numericInputExample(6).find('td:first').focus();
+	// $('#quoteItemsTable').editableTableWidget({needEdits: [6]}).numericInputExample(6).find('td:first').focus();
 </script>
 
 <script>

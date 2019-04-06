@@ -124,11 +124,19 @@
                 beforeSend: function (request) {
                     request.setRequestHeader(headerKey, headerValue);
                 }
-            }).success(function () {
-                swal("Success", "The Item Prices are Updated Successfully", "success");
-                $("#updateTable").removeAttr("disabled", "disabled");
+            }).success(function (response) {
+                if(response.status){
+                    swal("Success", "The Item Prices are Updated Successfully", "success");
+                    $("#updateTable").removeAttr("disabled", "disabled");
+                }else{
+                    if(!response.status){
+                        swal("Failed", "You Can't Update the Price", "error");
+                        $("#updateTable").removeAttr("disabled", "disabled");
+                    }
+                }
             }).fail(function () {
                 swal("Failed", "Fail to Update the price of the order", "error");
+                $("#updateTable").removeAttr("disabled", "disabled");
             });
         },
 
