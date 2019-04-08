@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 05, 2019 at 12:23 PM
+-- Generation Time: Apr 08, 2019 at 01:02 PM
 -- Server version: 8.0.13
 -- PHP Version: 7.2.12
 
@@ -209,6 +209,21 @@ INSERT INTO `commercial_car` (`commercial_id`, `user_id`, `car_type`, `com_name`
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `devices`
+--
+
+DROP TABLE IF EXISTS `devices`;
+CREATE TABLE IF NOT EXISTS `devices` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar(100) NOT NULL,
+  `token` text NOT NULL,
+  `soft_delete` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `orders`
 --
 
@@ -245,7 +260,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
 --
 
 INSERT INTO `orders` (`ord_id`, `ord_orderId`, `ord_quoteId`, `ord_userId`, `ord_statusId`, `ord_quotStatusId`, `ord_shippingAddressId`, `ord_shippingMethodId`, `ord_itemTotal`, `ord_shippingTotal`, `ord_grandTotal`, `ord_createdAt`, `ord_createdBy`, `ord_updatedAt`, `ord_updatedBy`, `ord_quotCreatedAt`, `ord_quotCreatedBy`, `ord_quotUpdatedAt`, `ord_quotUpdatedBy`, `ord_discountAmount`, `ord_discountPercent`, `ord_isOrder`, `ord_isQuote`) VALUES
-(76, 'OC-19-000076', 'QT-19-000076', 2, 1, 5, 0, 2, '1120.00', '20000.00', '21120.00', '2019-03-26 18:03:50', NULL, NULL, NULL, '2019-03-25 17:50:41', NULL, NULL, NULL, NULL, NULL, 1, 1),
+(76, 'OC-19-000076', 'QT-19-000076', 1, 1, 5, 0, 2, '1120.00', '20000.00', '21120.00', '2019-04-08 11:55:17', NULL, NULL, NULL, '2019-03-25 17:50:41', NULL, NULL, NULL, NULL, NULL, 1, 1),
 (78, NULL, 'QT-19-000078', 2, NULL, 2, NULL, NULL, '942.00', '0.00', '942.00', NULL, NULL, NULL, NULL, '2019-03-29 17:57:39', NULL, NULL, NULL, NULL, NULL, 0, 1),
 (79, NULL, 'QT-19-000079', 1, NULL, 2, NULL, NULL, '0.00', NULL, '-940.00', NULL, NULL, NULL, NULL, '2019-04-01 16:16:05', NULL, NULL, NULL, NULL, NULL, 0, 1),
 (80, NULL, 'QT-19-000080', 1, NULL, 1, NULL, NULL, '470.00', NULL, '0.00', NULL, NULL, NULL, NULL, '2019-04-01 17:42:19', NULL, NULL, NULL, NULL, NULL, 0, 1),
@@ -256,7 +271,7 @@ INSERT INTO `orders` (`ord_id`, `ord_orderId`, `ord_quoteId`, `ord_userId`, `ord
 (85, NULL, 'QT-19-000085', 1, NULL, 2, NULL, NULL, '890.00', NULL, '890.00', NULL, NULL, NULL, NULL, '2019-04-01 18:15:46', NULL, NULL, NULL, NULL, NULL, 0, 1),
 (86, NULL, 'QT-19-000086', 1, NULL, 2, NULL, NULL, '890.00', '0.00', '890.00', NULL, NULL, NULL, NULL, '2019-04-01 18:17:15', NULL, NULL, NULL, NULL, NULL, 0, 1),
 (87, NULL, 'QT-19-000087', 1, NULL, 2, NULL, NULL, '890.00', '0.00', '890.00', NULL, NULL, NULL, NULL, '2019-04-01 18:20:22', NULL, NULL, NULL, NULL, NULL, 0, 1),
-(88, NULL, 'QT-19-000088', 2, NULL, 1, NULL, NULL, '0.00', '0.00', '0.00', NULL, NULL, NULL, NULL, '2019-04-02 19:50:54', NULL, NULL, NULL, NULL, NULL, 0, 1);
+(88, NULL, 'QT-19-000088', 2, NULL, 1, NULL, NULL, '5621.00', NULL, '5621.00', NULL, NULL, NULL, NULL, '2019-04-02 19:50:54', NULL, NULL, NULL, NULL, NULL, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -315,10 +330,10 @@ INSERT INTO `order_details` (`ode_id`, `ode_orderId`, `ode_vehicleId`, `ode_prod
 (101, 86, 5, 17, 5, 2, NULL, 'Test comment', '270', '0.00', '0.00', '0.00', '2019-04-01 18:17:15', NULL, NULL, NULL, 'image1'),
 (102, 87, 5, 17, NULL, 2, NULL, 'Test comment', '270', '450.00', '10.00', '890.00', '2019-04-01 18:20:22', NULL, NULL, NULL, 'image1'),
 (103, 87, 5, 17, 5, 2, NULL, 'Test comment', '270', '0.00', '0.00', '0.00', '2019-04-01 18:20:22', NULL, NULL, NULL, 'image1'),
-(104, 88, 5, 3, 6, 1, NULL, 'Test comment', '240', '0.00', '0.00', '0.00', '2019-04-02 19:50:54', NULL, NULL, NULL, 'image1'),
-(105, 88, 5, 17, NULL, 1, NULL, 'Test comment', '280', '0.00', '0.00', '0.00', '2019-04-02 19:50:54', NULL, NULL, NULL, NULL),
-(106, 88, 5, 17, 5, 1, NULL, 'Test comment', '270', '0.00', '0.00', '0.00', '2019-04-02 19:50:54', NULL, NULL, NULL, 'image1'),
-(107, 88, 5, 17, 6, 1, NULL, 'Test comment', '270', '0.00', '0.00', '0.00', '2019-04-02 19:50:54', NULL, NULL, NULL, 'image1,image2'),
+(104, 88, 5, 3, 6, 1, NULL, 'Test comment', '240', '1200.00', '0.00', '1200.00', '2019-04-02 19:50:54', NULL, NULL, NULL, 'image1'),
+(105, 88, 5, 17, NULL, 1, NULL, 'Test comment', '280', '1400.00', '0.00', '1400.00', '2019-04-02 19:50:54', NULL, NULL, NULL, NULL),
+(106, 88, 5, 17, 5, 1, NULL, 'Test comment', '270', '2500.00', '0.00', '2500.00', '2019-04-02 19:50:54', NULL, NULL, NULL, 'image1'),
+(107, 88, 5, 17, 6, 1, NULL, 'Test comment', '270', '521.00', '0.00', '521.00', '2019-04-02 19:50:54', NULL, NULL, NULL, 'image1,image2'),
 (108, 88, 14, 17, NULL, 1, NULL, 'Test comment', '270', '0.00', '0.00', '0.00', '2019-04-02 19:50:54', NULL, NULL, NULL, NULL),
 (109, 88, 14, 18, NULL, 1, NULL, 'Xggdfg', '857575', '0.00', '0.00', '0.00', '2019-04-02 19:50:54', NULL, NULL, NULL, NULL),
 (110, 88, 13, 17, NULL, 1, NULL, 'Hcchyffh', '868885', '0.00', '0.00', '0.00', '2019-04-02 19:50:54', NULL, NULL, NULL, NULL);
@@ -361,7 +376,7 @@ CREATE TABLE IF NOT EXISTS `order_payments` (
   `orp_orderId` int(11) DEFAULT NULL,
   `orp_methodId` varchar(10) DEFAULT NULL,
   `orp_bankId` int(11) DEFAULT NULL,
-  `orp_status` varchar(10) DEFAULT NULL,
+  `orp_status` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `orp_txnId` varchar(45) DEFAULT NULL,
   `orp_createdAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `orp_createdBy` varchar(45) DEFAULT NULL,
@@ -375,7 +390,7 @@ CREATE TABLE IF NOT EXISTS `order_payments` (
 --
 
 INSERT INTO `order_payments` (`orp_id`, `orp_orderId`, `orp_methodId`, `orp_bankId`, `orp_status`, `orp_txnId`, `orp_createdBy`, `orp_updatedBy`) VALUES
-(5, 76, NULL, 1, NULL, '456456456', NULL, NULL);
+(5, 76, NULL, 1, 'verified', '456456456', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -388,13 +403,20 @@ CREATE TABLE IF NOT EXISTS `order_shippings` (
   `osh_id` int(11) NOT NULL AUTO_INCREMENT,
   `osh_orderId` int(11) DEFAULT NULL,
   `osh_methodId` int(11) DEFAULT NULL,
-  `osh_courierId` int(11) DEFAULT NULL,
-  `osh_courierTrackId` int(11) DEFAULT NULL,
+  `osh_courierId` varchar(24) DEFAULT NULL,
+  `osh_courierTrackId` varchar(24) DEFAULT NULL,
   `osh_amount` decimal(10,2) DEFAULT NULL,
   `osh_createdAt` datetime DEFAULT NULL,
   `osh_createdBy` int(11) DEFAULT NULL,
   PRIMARY KEY (`osh_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `order_shippings`
+--
+
+INSERT INTO `order_shippings` (`osh_id`, `osh_orderId`, `osh_methodId`, `osh_courierId`, `osh_courierTrackId`, `osh_amount`, `osh_createdAt`, `osh_createdBy`) VALUES
+(11, 76, NULL, 'sdfs', 'fsdf', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -418,11 +440,9 @@ CREATE TABLE IF NOT EXISTS `order_status` (
 --
 
 INSERT INTO `order_status` (`ost_id`, `ost_name`, `ost_Description`, `ost_order`, `ost_createdBy`) VALUES
-(1, 'order placed', NULL, 1, NULL),
-(2, 'price added', NULL, 2, NULL),
-(3, 'payment made', NULL, 3, NULL),
-(4, 'shipped', NULL, 4, NULL),
-(5, 'delivered', NULL, 5, NULL);
+(1, 'Placed', NULL, 1, NULL),
+(2, 'Shipped', NULL, 2, NULL),
+(3, 'Delivered', NULL, 3, NULL);
 
 -- --------------------------------------------------------
 

@@ -82,8 +82,9 @@
 
 
 <!-- Sweet Alert js -->
-<script src="<?php echo base_url(); ?>assets/plugins/bootstrap-sweetalert/sweet-alert.min.js"></script>
-<script src="<?php echo base_url(); ?>assets/pages/jquery.sweet-alert.init.js"></script>
+<script src="<?php echo base_url(); ?>assets/plugins/sweetalert2/sweetalert2.all.js"></script>
+<!--<script src="--><?php //echo base_url(); ?><!--assets/plugins/bootstrap-sweetalert/sweet-alert.min.js"></script>-->
+<!--<script src="--><?php //echo base_url(); ?><!--assets/pages/jquery.sweet-alert.init.js"></script>-->
 
 <!-- KNOB JS -->
 <!--[if IE]>
@@ -148,7 +149,7 @@
 	});
 
 	$('#logout').click(function () {
-		swal({
+		Swal.fire({
 			title: "Are you sure?",
 			text: "You will not be able to recover this imaginary file!",
 			type: "warning",
@@ -160,9 +161,9 @@
 			closeOnCancel: false
 		}, function (isConfirm) {
 			if (isConfirm) {
-				swal("Deleted!", "Your imaginary file has been deleted.", "success");
+				Swal.fire("Deleted!", "Your imaginary file has been deleted.", "success");
 			} else {
-				swal("Cancelled", "Your imaginary file is safe :)", "error");
+				Swal.fire("Cancelled", "Your imaginary file is safe :)", "error");
 			}
 		});
 	});

@@ -1,215 +1,287 @@
 <?php $this->load->view('includes/headers/admin-header'); ?>
 <script type="text/javascript">
-    var quoteId = <?php echo $itemData['id']; ?>;
-    var shippingCost = <?php echo isset($itemData) && !empty($itemData['shippingCost']) ? $itemData['shippingCost'] : "0"; ?>
+	var quoteId = <?php echo $itemData['id']; ?>;
+	var shippingCost =; <?php echo isset($itemData) && !empty($itemData['shippingCost']) ? $itemData['shippingCost'] : "0"; ?>
 </script>
 <script src="<?php echo base_url(); ?>assets/constants/quote-details.constants.js"></script>
 <div class="row">
-    <div class="col-sm-12">
-        <div class="card-box">
-            <div class="row">
-                <div class="col-lg-4">
-                    <h4 class="header-title m-t-0 m-b-30">Quote Information</h4>
-                    <form class="form-horizontal" role="form">
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">Quote ID</label>
-                            <div class="col-md-8">
-                                <input type="text" id="orderId" class="form-control" readonly="" value="<?php echo isset($itemData) && !empty($itemData['id']) ? $itemData['id'] : '....'; ?>">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">Order By</label>
-                            <div class="col-md-8">
-                                <input type="text" class="form-control" readonly="" value="<?php echo isset($itemData) && !empty($itemData['userName']) ? $itemData['userName'] : '....'; ?>">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">Status</label>
-                            <div class="col-md-8 input-group m-t-8">
-                                <select class="form-control select2 col-md-4" id="orderStatus">
-                                    <?php
-                                    if (isset($statusData))
-                                        foreach ($statusData as $value) {
-                                            $data = array_values($value);
-                                            ?>
-                                    <option <?php echo ($data[0] == $itemData['quoteStatus'] ? "selected" : ''); ?> value="<?php echo !empty($data[1]) ? $data[1] : ''; ?>">
-                                        <?php echo !empty($data[0]) ? $data[0] : ''; ?>
-                                    </option>
-                                    <?php
+	<div class="col-sm-12">
+		<div class="card-box">
+			<div class="row">
+				<div class="col-lg-4">
+					<h4 class="header-title m-t-0 m-b-30">Quote Information</h4>
+					<form class="form-horizontal" role="form">
+						<div class="form-group">
+							<label class="col-md-4 control-label">Quote ID</label>
+							<div class="col-md-8">
+								<input type="text" id="orderId" class="form-control" readonly=""
+								       value="<?php echo isset($itemData) && !empty($itemData['id']) ? $itemData['id'] : '....'; ?>">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-4 control-label">Order By</label>
+							<div class="col-md-8">
+								<input type="text" class="form-control" readonly=""
+								       value="<?php echo isset($itemData) && !empty($itemData['userName']) ? $itemData['userName'] : '....'; ?>">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-4 control-label">Status</label>
+							<div class="col-md-8 input-group m-t-8">
+								<select class="form-control select2 col-md-4" id="orderStatus">
+									<?php
+									if (isset($statusData))
+										foreach ($statusData as $value) {
+											$data = array_values($value);
+											?>
+											<option <?php echo($data[0] == $itemData['quoteStatus'] ? "selected" : ''); ?>
+													value="<?php echo !empty($data[1]) ? $data[1] : ''; ?>">
+												<?php echo !empty($data[0]) ? $data[0] : ''; ?>
+											</option>
+											<?php
+										}
+									?>
+								</select>
+								<span class="input-group-btn">
+                                    <button type="button" class="btn waves-effect waves-light btn-primary"
+                                            onclick="updateStatus()">Update</i></button></span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-4 control-label">Shipping Method</label>
+							<div class="col-md-8">
+								<input type="text" class="form-control" readonly=""
+								       value="<?php echo isset($itemData) && !empty($itemData['shippingMethod']) ? $itemData['shippingMethod'] : '....'; ?>">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-4 control-label">Shipping Cost</label>
+							<div class="col-md-8">
+								<input type="number" class="form-control" id="shippingCost" readonly=""
+								       value="<?php echo isset($itemData) && !empty($itemData['shippingCost']) ? $itemData['shippingCost'] : '....'; ?>">
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="col-lg-4">
+					<h4 class="header-title m-t-0 m-b-30">Shipping Information</h4>
+					<form class="form-horizontal" role="form">
+						<div class="form-group">
+							<label class="col-md-4 control-label">Name</label>
+							<div class="col-md-8">
+								<input type="text" class="form-control" readonly=""
+								       value="<?php echo isset($itemData) && !empty($itemData['shippingUser']) ? $itemData['shippingUser'] : '....'; ?>">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-4 control-label">Address</label>
+							<div class="col-md-8">
+								<textarea class="form-control" readonly
+								          rows="3"><?php echo isset($itemData) && !empty($itemData['shippingAddress']) ? $itemData['shippingAddress'] : '....'; ?></textarea>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-4 control-label">City</label>
+							<div class="col-md-8">
+								<input type="text" class="form-control" readonly=""
+								       value="<?php echo isset($itemData) && !empty($itemData['city']) ? $itemData['city'] : '....'; ?>">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-4 control-label">State</label>
+							<div class="col-md-8">
+								<input type="text" class="form-control" readonly=""
+								       value="<?php echo isset($itemData) && !empty($itemData['state']) ? $itemData['state'] : '....'; ?>">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-4 control-label">Country</label>
+							<div class="col-md-8">
+								<input type="text" class="form-control" readonly=""
+								       value="<?php echo isset($itemData) && !empty($itemData['country']) ? $itemData['country'] : '....'; ?>">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-4 control-label">PIN Code</label>
+							<div class="col-md-8">
+								<input type="text" class="form-control" readonly=""
+								       value="<?php echo isset($itemData) && !empty($itemData['postCode']) ? $itemData['postCode'] : '....'; ?>">
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="col-lg-4">
+					<h4 class="header-title m-t-0 m-b-30">Contact Information</h4>
+					<form class="form-horizontal" role="form">
+						<div class="form-group">
+							<label class="col-md-4 control-label">E-Mail</label>
+							<div class="col-md-8">
+								<input type="text" class="form-control" readonly=""
+								       value="<?php echo isset($itemData) && !empty($itemData['email']) ? $itemData['email'] : '....'; ?>">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-4 control-label">Contact</label>
+							<div class="col-md-8">
+								<input type="text" class="form-control" readonly=""
+								       value="<?php echo isset($itemData) && !empty($itemData['phone']) ? $itemData['phone'] : '....'; ?>">
+							</div>
+						</div>
+					</form>
 
-                                }
-                            ?>
-                                </select>
-                                <span class="input-group-btn">
-                                    <button type="button" class="btn waves-effect waves-light btn-primary" onclick="updateStatus()">Update</i></button></span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">Shipping Method</label>
-                            <div class="col-md-8">
-                                <input type="text" class="form-control" readonly="" value="<?php echo isset($itemData) && !empty($itemData['shippingMethod']) ? $itemData['shippingMethod'] : '....'; ?>">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">Shipping Cost</label>
-                            <div class="col-md-8">
-                                <input type="number" class="form-control" id="shippingCost" readonly="" value="<?php echo isset($itemData) && !empty($itemData['shippingCost']) ? $itemData['shippingCost'] : '....'; ?>">
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="col-lg-4">
-                    <h4 class="header-title m-t-0 m-b-30">Shipping Information</h4>
-                    <form class="form-horizontal" role="form">
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">Name</label>
-                            <div class="col-md-8">
-                                <input type="text" class="form-control" readonly="" value="<?php echo isset($itemData) && !empty($itemData['shippingUser']) ? $itemData['shippingUser'] : '....'; ?>">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">Address</label>
-                            <div class="col-md-8">
-                                <textarea class="form-control" readonly rows="3"><?php echo isset($itemData) && !empty($itemData['shippingAddress']) ? $itemData['shippingAddress'] : '....'; ?></textarea>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">City</label>
-                            <div class="col-md-8">
-                                <input type="text" class="form-control" readonly="" value="<?php echo isset($itemData) && !empty($itemData['city']) ? $itemData['city'] : '....'; ?>">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">State</label>
-                            <div class="col-md-8">
-                                <input type="text" class="form-control" readonly="" value="<?php echo isset($itemData) && !empty($itemData['state']) ? $itemData['state'] : '....'; ?>">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">Country</label>
-                            <div class="col-md-8">
-                                <input type="text" class="form-control" readonly="" value="<?php echo isset($itemData) && !empty($itemData['country']) ? $itemData['country'] : '....'; ?>">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">PIN Code</label>
-                            <div class="col-md-8">
-                                <input type="text" class="form-control" readonly="" value="<?php echo isset($itemData) && !empty($itemData['postCode']) ? $itemData['postCode'] : '....'; ?>">
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="col-lg-4">
-                    <h4 class="header-title m-t-0 m-b-30">Contact Information</h4>
-                    <form class="form-horizontal" role="form">
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">E-Mail</label>
-                            <div class="col-md-8">
-                                <input type="text" class="form-control" readonly="" value="<?php echo isset($itemData) && !empty($itemData['email']) ? $itemData['email'] : '....'; ?>">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">Contact</label>
-                            <div class="col-md-8">                                
-                                <input type="text" class="form-control" readonly="" value="<?php echo isset($itemData) && !empty($itemData['phone']) ? $itemData['phone'] : '....'; ?>">                                
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+					<?php if (isset($itemData) && !empty($itemData['paymentStatus'])) { ?>
+						<h4 class="header-title m-t-30 m-b-30">Payment Information</h4>
+						<form class="form-horizontal" role="form">
+							<div class="form-group">
+								<label class="col-md-4 control-label">Txn Id</label>
+								<div class="col-md-8">
+									<input type="text" class="form-control" readonly=""
+									       value="<?php echo isset($itemData) && !empty($itemData['txnId']) ? $itemData['txnId'] : '....'; ?>">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-4 control-label">Txn date</label>
+								<div class="col-md-8">
+									<input type="text" class="form-control" readonly=""
+									       value="<?php echo isset($itemData) && !empty($itemData['txnDate']) ? $itemData['txnDate'] : '....'; ?>">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-md-4 control-label">Txn Status</label>
+								<div class="col-md-8 input-group m-t-8">
+									<select class="form-control select2 col-md-4" id="txnStatus">
+										<option <?php echo("underVerification" == $itemData['paymentStatus'] ? "selected" : ''); ?>
+												value="underVerification">UnderVerification
+										</option>
+										<option <?php echo("verified" == $itemData['paymentStatus'] ? "selected" : ''); ?>
+												value="verified">Verified
+										</option>
+									</select>
+									<span class="input-group-btn">
+                                    <button type="button" class="btn waves-effect waves-light btn-primary"
+                                            onclick="updatePaymentStatus()">Update</button></span>
+								</div>
+							</div>
+
+						</form>
+					<?php } ?>
+
+					<?php if (isset($itemData) && ($itemData['paymentStatus'] == "verified") && ($itemData['quotStatusId'] == 5) && !$itemData['isOrder']) { ?>
+						<form class="form-horizontal" role="form">
+							<div class="form-group">
+								<div class="col-md-offset-4">
+									<button type="button" class="btn waves-effect waves-light btn-primary"
+									        onclick="convertOrder()">Convert To Order
+									</button>
+								</div>
+							</div>
+						</form>
+					<?php } ?>
+
+					<?php if (isset($itemData) && ($itemData['paymentStatus'] == "verified") && ($itemData['quotStatusId'] == 5) && $itemData['isOrder']) { ?>
+						<p class="text-center" style="color:#00CC00; font-weight: bold;">This Quote is Converted to
+							Order <?php echo isset($itemData) && !empty($itemData['orderId']) ? $itemData['orderId'] : '....'; ?></p>
+					<?php } ?>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
 <div class="row">
-    <div class="col-sm-12">
-        <div class="panel">
-            <div class="panel-body">
-                <div class="editable-responsive">
-                    <table id="quoteItemsTable" class="table table-striped m-b-0">
-                        <thead>
-                            <tr>
-                                <th hidden></th>
-                                <th>Product Type</th>
-                                <th>Item Name</th>
-                                <th>Product Category</th>
-                                <th>Vehicle</th>
-                                <th>Current Mileage</th>
-                                <th>Item Price</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            if (isset($itemData)) {
-                                $orderItems = $itemData['orderItems'];
-                                foreach ($orderItems as $value) {
-                                    ?>
-                            <tr class="gradeU">
-                                <td hidden><?php echo $value["itemId"] ?></td>
-                                <td><?php echo $value["productType"] ?></td>
-                                <td><?php echo $value["itemName"] ?></td>
-                                <td><?php echo $value["productCategory"] ?></td>
-                                <td><?php echo $value["vehicleInfo"] ?></td>
-                                <td><?php echo $value["currentMileage"] ?></td>
-                                <td><?php echo $value["itemPrice"] ?></td>
-                                <?php
-                            }
-                            ?>
-                            </tr>
-                            <?php
-                        }
-                        ?>
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <th hidden></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th><strong>TOTAL</strong></th>
-                                <th></th>
-                            </tr>
-                        </tfoot>
-                    </table>
-                    <div class="row" <?php echo "accepted" == $itemData['quoteStatus'] ? "hidden" : ''; ?> id="updatePriceDiv">
-                        <div class="col-sm-6">
-                            <div class="m-b-30">
-                                <button id="updateTable" class="btn btn-primary waves-effect waves-light">Update <i class="fa fa-save"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- end: panel body -->
+	<div class="col-sm-12">
+		<div class="panel">
+			<div class="panel-body">
+				<div class="editable-responsive">
+					<table id="quoteItemsTable" class="table table-striped m-b-0">
+						<thead>
+						<tr>
+							<th hidden></th>
+							<th>Product Type</th>
+							<th>Item Name</th>
+							<th>Product Category</th>
+							<th>Vehicle</th>
+							<th>Current Mileage</th>
+							<th>Item Price</th>
+						</tr>
+						</thead>
+						<tbody>
+						<?php
+						if (isset($itemData)) {
+							$orderItems = $itemData['orderItems'];
+							foreach ($orderItems as $value) {
+								?>
+								<tr class="gradeU">
+									<td hidden><?php echo $value["itemId"] ?></td>
+									<td><?php echo $value["productType"] ?></td>
+									<td><?php echo $value["itemName"] ?></td>
+									<td><?php echo $value["productCategory"] ?></td>
+									<td><?php echo $value["vehicleInfo"] ?></td>
+									<td><?php echo $value["currentMileage"] ?></td>
+									<td><?php echo $value["itemPrice"] ?></td>
+								</tr>
+								<?php
+							}
+							?>
+							<?php
+						}
+						?>
+						</tbody>
+						<tfoot>
+						<tr>
+							<th hidden></th>
+							<th></th>
+							<th></th>
+							<th></th>
+							<th></th>
+							<th><strong>TOTAL</strong></th>
+							<th></th>
+						</tr>
+						</tfoot>
+					</table>
+					<div class="row" <?php echo $itemData['quotStatusId'] >= 3 ? "hidden" : ''; ?>
+					     id="updatePriceDiv">
+						<div class="col-sm-6">
+							<div class="m-b-30">
+								<button id="updateTable" class="btn btn-primary waves-effect waves-light">Update <i
+											class="fa fa-save"></i></button>
+							</div>
+						</div>
+					</div>
+					<button type="button" class="btn waves-effect waves-light btn-primary"
+					        onclick="test()">Update</i></button></span>
+				</div>
+			</div>
+			<!-- end: panel body -->
 
-        </div> <!-- end panel -->
-    </div> <!-- end col-->
+		</div> <!-- end panel -->
+	</div> <!-- end col-->
 </div>
 
 </div>
 
 <div id="dialog" class="modal-block mfp-hide">
-    <section class="panel panel-info panel-color">
-        <header class="panel-heading">
-            <h2 class="panel-title">Are you sure?</h2>
-        </header>
-        <div class="panel-body">
-            <div class="modal-wrapper">
-                <div class="modal-text">
-                    <p>Are you sure that you want to delete this row?</p>
-                </div>
-            </div>
+	<section class="panel panel-info panel-color">
+		<header class="panel-heading">
+			<h2 class="panel-title">Are you sure?</h2>
+		</header>
+		<div class="panel-body">
+			<div class="modal-wrapper">
+				<div class="modal-text">
+					<p>Are you sure that you want to delete this row?</p>
+				</div>
+			</div>
 
-            <div class="row m-t-20">
-                <div class="col-md-12 text-right">
-                    <button id="dialogConfirm" class="btn btn-primary waves-effect waves-light">Confirm</button>
-                    <button id="dialogCancel" class="btn btn-default waves-effect">Cancel</button>
-                </div>
-            </div>
-        </div>
+			<div class="row m-t-20">
+				<div class="col-md-12 text-right">
+					<button id="dialogConfirm" class="btn btn-primary waves-effect waves-light">Confirm</button>
+					<button id="dialogCancel" class="btn btn-default waves-effect">Cancel</button>
+				</div>
+			</div>
+		</div>
 
-    </section>
+	</section>
 </div>
 <!-- end row -->
 <?php $this->load->view('includes/footers/admin-footer'); ?>

@@ -260,6 +260,15 @@ class Order_model extends Generic_model
         return $this->model_response(true, 200, array("shippingAddressId" => $this->db->insert_id()));
     }
 
+	public function insert_courier_details($courierDetails)
+	{
+//		$shippingData = $this->create_model($courierDetails, self::SHA);
+		$this->db->insert($this->tbl_order_shipping, $courierDetails);
+
+		return $this->model_response(true, 200, array("shippingId" => $this->db->insert_id()));
+	}
+
+
     //Shipping methods
     public function list_shipping_methods()
     {
@@ -311,7 +320,7 @@ class Order_model extends Generic_model
 
     public function get_order_status()
     {
-        $this->db->select("ost_name,ost_order");
+        $this->db->select("ost_name, ost_order");
         $this->db->from($this->table_order_status);
         $result = $this->db->get()->result_array();
         $response_data = $this->camelize_array_data($result);

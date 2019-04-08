@@ -4,6 +4,8 @@ var tableName ='';
 var baseUrl = window.location.origin + '/autohub/index.php/quote/get-details/quote-id/' + quoteId;
 var updateUrl = window.location.origin + '/autohub/index.php/quote-items/price';
 var updateStatusUrl = window.location.origin + '/autohub/index.php/quote/status/update';
+var updatePaymentStatusUrl = window.location.origin + '/autohub/index.php/quote/payment/update';
+var convertorder = window.location.origin + '/autohub/index.php/quote/convertToOrder/quote-id/' + quoteId;
 var data_id = 'itemId';
 var dataColumns = [
     // {"data": "productType"},

@@ -191,9 +191,9 @@
                                 <li>
                                     <a href="<?php echo api_url('quotes/index'); ?>">Quotes</a>
                                 </li>
-                                <li>
-                                    <a href="<?php echo api_url('quotes/reqs'); ?>">Quote Reqs.</a>
-                                </li>
+<!--                                <li>-->
+<!--                                    <a href="--><?php //echo api_url('quotes/reqs'); ?><!--">Quote Reqs.</a>-->
+<!--                                </li>-->
                             </ul>
                         </li>
 
@@ -203,9 +203,6 @@
                             <ul class="list-unstyled">
                                 <li>
                                     <a href="<?php echo api_url('orders/index'); ?>">Orders</a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo api_url('admin/shipping/methods'); ?>">Methods</a>
                                 </li>
                             </ul>
                         </li>

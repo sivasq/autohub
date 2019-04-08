@@ -1,6 +1,6 @@
 <?php
 
- use Libraries\REST_Controller;
+use Libraries\REST_Controller;
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
@@ -34,10 +34,10 @@ class Auth extends My_Controller
 	 */
 	public function user_registration_post()
 	{
-		if ($this->Auth_model->email_availability( $this->httpRequest))
+		if ($this->Auth_model->email_availability($this->httpRequest))
 			$this->response(array(false, 202, "This Email Already Registered"), REST_Controller::HTTP_OK);
 
-		$response = $this->Auth_model->user_reg( $this->httpRequest);
+		$response = $this->Auth_model->user_reg($this->httpRequest);
 		if ($response[0]) {
 			$otp = $response[3]['otp'];
 			$firstName = $response[3]['first_name'];
@@ -61,7 +61,7 @@ class Auth extends My_Controller
 	 */
 	public function send_otp_post()
 	{
-		$response = $this->Auth_model->send_otp( $this->httpRequest);
+		$response = $this->Auth_model->send_otp($this->httpRequest);
 
 		if ($response[0]) {
 			$otp = $response[3]['otp'];
@@ -83,7 +83,7 @@ class Auth extends My_Controller
 	 */
 	public function otp_verify_post()
 	{
-		$response = $this->Auth_model->verify_otp( $this->httpRequest);
+		$response = $this->Auth_model->verify_otp($this->httpRequest);
 		$this->response($response, REST_Controller::HTTP_OK);
 	}
 
@@ -92,7 +92,7 @@ class Auth extends My_Controller
 	 */
 	public function user_login_auth1_post()
 	{
-		$response = $this->Auth_model->login_auth( $this->httpRequest);
+		$response = $this->Auth_model->login_auth($this->httpRequest);
 		$this->response($response, REST_Controller::HTTP_OK);
 	}
 
@@ -101,10 +101,10 @@ class Auth extends My_Controller
 	 */
 	public function user_login_auth_post()
 	{
-		if (!$this->Auth_model->is_email_verified( $this->httpRequest))
+		if (!$this->Auth_model->is_email_verified($this->httpRequest))
 			$this->response($this->Auth_model->model_response(true, 202, array(), "Email Not Verified"), REST_Controller::HTTP_OK);
 
-		$response_query = $this->Auth_model->login_auth( $this->httpRequest);
+		$response_query = $this->Auth_model->login_auth($this->httpRequest);
 		$response = array();
 		if ($response_query->num_rows() > 0) {
 			$userData = $response_query->row();
@@ -136,41 +136,6 @@ class Auth extends My_Controller
 		$this->response($this->Auth_model->model_response(true, 202, $response, "Login Success"), REST_Controller::HTTP_OK);
 	}
 
-	public function change_password_post()
-	{
-		if (!$this->Auth_model->email_availability( $this->httpRequest)) {
-			$this->response($this->Auth_model->model_response(false, 500, array(), "This Email Not Registered"), REST_Controller::HTTP_OK);
-		}
-
-		if (!$this->Auth_model->is_email_verified( $this->httpRequest))
-			$this->response($this->Auth_model->model_response(true, 202, array(), "Email Not Verified"), REST_Controller::HTTP_OK);
-
-		$response = $this->Auth_model->update_password( $this->httpRequest);
-
-		$this->response($response, REST_Controller::HTTP_OK);
-	}
-
-	/*
-	 * No Body
-	 */
-	public function logout_post()
-	{
-		$key = $this->_head_args['x-api-key'];
-
-		// Does this key exist?
-		if (!$this->_key_exists($key)) {
-			// It doesn't appear the key exists
-			$this->response($this->Auth_model->model_response(false, 400, array(), "Invalid API key"), REST_Controller::HTTP_BAD_REQUEST);
-		}
-
-		// Destroy it
-		$this->_delete_key($key);
-
-		// Respond that the key was destroyed
-		$this->response($this->Auth_model->model_response(true, 294, array(), "Logout success"), REST_Controller::HTTP_OK);
-	}
-
-	/* Helper Methods */
 	private function _generate_key()
 	{
 		do {
@@ -188,14 +153,9 @@ class Auth extends My_Controller
 		return $new_key;
 	}
 
-	/* Private Data Methods */
-	private function _get_key($key)
-	{
-		return $this->rest->db
-			->where(config_item('rest_key_column'), $key)
-			->get(config_item('rest_keys_table'))
-			->row();
-	}
+	/*
+	 * No Body
+	 */
 
 	private function _key_exists($key)
 	{
@@ -203,6 +163,8 @@ class Auth extends My_Controller
 				->where(config_item('rest_key_column'), $key)
 				->count_all_results(config_item('rest_keys_table')) > 0;
 	}
+
+	//storing token in database
 
 	private function _insert_key($key, $data)
 	{
@@ -215,11 +177,39 @@ class Auth extends My_Controller
 			->insert(config_item('rest_keys_table'));
 	}
 
-	private function _update_key($key, $data)
+	/* Helper Methods */
+
+	public function change_password_post()
 	{
-		return $this->rest->db
-			->where(config_item('rest_key_column'), $key)
-			->update(config_item('rest_keys_table'), $data);
+		if (!$this->Auth_model->email_availability($this->httpRequest)) {
+			$this->response($this->Auth_model->model_response(false, 500, array(), "This Email Not Registered"), REST_Controller::HTTP_OK);
+		}
+
+		if (!$this->Auth_model->is_email_verified($this->httpRequest))
+			$this->response($this->Auth_model->model_response(true, 202, array(), "Email Not Verified"), REST_Controller::HTTP_OK);
+
+		$response = $this->Auth_model->update_password($this->httpRequest);
+
+		$this->response($response, REST_Controller::HTTP_OK);
+	}
+
+	/* Private Data Methods */
+
+	public function logout_post()
+	{
+		$key = $this->_head_args['x-api-key'];
+
+		// Does this key exist?
+		if (!$this->_key_exists($key)) {
+			// It doesn't appear the key exists
+			$this->response($this->Auth_model->model_response(false, 400, array(), "Invalid API key"), REST_Controller::HTTP_BAD_REQUEST);
+		}
+
+		// Destroy it
+		$this->_delete_key($key);
+
+		// Respond that the key was destroyed
+		$this->response($this->Auth_model->model_response(true, 294, array(), "Logout success"), REST_Controller::HTTP_OK);
 	}
 
 	private function _delete_key($key)
@@ -229,11 +219,39 @@ class Auth extends My_Controller
 			->delete(config_item('rest_keys_table'));
 	}
 
+	public function registerDevice()
+	{
+		if (!$this->Auth_model->email_availability($this->httpRequest)) {
+			if ($this->Auth_model->registerNewDevice($this->httpRequest)) {
+				$this->response(array(), 200);
+			} else {
+				$this->response(array(), 202);
+			}
+		} else {
+			$this->response(array(false, 202, "Device already registered"), REST_Controller::HTTP_OK);
+		}
+	}
+
 	public function timezone_get()
 	{
 		$date = new DateTime();
 		$timeZone = $date->getTimezone();
 		echo $timeZone->getName();
 		print_r(ini_get('date.timezone'));
+	}
+
+	private function _get_key($key)
+	{
+		return $this->rest->db
+			->where(config_item('rest_key_column'), $key)
+			->get(config_item('rest_keys_table'))
+			->row();
+	}
+
+	private function _update_key($key, $data)
+	{
+		return $this->rest->db
+			->where(config_item('rest_key_column'), $key)
+			->update(config_item('rest_keys_table'), $data);
 	}
 }

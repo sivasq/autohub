@@ -23,7 +23,7 @@ class Orders extends User_Controller
     {
         $orderId = $this->get_path_variable('order-id');
         $data = new stdClass();
-        $data->page_name = "Orders";
+        $data->page_name = "Orders Details";
         $data->itemData = $this->Order_model->get_order_items_by_id($orderId);
         $data->statusData = $this->Order_model->get_order_status();
 //        echo json_encode($data);

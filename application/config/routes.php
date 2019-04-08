@@ -254,6 +254,7 @@ $route['quotes/reqsviewdata/item-id/(:any)'] = 'webapp/quotes/req_detail_view';
 
 $route['quote-items/price/update'] = 'apiv1/quote/update_items_price';
 $route['quote/status/update'] = 'apiv1/quote/update_status';
+$route['quote/payment/update'] = 'apiv1/quote/update_payment_status';
 
 //---------Shipping Method------------//
 $route['shipping-method'] = 'webapp/ShippingMethod/index';
@@ -262,3 +263,6 @@ $route['shipping-method/delete'] = 'webapp/ShippingMethod/delete';
 
 //Image Manage
 $route['imagemanage/upload'] = 'apiv1/imagemanage/upload';
+
+//FCM Notifiction
+$route['sendfcm'] = 'notify/fcm';

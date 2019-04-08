@@ -126,16 +126,16 @@
                 }
             }).success(function (response) {
                 if(response.status){
-                    swal("Success", "The Item Prices are Updated Successfully", "success");
+                    Swal.fire("Success", "The Item Prices are Updated Successfully", "success");
                     $("#updateTable").removeAttr("disabled", "disabled");
                 }else{
                     if(!response.status){
-                        swal("Failed", "You Can't Update the Price", "error");
+                        Swal.fire("Failed", "You Can't Update the Price", "error");
                         $("#updateTable").removeAttr("disabled", "disabled");
                     }
                 }
             }).fail(function () {
-                swal("Failed", "Fail to Update the price of the order", "error");
+                Swal.fire("Failed", "Fail to Update the price of the order", "error");
                 $("#updateTable").removeAttr("disabled", "disabled");
             });
         },
@@ -219,10 +219,10 @@
             $.post(baseUrl + '/delete', {
                 id: data[data_id]
             }).success(function () {
-                swal("Success", "The Record with ID : " + data[data_id] + " has been successfully deleted", "success");
+                Swal.fire("Success", "The Record with ID : " + data[data_id] + " has been successfully deleted", "success");
                 that.datatable.row($row.get(0)).remove().draw();
             }).fail(function () {
-                swal("Failed", "Fail to delete the record", "error");
+                Swal.fire("Failed", "Fail to delete the record", "error");
             });
         },
 

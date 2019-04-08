@@ -21,7 +21,7 @@ class Base_Controller extends MX_Controller
 		$this->load->library('form_validation');
 		$this->load->helper(array('form', 'url', 'date', 'custom'));
 		$this->load->database();
-		$this->load->model('admin_model');
+//		$this->load->model('admin_model');
 	}
 
 	public function sendEmail($message, $to_email, $subject)

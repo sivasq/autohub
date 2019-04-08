@@ -349,6 +349,25 @@ class Quote_model extends Generic_model
 		}
 	}
 
+	public function update_payment_status($httpRequest, $quoteId)
+	{
+		$statusData = array(
+			'orp_status' => $this->validate_input($httpRequest, "orp_status")
+		);
+		if (isset($statusData)) {
+			$this->db->where("orp_orderId", $quoteId);
+			$this->db->update($this->tbl_order_payment, $statusData);
+
+			$updateData = new stdClass();
+			$updateData->statusId = 5;
+
+			return $this->Quote_model->update_status($updateData, $quoteId);
+
+		} else {
+			return $this->model_response(true, 400, array(), "Invalid Request");
+		}
+	}
+
 	public function update_quote_shipping($httpRequest, $quoteId)
 	{
 		$shippingData = array(
@@ -496,7 +515,7 @@ class Quote_model extends Generic_model
 
 	public function get_quote_items_by_id($quoteId)
 	{
-		$this->db->select("concat(first_name, ' ', last_name) as userName, ord_id, ord_quoteId, ord_orderId, ord_quotStatusId, ord_shippingAddressId as shippingAddressId, concat(sha_firstName, ' ', sha_lastName) as shippingUser, concat(sha_addressLine1, ', ', sha_addressLine2,', ', sha_city,', ', sha_state,', ', sha_country) as shippingAddress, sha_city, sha_state, sha_country, sha_postCode, sha_phone, sha_email, ord_shippingMethodId as shippingMethodId, shm_name as shippingMethod, ord_shippingTotal as shippingCost, ord_quotStatusId, qst_name as quoteStatus, ode_id as itemId, ode_productConditionId as itemConditionId, pco_name as itemConditionName, ode_productId, prd_name as ord_itemName, ode_price as itemPrice, ode_discount as itemDiscount, ode_total as itemTotal, ode_comment, ode_currentMileage, ode_vehicleId, concat(vhl_make,' ',vhl_model,' ',vhl_year) as vehicleInfo, vhl_vin as vehicleVin, vhl_make as vehicleMake, vhl_model as vehicleModel, vhl_year as vehicleYear, vhl_image as vehicleImage, pty_name as productType, pca_name as productCategory");
+		$this->db->select("concat(first_name, ' ', last_name) as userName, ord_id, ord_quoteId, ord_orderId, ord_quotStatusId, ord_isQuote, ord_isOrder, ord_shippingAddressId as shippingAddressId, concat(sha_firstName, ' ', sha_lastName) as shippingUser, concat(sha_addressLine1, ', ', sha_addressLine2,', ', sha_city,', ', sha_state,', ', sha_country) as shippingAddress, sha_city, sha_state, sha_country, sha_postCode, sha_phone, sha_email, ord_shippingMethodId as shippingMethodId, shm_name as shippingMethod, ord_shippingTotal as shippingCost, ord_quotStatusId, qst_name as quoteStatus, ode_id as itemId, ode_productConditionId as itemConditionId, pco_name as itemConditionName, ode_productId, prd_name as ord_itemName, ode_price as itemPrice, ode_discount as itemDiscount, ode_total as itemTotal, ode_comment, ode_currentMileage, ode_vehicleId, concat(vhl_make,' ',vhl_model,' ',vhl_year) as vehicleInfo, vhl_vin as vehicleVin, vhl_make as vehicleMake, vhl_model as vehicleModel, vhl_year as vehicleYear, vhl_image as vehicleImage, pty_name as productType, pca_name as productCategory, orp_status as orp_paymentStatus, orp_txnId, orp_createdAt as txnDate");
 		$this->db->from($this->table);
 		$this->db->join($this->tbl_users, "user_id = ord_userId", "left");
 		$this->db->join($this->table_quote_status, "ord_quotStatusId = qst_id", "left");
@@ -508,9 +527,10 @@ class Quote_model extends Generic_model
 		$this->db->join($this->table_shipping_methods, "shm_id = ord_shippingMethodId", "left");
 		$this->db->join($this->table_product_type, "pty_id = prd_typeId", "left");
 		$this->db->join($this->table_product_categories, "pca_id = prd_categoryId", "left");
+		$this->db->join($this->tbl_order_payment, "orp_orderId = ord_id", "left");
 		$this->db->where('ode_orderId', $quoteId);
 		$result = $this->db->get()->result_array();
-		$response_data = $this->build_response_array($result, "category");
+		$response_data = $this->build_response_array($result, "category", array('txnDate'));
 
 		//Mapping order items
 		$response_data = $this->map_response($response_data, array("orderItems" => array("itemName", "itemPrice", "itemConditionId", "itemConditionName", "comment", "currentMileage", "vehicleId", "vehicleVin", "vehicleMake", "vehicleModel", "vehicleYear", "vehicleImage", "productType", "productCategory", "vehicleInfo", "itemId")), true);

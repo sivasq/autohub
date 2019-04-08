@@ -177,6 +177,15 @@ class Quote extends MY_Controller
 		return $this->response($this->Quote_model->update($updateData, $orderId));
 	}
 
+	public function update_payment_status_put()
+	{
+		$updateData = $this->httpRequest;
+		$orderId = $updateData->orp_orderId;
+		unset($updateData->orp_orderId);
+
+		return $this->response($this->Quote_model->update_payment_status($updateData, $orderId));
+	}
+
 //    private function send_notification($orderStatusId)
 //    {
 //

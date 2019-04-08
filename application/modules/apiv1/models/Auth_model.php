@@ -4,12 +4,52 @@ require_once APPPATH . 'core/Generic_model.php';
 class Auth_model extends Generic_model
 {
 	var $table = 'users';
+	var $table_devices = 'devices';
 	var $table_api_key = 'apikeys';
 	var $prfx = '';
 
 	function __construct()
 	{
 		parent::__construct($this->table, $this->prfx);
+	}
+
+	public function user_reg($httpRequest)
+	{
+		$userData = $this->build_model_data($httpRequest, $this->prfx, array("otp" => rand(1000, 9999), 'otp_is_expired' => 0, 'is_email_verified' => 0, 'created_at' => date('Y-m-d H:i:s'), 'otp_created_at' => date('Y-m-d H:i:s')));
+		$this->db->insert($this->table, (array)$userData);
+
+		if (!empty($db_error)) {
+			return $this->model_response(false, 500, array(), "Error on registering user");
+		}
+		return $this->model_response(true, 202, $userData, "User Registered Successfully! Gohead...");
+	}
+
+	public function send_otp($httpRequest)
+	{
+		if (!$this->email_availability($httpRequest)) {
+			return $this->model_response(false, 500, array(), "Invalid Email");
+		}
+
+		if ($this->is_email_verified($httpRequest)) {
+			return $this->model_response(true, 500, array(), "This Email Already Verified");
+		}
+
+		$otpData = $this->build_model_data($httpRequest, $this->prfx, array("otp" => rand(1000, 9999), 'otp_is_expired' => 0, 'is_email_verified' => 0, 'otp_created_at' => date('Y-m-d H:i:s')));
+
+		unset($otpData['email']);
+		$this->db->where('email', $httpRequest->email);
+		$this->db->update($this->table, $otpData);
+
+		if (!empty($db_error)) {
+			return $this->model_response(false, 500, array(), "Error on Generating OTP");
+		}
+
+		$this->db->select('*');
+		$this->db->from($this->table);
+		$this->db->where('email', $httpRequest->email);
+		$userData = $this->db->get()->row();
+
+		return $this->model_response(true, 202, json_decode(json_encode($userData), True), "success on OTP Generation");
 	}
 
 	public function email_availability($httpRequest)
@@ -35,52 +75,13 @@ class Auth_model extends Generic_model
 		}
 	}
 
-	public function user_reg($httpRequest)
-	{
-		$userData = $this->build_model_data($httpRequest, $this->prfx, array("otp" => rand(1000, 9999), 'otp_is_expired' => 0, 'is_email_verified' => 0, 'created_at' => date('Y-m-d H:i:s'), 'otp_created_at' => date('Y-m-d H:i:s')));
-		$this->db->insert($this->table, (array)$userData);
-
-		if (!empty($db_error)) {
-			return $this->model_response(false, 500, array(), "Error on registering user");
-		}
-		return $this->model_response(true, 202, $userData, "User Registered Successfully! Gohead...");
-	}
-
-	public function send_otp($httpRequest)
-	{
-		if (!$this->email_availability( $httpRequest)) {
-			return $this->model_response(false, 500, array(), "Invalid Email");
-		}
-
-		if ($this->is_email_verified( $httpRequest)) {
-			return $this->model_response(true, 500, array(), "This Email Already Verified");
-		}
-
-		$otpData = $this->build_model_data($httpRequest, $this->prfx, array("otp" => rand(1000, 9999), 'otp_is_expired' => 0, 'is_email_verified' => 0, 'otp_created_at' => date('Y-m-d H:i:s')));
-
-		unset($otpData['email']);
-		$this->db->where('email', $httpRequest->email);
-		$this->db->update($this->table, $otpData);
-
-		if (!empty($db_error)) {
-			return $this->model_response(false, 500, array(), "Error on Generating OTP");
-		}
-
-		$this->db->select('*');
-		$this->db->from($this->table);
-		$this->db->where('email', $httpRequest->email);
-		$userData = $this->db->get()->row();
-
-		return $this->model_response(true, 202, json_decode(json_encode($userData), True), "success on OTP Generation");
-	}
-
 	public function verify_otp($httpRequest)
 	{
-		if (!$this->email_availability( $httpRequest)) {
+		if (!$this->email_availability($httpRequest)) {
 			return $this->model_response(false, 500, array(), "Email not exists!");
 		}
 
-		if ($this->is_email_verified( $httpRequest)) {
+		if ($this->is_email_verified($httpRequest)) {
 			return $this->model_response(true, 500, array(), "This Email Already Verified");
 		}
 		$currentDateTime = date("Y-m-d H:i:s");
@@ -132,20 +133,46 @@ class Auth_model extends Generic_model
 		return $this->model_response(true, 202, $response, "Login Success");
 	}
 
-	public function login_auth( $httpRequest)
+	public function login_auth($httpRequest)
 	{
 		$this->db->where(array('email' => $httpRequest->email, 'password' => $httpRequest->password));
 		$query = $this->db->get($this->table);
 		return $query;
 	}
 
-	public function update_password( $httpRequest)
+	public function update_password($httpRequest)
 	{
 		$this->db->where('email', $httpRequest->email);
 		$this->db->set('password', $httpRequest->password);
 		$this->db->update($this->table);
 
 		return $this->model_response(true, 202, array(), 'Password Updated successfully');
+	}
+
+	public function registerNewDevice($httpRequest)
+	{
+		$deviceData = $this->build_model_data($httpRequest);
+		$this->db->insert($this->table_devices, (array)$deviceData);
+
+		if (!empty($db_error)) {
+			return $this->model_response(false, 202, array(), 'Device not registered');
+		}
+		return $this->model_response(true, 200, array(), 'Device registered successfully');
+	}
+
+	public function getDeviceToken($email_array)
+	{
+		$this->db->select('*');
+		$this->db->from($this->table_devices);
+		$this->db->where_in('email', $email_array);
+		return $this->db->get()->result_array();
+	}
+
+	public function getAllDeviceToken()
+	{
+		$this->db->select('*');
+		$this->db->from($this->table_devices);
+		return $this->db->get()->result_array();
 	}
 
 	public function create_response($message)

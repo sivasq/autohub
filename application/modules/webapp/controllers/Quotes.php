@@ -36,6 +36,7 @@ class Quotes extends User_Controller
 //        echo json_encode($data);
 //        die();
         $this->load->view('admin/quote/quotedetails', $data);
+//	    print_r($data);
     }
 
     public function update_items_price()
