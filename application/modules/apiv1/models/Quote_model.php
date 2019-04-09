@@ -162,7 +162,7 @@ class Quote_model extends Generic_model
 		$this->db->join($this->tbl_users, "user_id = ord_userId", "left");
 		$this->db->join($this->tbl_order_payment, "orp_orderId = ord_id", "left");
 		$this->db->where(array("ord_userId" => $user_id, "ord_isQuote" => 1));
-		$this->db->order_by('ord_quotCreatedAt', 'DESC');
+		$this->db->order_by('ord_createdAt', 'DESC');
 		$result = $this->db->get()->result_array();
 		$response_data = $this->build_response_array($result, NULL, array("createdAt"));
 		return $this->model_response(true, 200, array("quotes" => $response_data));
@@ -206,9 +206,7 @@ class Quote_model extends Generic_model
 		//Mapping order items
 		$response_data = $this->map_response($response_data, array("quoteItems" => array("itemId", "itemName", "itemPrice", "itemConditionId", "itemConditionName", "comment", "currentMileage", "vehicleId", "vehicleVin", "vehicleMake", "vehicleModel", "vehicleYear", "vehicleImage")), true);
 
-//		  $response_data = $this->map_response($response_data, array("shippingAddress"=>array("shaId, shaFirstName, shaLastName, shaAddressLine1, shaAddressLine2, shaCity, shaState, shaCountry, shaPostCode, shaPhone, shaEmail")));
 		return $this->model_response(true, 200, $response_data);
-//		return $response_data;
 	}
 
 	public function select_ode_fields_for_quot_list()

@@ -219,13 +219,13 @@ class Auth extends My_Controller
 			->delete(config_item('rest_keys_table'));
 	}
 
-	public function registerDevice()
+	public function registerDevice_post()
 	{
-		if (!$this->Auth_model->email_availability($this->httpRequest)) {
-			if ($this->Auth_model->registerNewDevice($this->httpRequest)) {
-				$this->response(array(), 200);
+		if (!$this->Auth_model->device_email_availability($this->httpRequest)) {
+			if ($response = $this->Auth_model->registerNewDevice($this->httpRequest)) {
+				$this->response($response, 200);
 			} else {
-				$this->response(array(), 202);
+				$this->response($response, 202);
 			}
 		} else {
 			$this->response(array(false, 202, "Device already registered"), REST_Controller::HTTP_OK);

@@ -64,6 +64,18 @@ class Auth_model extends Generic_model
 		}
 	}
 
+	public function device_email_availability($httpRequest)
+	{
+		$this->db->where('email', $httpRequest->email);
+		$query = $this->db->get($this->table_devices);
+
+		if ($query->num_rows() > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	public function is_email_verified($httpRequest)
 	{
 		$this->db->where(array('email' => $httpRequest->email, 'is_email_verified' => 1));

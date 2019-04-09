@@ -63,6 +63,8 @@ $route[ 'auth/login'] = 'apiv1/auth/user_login_auth';
 $route[ 'auth/changePassword'] = 'apiv1/auth/change_password';
 $route[ 'auth/logout'] = 'apiv1/auth/logout';
 
+$route[ 'auth/registerDevice'] = 'apiv1/auth/registerDevice';
+
 
 // Shipping Address
 $route['user/create-shipping-address'] = 'apiv1/user/create_shipping_address_by_user_id';
@@ -125,9 +127,10 @@ $route['quote/convertToOrder/quote-id/(:num)'] = 'apiv1/quote/convert_to_order';
 
 
 //Order Routes
-$route['order/create'] = 'apiv1/order/create_order';
-$route['order/get/id/(:num)']['get'] = 'apiv1/order/get_order';
+//$route['order/create'] = 'apiv1/order/create_order';
+$route['order/get/id/(:num)'] = 'apiv1/order/get_order';
 $route['order/list/user-id/(:num)'] = 'apiv1/order/list_all_user_order';
+$route['order/getOrder/order-id/(:num)'] = 'apiv1/order/get_orders_by_orderId';
 
 $route['order/update/id/(:num)'] = 'apiv1/order/update_order';
 $route['order/delete/id/(:num)'] = 'apiv1/order/delete_order';
@@ -182,7 +185,6 @@ $route['shipping-method/getdata'] = 'apiv1/ShippingMethod/get_all_shipping_metho
 
 //----->Front End Routes<------------//
 $route['admin/auth'] = 'webapp/AdminAuth/index';
-
 $route['admin/auth/fp'] = 'webapp/AdminAuth/forgot_password';
 $route['admin/auth/fp/resetLink'] = 'webapp/AdminAuth/password_reset_link';
 $route['admin/auth/fp/confirmEmail'] = 'webapp/AdminAuth/email_confirm';
@@ -192,7 +194,7 @@ $route['admin/auth/fp/reset_process'] = 'webapp/AdminAuth/reset_process';
 $route['admin/auth/login'] = 'webapp/AdminAuth/login_auth';
 $route['admin/auth/logout'] = 'webapp/Admin/logout';
 
-//Dashboard
+//---------Dashboard-----------//
 $route['admin/dashboard'] = 'webapp/admin/index';
 
 //---------Product------------//
@@ -201,7 +203,7 @@ $route['product/condition'] = 'webapp/product/condition';
 //$route['product/type'] = 'webapp/product/type';
 $route['product/index'] = 'webapp/product';
 
-//create
+//Create
 $route['product/category/create'] = 'webapp/product/category_create';
 $route['product/type/create'] = 'webapp/product/type_create';
 $route['product/create'] = 'webapp/product/product_create';
@@ -265,4 +267,4 @@ $route['shipping-method/delete'] = 'webapp/ShippingMethod/delete';
 $route['imagemanage/upload'] = 'apiv1/imagemanage/upload';
 
 //FCM Notifiction
-$route['sendfcm'] = 'notify/fcm';
+$route['sendfcm'] = 'notify/fcm1';

@@ -150,7 +150,7 @@ class AdminAuth extends Auth_Controller
 	public function login_auth()
 	{
 		$response = array();
-		$query = $this->admin_model->login_auth();
+		$query = $this->Admin_model->login_auth();
 
 		if ($query->num_rows() > 0) {
 			$userData = $query->row();

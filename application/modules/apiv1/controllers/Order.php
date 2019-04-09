@@ -122,7 +122,9 @@ class Order extends MY_Controller
 	public function get_orders_by_orderId_get()
 	{
 		$orderId = $this->get_path_variable('order-id');
-		return $this->response($this->Order_model->get_order_details_by_id($orderId));
+		$res = $this->Order_model->get_order_by_id($orderId);
+		return $this->response($res);
+//		return $this->response($this->Order_model->get_order_details_by_id($orderId));
 	}
 
 	public function update_items_price_put()

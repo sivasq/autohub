@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 08, 2019 at 01:02 PM
+-- Generation Time: Apr 09, 2019 at 12:38 PM
 -- Server version: 8.0.13
 -- PHP Version: 7.2.12
 
@@ -219,7 +219,14 @@ CREATE TABLE IF NOT EXISTS `devices` (
   `token` text NOT NULL,
   `soft_delete` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `devices`
+--
+
+INSERT INTO `devices` (`id`, `email`, `token`, `soft_delete`) VALUES
+(7, 'guna@sqindia.net\n\n', 'erec9Dmr2ek:APA91bFG3xDVWyM0o2Xk21LakyfF0c82rScc2IQAarScDaRiUgm5qCJ567DIjsZqVjneAcc73ocBJV79IpALyYRk9dmw-g0sQKGwQ1PlTOUgu5orl8j5zi5qygpdWwoKBu-eYZbgVSIj', 0);
 
 -- --------------------------------------------------------
 
@@ -260,7 +267,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
 --
 
 INSERT INTO `orders` (`ord_id`, `ord_orderId`, `ord_quoteId`, `ord_userId`, `ord_statusId`, `ord_quotStatusId`, `ord_shippingAddressId`, `ord_shippingMethodId`, `ord_itemTotal`, `ord_shippingTotal`, `ord_grandTotal`, `ord_createdAt`, `ord_createdBy`, `ord_updatedAt`, `ord_updatedBy`, `ord_quotCreatedAt`, `ord_quotCreatedBy`, `ord_quotUpdatedAt`, `ord_quotUpdatedBy`, `ord_discountAmount`, `ord_discountPercent`, `ord_isOrder`, `ord_isQuote`) VALUES
-(76, 'OC-19-000076', 'QT-19-000076', 1, 1, 5, 0, 2, '1120.00', '20000.00', '21120.00', '2019-04-08 11:55:17', NULL, NULL, NULL, '2019-03-25 17:50:41', NULL, NULL, NULL, NULL, NULL, 1, 1),
+(76, 'OC-19-000076', 'QT-19-000076', 1, 1, 5, 1, 2, '1120.00', '20000.00', '21120.00', '2019-04-08 11:55:17', NULL, NULL, NULL, '2019-03-25 17:50:41', NULL, NULL, NULL, NULL, NULL, 1, 1),
 (78, NULL, 'QT-19-000078', 2, NULL, 2, NULL, NULL, '942.00', '0.00', '942.00', NULL, NULL, NULL, NULL, '2019-03-29 17:57:39', NULL, NULL, NULL, NULL, NULL, 0, 1),
 (79, NULL, 'QT-19-000079', 1, NULL, 2, NULL, NULL, '0.00', NULL, '-940.00', NULL, NULL, NULL, NULL, '2019-04-01 16:16:05', NULL, NULL, NULL, NULL, NULL, 0, 1),
 (80, NULL, 'QT-19-000080', 1, NULL, 1, NULL, NULL, '470.00', NULL, '0.00', NULL, NULL, NULL, NULL, '2019-04-01 17:42:19', NULL, NULL, NULL, NULL, NULL, 0, 1),
