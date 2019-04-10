@@ -117,7 +117,7 @@ class Order_model extends Generic_model
 
 	public function get_order_by_id($orderId)
 	{
-		$this->db->select($this->select_fields_for_order_list() . "," . $this->Shippingmethod_model->select_fields_for_quot_list() . "," . $this->User_model->select_fields_for_quot_list() . ", " . $this->select_ode_fields_for_order_list() . ", " . $this->Productcondition_model->get_product_condition_fields_for_quot_list() . ", ost_name as ost_orderStatus, prd_name as itemName, " . $this->Vehicle_model->select_vehicle_fields_for_quot_list() . ", orp_status as orp_paymentStatus, orp_txnId");
+		$this->db->select($this->select_fields_for_order_list() . "," . $this->Shippingmethod_model->select_fields_for_quot_list() . "," . $this->User_model->select_fields() . ", " . $this->select_ode_fields_for_order_list() . ", " . $this->Productcondition_model->get_product_condition_fields_for_quot_list() . ", ost_name as ost_orderStatus, prd_name as itemName, " . $this->Vehicle_model->select_vehicle_fields_for_quot_list() . ", orp_status as orp_paymentStatus, orp_txnId");
 		$this->db->from($this->table);
 		$this->db->join($this->table_order_status, "ord_statusId = ost_id", "left");
 		$this->db->join($this->table_order_detail, "ord_id = ode_orderId", "left");

@@ -3,7 +3,6 @@ require_once APPPATH . 'core/Generic_model.php';
 
 class User_model extends Generic_model
 {
-
 	const TBL_SHIPPING_ADDRESS = 'shipping_addresses';
 	const SHA = 'sha_';
 	const USER_ID = self::SHA . 'userId';
@@ -36,7 +35,6 @@ class User_model extends Generic_model
 		$this->db->where(self::USER_ID, $userId);
 		$result = $this->db->get();
 		$response_data = $this->build_response_array($result->result_array());
-//		return $this->model_response(true, 200, $response_data);
 		return $this->model_response(true, 200, array('shippingAddress' => $response_data));
 	}
 
@@ -47,11 +45,10 @@ class User_model extends Generic_model
 		$this->db->where(self::SHA . 'id', $shippingAddressId);
 		$result = $this->db->get();
 		$response_data = $this->build_response($result->row());
-//		return $this->model_response(true, 200, $response_data);
 		return $this->model_response(true, 200, array('shippingAddress' => $response_data));
 	}
 
-	public function select_fields_for_quot_list()
+	public function select_fields()
 	{
 		return self::SHA . "id as shaId, " .
 			self::SHA . "firstName as shaFirstName, " .
@@ -65,5 +62,4 @@ class User_model extends Generic_model
 			self::SHA . "phone as shaPhone, " .
 			self::SHA . "email as shaEmail";
 	}
-
 }

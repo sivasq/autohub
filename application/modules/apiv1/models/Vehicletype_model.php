@@ -26,7 +26,4 @@ class Vehicletype_model extends Generic_model
     {
         return $this->prfx;
     }
-
-
-
 }

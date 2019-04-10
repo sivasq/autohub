@@ -26,24 +26,6 @@ class Product_model extends Generic_Model
 		$this->load->helper('inflector');
 	}
 
-	public function create_product_with_sub_items($data, $subItems = NULL)
-	{
-		$this->db->insert($this->table, $data);
-		$productId = $this->db->insert_id();
-		if (!empty($subItems)) {
-			$sub_items_model = array();
-			foreach ($subItems as $subItem) {
-				$model = array(
-					"psp_productId" => $productId,
-					"psp_subProductId" => $subItem,
-				);
-				array_push($sub_items_model, $model);
-			}
-			$this->db->insert_batch($this->subProducts, (array)$sub_items_model);
-		}
-		return true;
-	}
-
 	public function list_product_conditions()
 	{
 		$this->db->from($this->tableConditions);
@@ -55,7 +37,7 @@ class Product_model extends Generic_Model
 
 	public function list_product_by_type($typeId)
 	{
-		$this->db->select($this->table . ".*, " .$this->table . ".prd_id as productId, " .$this->tableCategories . ".pca_name as productCategory, pty_name as productType");
+		$this->db->select($this->table . ".*, " . $this->table . ".prd_id as productId, " . $this->tableCategories . ".pca_name as productCategory, pty_name as productType");
 		$this->db->from($this->table);
 		$this->db->join($this->tableCategories, 'prd_categoryId = pca_id');
 		$this->db->join($this->tableTypes, 'prd_typeId = pty_id');
@@ -77,6 +59,25 @@ class Product_model extends Generic_Model
 		$result = $this->db->get();
 		$response_data = $this->build_response_array_simple($result->result_array(), "servicePackName");
 		return $this->model_response(true, 200, array('servicePacks' => array($response_data)));
+	}
+
+	// For Admin Panel
+	public function create_product_with_sub_items($data, $subItems = NULL)
+	{
+		$this->db->insert($this->table, $data);
+		$productId = $this->db->insert_id();
+		if (!empty($subItems)) {
+			$sub_items_model = array();
+			foreach ($subItems as $subItem) {
+				$model = array(
+					"psp_productId" => $productId,
+					"psp_subProductId" => $subItem,
+				);
+				array_push($sub_items_model, $model);
+			}
+			$this->db->insert_batch($this->subProducts, (array)$sub_items_model);
+		}
+		return true;
 	}
 
 	public function get_products()
@@ -112,16 +113,6 @@ class Product_model extends Generic_Model
 		$this->db->where('prd_typeId=2');
 		$result = $this->db->get();
 		$response_data = $this->build_datatable_response_array($result->result_array());
-		return $this->model_response(true, 200, $response_data);
-	}
-
-	public function get_subItems()
-	{
-		$this->db->select("prd_id as ProductId,prd_name as ProductName");
-		$this->db->from($this->table);
-		$this->db->where('prd_typeId=3');
-		$result = $this->db->get();
-		$response_data = $this->build_response_array($result->result_array());
 		return $this->model_response(true, 200, $response_data);
 	}
 
@@ -163,5 +154,18 @@ class Product_model extends Generic_Model
 			$this->prfx . "image as productImage, " .
 			$this->cat_prfx . "name as categoryName, " .
 			$this->pty_prfx . "name as productType";
+	}
+
+	/*
+	 * Deprecated Functions
+	 */
+	public function get_subItems()
+	{
+		$this->db->select("prd_id as ProductId,prd_name as ProductName");
+		$this->db->from($this->table);
+		$this->db->where('prd_typeId=3');
+		$result = $this->db->get();
+		$response_data = $this->build_response_array($result->result_array());
+		return $this->model_response(true, 200, $response_data);
 	}
 }

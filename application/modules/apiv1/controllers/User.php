@@ -1,8 +1,8 @@
 <?php
 
- use Libraries\REST_Controller;
+use Libraries\REST_Controller;
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 class User extends MY_Controller
 {
@@ -23,6 +23,17 @@ class User extends MY_Controller
 	}
 
 	/*
+	 * No body
+	 */
+	public function get_shipping_address_by_user_id_get()
+	{
+		$userId = $this->get_path_variable('user-id');
+		$this->validateVariable($userId);
+		$responseData = $this->User_model->list_shipping_address($userId);
+		return $this->response($responseData, REST_Controller::HTTP_OK);
+	}
+
+	/*
 	 * Format : { "userId":1, "firstName":"Ebin---aE", "lastName":"Chandy", "addressLine1":"trivandrum", "addressLine2":"Kazhakuttam", "city":"Thrissur", "state":"Kerala", "country":"India", "postCode":"680671", "phone":"8788787", "email":"mufeed@dfsd.com" }
 	 */
 	public function update_shipping_address_by_shipping_id_put()
@@ -36,12 +47,10 @@ class User extends MY_Controller
 	/*
 	 * No body
 	 */
-	public function get_shipping_address_by_user_id_get()
+	public function delete_shipping_address_by_shipping_id_delete()
 	{
-		$userId = $this->get_path_variable('user-id');
-		$this->validateVariable($userId);
-		$responseData = $this->User_model->list_shipping_address($userId);
-		return $this->response($responseData, REST_Controller::HTTP_OK);
+		$shippingAddressId = $this->get_path_variable('shipping-address-id');
+		$this->response($this->User_model->delete($shippingAddressId));
 	}
 
 	/*
@@ -53,14 +62,5 @@ class User extends MY_Controller
 		$this->validateVariable($shippingAddressId);
 		$responseData = $this->User_model->get_shipping_address($shippingAddressId);
 		return $this->response($responseData, REST_Controller::HTTP_OK);
-	}
-
-	/*
-	 * No body
-	 */
-	public function delete_shipping_address_by_shipping_id_delete()
-	{
-		$shippingAddressId = $this->get_path_variable('shipping-address-id');
-		$this->response($this->User_model->delete($shippingAddressId));
 	}
 }

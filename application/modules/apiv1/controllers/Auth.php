@@ -2,13 +2,13 @@
 
 use Libraries\REST_Controller;
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 class Auth extends My_Controller
 {
 	public function __construct()
 	{
-		parent:: __construct();
+		parent::__construct();
 		$this->load->model('Auth_model');
 	}
 
@@ -88,17 +88,8 @@ class Auth extends My_Controller
 	}
 
 	/*
-	 * Deprecated function
-	 */
-	public function user_login_auth1_post()
-	{
-		$response = $this->Auth_model->login_auth($this->httpRequest);
-		$this->response($response, REST_Controller::HTTP_OK);
-	}
-
-	/*
-	 * Format : {"email": "siva@sqindia.net","password": "string"}
-	 */
+    * Format : {"email": "siva@sqindia.net","password": "string"}
+    */
 	public function user_login_auth_post()
 	{
 		if (!$this->Auth_model->is_email_verified($this->httpRequest))
@@ -136,49 +127,9 @@ class Auth extends My_Controller
 		$this->response($this->Auth_model->model_response(true, 202, $response, "Login Success"), REST_Controller::HTTP_OK);
 	}
 
-	private function _generate_key()
-	{
-		do {
-			// Generate a random salt
-			$salt = base_convert(bin2hex($this->security->get_random_bytes(64)), 16, 36);
-
-			// If an error occurred, then fall back to the previous method
-			if ($salt === FALSE) {
-				$salt = hash('sha256', time() . mt_rand());
-			}
-
-			$new_key = substr($salt, 0, config_item('rest_key_length'));
-		} while ($this->_key_exists($new_key));
-
-		return $new_key;
-	}
-
 	/*
-	 * No Body
+	 * Format : {"email": "siva@sqindia.net", "password": "password"}
 	 */
-
-	private function _key_exists($key)
-	{
-		return $this->rest->db
-				->where(config_item('rest_key_column'), $key)
-				->count_all_results(config_item('rest_keys_table')) > 0;
-	}
-
-	//storing token in database
-
-	private function _insert_key($key, $data)
-	{
-		$data[config_item('rest_key_column')] = $key;
-		// $data['date_created'] = function_exists('now') ? now() : time();
-		$data['date_created'] = date('Y-m-d H:i:s');
-
-		return $this->rest->db
-			->set($data)
-			->insert(config_item('rest_keys_table'));
-	}
-
-	/* Helper Methods */
-
 	public function change_password_post()
 	{
 		if (!$this->Auth_model->email_availability($this->httpRequest)) {
@@ -193,8 +144,25 @@ class Auth extends My_Controller
 		$this->response($response, REST_Controller::HTTP_OK);
 	}
 
-	/* Private Data Methods */
+	/*
+	 * { "email": "mufeed1@dfsd.com", "token": "dklfjdsklfjsdfkldsjf" }
+	 */
+	public function registerDevice_post()
+	{
+		if (!$this->Auth_model->device_email_availability($this->httpRequest)) {
+			if ($response = $this->Auth_model->registerNewDevice($this->httpRequest)) {
+				$this->response($response, 200);
+			} else {
+				$this->response($response, 202);
+			}
+		} else {
+			$this->response(array(false, 202, "Device already registered"), REST_Controller::HTTP_OK);
+		}
+	}
 
+	/*
+	 * No Body
+	 */
 	public function logout_post()
 	{
 		$key = $this->_head_args['x-api-key'];
@@ -212,32 +180,47 @@ class Auth extends My_Controller
 		$this->response($this->Auth_model->model_response(true, 294, array(), "Logout success"), REST_Controller::HTTP_OK);
 	}
 
+	/* Helper Methods */
+	private function _generate_key()
+	{
+		do {
+			// Generate a random salt
+			$salt = base_convert(bin2hex($this->security->get_random_bytes(64)), 16, 36);
+
+			// If an error occurred, then fall back to the previous method
+			if ($salt === FALSE) {
+				$salt = hash('sha256', time() . mt_rand());
+			}
+
+			$new_key = substr($salt, 0, config_item('rest_key_length'));
+		} while ($this->_key_exists($new_key));
+
+		return $new_key;
+	}
+
+	private function _key_exists($key)
+	{
+		return $this->rest->db
+			->where(config_item('rest_key_column'), $key)
+			->count_all_results(config_item('rest_keys_table')) > 0;
+	}
+
+	private function _insert_key($key, $data)
+	{
+		$data[config_item('rest_key_column')] = $key;
+		// $data['date_created'] = function_exists('now') ? now() : time();
+		$data['date_created'] = date('Y-m-d H:i:s');
+
+		return $this->rest->db
+			->set($data)
+			->insert(config_item('rest_keys_table'));
+	}
+
 	private function _delete_key($key)
 	{
 		return $this->rest->db
 			->where(config_item('rest_key_column'), $key)
 			->delete(config_item('rest_keys_table'));
-	}
-
-	public function registerDevice_post()
-	{
-		if (!$this->Auth_model->device_email_availability($this->httpRequest)) {
-			if ($response = $this->Auth_model->registerNewDevice($this->httpRequest)) {
-				$this->response($response, 200);
-			} else {
-				$this->response($response, 202);
-			}
-		} else {
-			$this->response(array(false, 202, "Device already registered"), REST_Controller::HTTP_OK);
-		}
-	}
-
-	public function timezone_get()
-	{
-		$date = new DateTime();
-		$timeZone = $date->getTimezone();
-		echo $timeZone->getName();
-		print_r(ini_get('date.timezone'));
 	}
 
 	private function _get_key($key)
@@ -253,5 +236,22 @@ class Auth extends My_Controller
 		return $this->rest->db
 			->where(config_item('rest_key_column'), $key)
 			->update(config_item('rest_keys_table'), $data);
+	}
+	
+	/*
+	 * Deprecated functions
+	 */
+	public function user_login_auth1_post()
+	{
+		$response = $this->Auth_model->login_auth1($this->httpRequest);
+		$this->response($response, REST_Controller::HTTP_OK);
+	}
+
+	public function timezone_get()
+	{
+		$date = new DateTime();
+		$timeZone = $date->getTimezone();
+		echo $timeZone->getName();
+		print_r(ini_get('date.timezone'));
 	}
 }

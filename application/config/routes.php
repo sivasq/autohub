@@ -54,7 +54,7 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 
-// Auth Routes
+//-------------Auth Routes---------------//
 $route[ 'auth/emailValidate'] = 'apiv1/auth/email_validate';
 $route[ 'auth/register'] = 'apiv1/auth/user_registration';
 $route[ 'auth/sendOtp'] = 'apiv1/auth/send_otp';
@@ -63,38 +63,46 @@ $route[ 'auth/login'] = 'apiv1/auth/user_login_auth';
 $route[ 'auth/changePassword'] = 'apiv1/auth/change_password';
 $route[ 'auth/logout'] = 'apiv1/auth/logout';
 
+
+//-------------Register Device-------------//
 $route[ 'auth/registerDevice'] = 'apiv1/auth/registerDevice';
 
 
-// Shipping Address
+//-------------Shipping Address------------//
 $route['user/create-shipping-address'] = 'apiv1/user/create_shipping_address_by_user_id';
-$route['user/update-shipping-address/shipping-address-id/(:num)'] = 'apiv1/user/update_shipping_address_by_shipping_id';
 $route['user/list-shipping-address/user-id/(:num)'] = 'apiv1/user/get_shipping_address_by_user_id';
-$route['user/get-shipping-address/shipping-address-id/(:num)'] = 'apiv1/user/get_shipping_address_by_shipping_id';
+$route['user/update-shipping-address/shipping-address-id/(:num)'] = 'apiv1/user/update_shipping_address_by_shipping_id';
 $route['user/delete-shipping-address/shipping-address-id/(:num)'] = 'apiv1/user/delete_shipping_address_by_shipping_id';
+$route['user/get-shipping-address/shipping-address-id/(:num)'] = 'apiv1/user/get_shipping_address_by_shipping_id';
 
 
-//Vehicles Routes
+//---------------Vehicles Routes----------------//
+
+//Company
+$route['vehicle/create-company'] = "apiv1/vehicle/create_vehicle_company";
+$route['vehicle/update-company/company-id/(:num)'] = "apiv1/vehicle/update_vehicle_company";
+$route['vehicle/list-company/user-id/(:num)'] = "apiv1/vehicle/get_all_companies_by_user";
+
+//Driver
+$route['vehicle/create-driver'] = "apiv1/vehicle/create_vehicle_driver";
+$route['vehicle/update-driver/driver-id/(:num)'] = "apiv1/vehicle/update_vehicle_driver";
+$route['vehicle/list-driver/company-id/(:num)'] = "apiv1/vehicle/get_all_drivers_by_company";
+
+//Business & Vehicle Types
+$route['vehicle/list-business-types'] = "apiv1/vehicle/list_business_types";
+$route['vehicle/list-vehicle-types'] = "apiv1/vehicle/list_vehicle_types";
+
+//Vehicles
 $route['vehicle/create'] = 'apiv1/vehicle/create_vehicle';
 $route['vehicle/update/vehicle-id/(:num)'] = 'apiv1/vehicle/update_vehicle';
 $route['vehicle/list/user-id/(:num)'] = 'apiv1/vehicle/list_user_vehicles';
 $route['vehicle/delete/(:num)'] = 'apiv1/vehicle/delete_vehicle';
 
-$route['vehicle/create-company'] = "apiv1/vehicle/create_vehicle_company";
-$route['vehicle/update-company/company-id/(:num)'] = "apiv1/vehicle/update_vehicle_company";
-$route['vehicle/list-company/user-id/(:num)'] = "apiv1/vehicle/get_all_user_companies";
-
-$route['vehicle/create-driver'] = "apiv1/vehicle/create_vehicle_driver";
-$route['vehicle/update-driver/driver-id/(:num)'] = "apiv1/vehicle/update_vehicle_driver";
-$route['vehicle/list-driver/company-id/(:num)'] = "apiv1/vehicle/get_all_user_drivers";
-
-$route['vehicle/list-business-types'] = "apiv1/vehicle/list_business_types";
-$route['vehicle/list-vehicle-types'] = "apiv1/vehicle/list_vehicle_types";
-
+// Count For Dashboard
 $route['vehicle/count/user-id/(:num)'] = "apiv1/vehicle/get_vehicle_count";
 
 
-//Product Routes
+//------------------Product Routes------------------//
 $route['product/conditions'] = 'apiv1/product/list_product_conditions';
 $route['product/vehicle-parts'] = 'apiv1/product/list_vehicle_parts';
 $route['product/service-packs'] = 'apiv1/product/list_service_packs';
@@ -107,22 +115,25 @@ $route['cart/delete-items/user-id/(:num)'] = 'apiv1/cart/delete_items';
 $route['cart/delete/cart-id/(:num)'] = 'apiv1/cart/delete';
 
 
-//Quot Req
+//-----------------Quot Req Routes-------------------//
 $route['quotreq/add-item/user-id/(:num)'] = 'apiv1/quotreq/add_item';
 $route['quotreq/list-items/user-id/(:num)'] = 'apiv1/quotreq/list_items';
 $route['quotreq/delete-items/user-id/(:num)'] = 'apiv1/quotreq/delete_items';
 $route['quotreq/delete/quotreq-id/(:num)'] = 'apiv1/quotreq/delete';
 
 
-//Quote Routes
+//-------------Quote Routes---------------//
 $route['quote/create'] = 'apiv1/quote/create_quote';
 $route['quote/listQuotes/user-id/(:num)'] = 'apiv1/quote/list_user_quotes';
 $route['quote/getQuote/quote-id/(:num)'] = 'apiv1/quote/get_quote_by_id';
+$route['quote/accept/quote-id/(:num)'] = 'apiv1/quote/accept_quote';
+$route['quote/decline/quote-id/(:num)'] = 'apiv1/quote/decline_quote';
+$route['payment/create'] = 'apiv1/payment/create_order_payment';
+//
 $route['quote/addItem'] = 'apiv1/quote/add_item_to_quote';
 $route['quote/removeItem'] = 'apiv1/quote/remove_item_from_quote';
 $route['quote/updatePrice'] = 'apiv1/quote/update_price_for_quote_item';
 $route['quote/status/quote-id/(:num)'] = 'apiv1/quote/update_quote_status';
-$route['quote/accept/quote-id/(:num)'] = 'apiv1/quote/update_quote_shipping';
 $route['quote/convertToOrder/quote-id/(:num)'] = 'apiv1/quote/convert_to_order';
 
 
@@ -140,10 +151,10 @@ $route['order/list-shipping-methods'] = 'apiv1/order/get_all_shipping_methods';
 #$route['order/status/orderId/(:num)'] = 'order/update_order_status';
 
 
-//Payment
+//------------Payment----------------//
 $route['payment/create-bank'] = 'apiv1/payment/create_payment_bank';
 $route['payment/list-bank'] = 'apiv1/payment/list_payment_bank';
-$route['payment/create'] = 'apiv1/payment/create_order_payment';
+// $route['payment/create'] = 'apiv1/payment/create_order_payment';
 
 
 //DataTable Routes
@@ -168,7 +179,7 @@ $route['order/get-details/order-id/(:num)/getdata'] = 'apiv1/order/get_orders_by
 //Quote
 $route['quote/getdata'] = 'apiv1/quote/get_quotes';
 $route['quotes/req/getdata'] = 'apiv1/quotReq/get_reqs';
-$route['quote/get-details/quote-id/(:num)/getdata'] = 'apiv1/order/get_orders_by_orderId';
+//$route['quote/get-details/quote-id/(:num)/getdata'] = 'apiv1/quote/get_quote_by_quoteId';
 
 //Vehicle
 $route['vehicles/getdata'] = 'apiv1/vehicle/get_vehicles';

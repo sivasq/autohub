@@ -35,7 +35,8 @@ class FCM_Message
 		$title = "Somebody messaged whatever";
 		$notification = array("body" => $message, "title" => $title);
 
-		$token = "ebfN5oHk_jQ:APA91bGmDlLX-vFYqIY86rxkD8kdsP5LZf33KCkvruP2oD5R_toilqrOcOYclIT3AUbrie-zMa-tcdn-9YmXi_xVaOgCe5hr3S9EFWrKzRDIO-6Vt3aU5OkviJQB5YJPWuV7CkURS7nY";
+		// $token = "ebfN5oHk_jQ:APA91bGmDlLX-vFYqIY86rxkD8kdsP5LZf33KCkvruP2oD5R_toilqrOcOYclIT3AUbrie-zMa-tcdn-9YmXi_xVaOgCe5hr3S9EFWrKzRDIO-6Vt3aU5OkviJQB5YJPWuV7CkURS7nY";
+		$token = "ez_mpVX0bgQ:APA91bFLTv2nZPhU59XPOA3KVjpPWM7UgcJ3yGxdaB2GGWttKlbB5cWxoiGLKaQ4FeMN63dc1_WfpRh8GmIW2kpDQuRxT25xfHRzl4dxs3TlIVvWowHqxqlUwcJYuZPU6nU5qtkjgjkx";
 
 		$data = [
 			'first_key' => 'First Value',

@@ -10,25 +10,38 @@ class Product extends MY_Controller
         $this->load->model('Product_model');
     }
 
+    /*
+     * No Body
+     */
     public function list_product_conditions_get()
     {
         $response = $this->Product_model->list_product_conditions();
         return $this->response($response);
     }
 
+	/*
+	 * No Body
+	 */
     public function list_vehicle_parts_get()
     {
         $response = $this->Product_model->list_product_by_type(1);
         return $this->response($response);
     }
 
+	/*
+	 * No Body
+	 */
     public function list_service_packs_get()
     {
         $response = $this->Product_model->list_service_packs();
         return $this->response($response);
     }
 
-    public function get_products_get()
+
+    /*
+     * For Admin Panel
+     */
+	public function get_products_get()
     {
         $response = $this->Product_model->get_products();
         return $this->response($response, REST_Controller::HTTP_OK);
@@ -64,6 +77,9 @@ class Product extends MY_Controller
         return $this->response($response, REST_Controller::HTTP_OK);
     }
 
+	/*
+	 * Deprecated Functions
+	 */
     public function get_sub_items_get()
     {
         $response = $this->Product_model->get_subItems();
