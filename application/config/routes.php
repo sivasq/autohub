@@ -138,10 +138,11 @@ $route['quote/convertToOrder/quote-id/(:num)'] = 'apiv1/quote/convert_to_order';
 
 
 //Order Routes
-//$route['order/create'] = 'apiv1/order/create_order';
-$route['order/get/id/(:num)'] = 'apiv1/order/get_order';
 $route['order/list/user-id/(:num)'] = 'apiv1/order/list_all_user_order';
 $route['order/getOrder/order-id/(:num)'] = 'apiv1/order/get_orders_by_orderId';
+
+//$route['order/create'] = 'apiv1/order/create_order';
+// $route['order/get/id/(:num)'] = 'apiv1/order/get_order';
 
 $route['order/update/id/(:num)'] = 'apiv1/order/update_order';
 $route['order/delete/id/(:num)'] = 'apiv1/order/delete_order';
@@ -157,7 +158,7 @@ $route['payment/list-bank'] = 'apiv1/payment/list_payment_bank';
 // $route['payment/create'] = 'apiv1/payment/create_order_payment';
 
 
-//DataTable Routes
+//-----------------DataTable Routes--------------------//
 //product
 $route['product/index/getdata'] = 'apiv1/product/get_products';
 $route['product/category/getdata'] = 'apiv1/product/get_categories';
@@ -166,11 +167,9 @@ $route['product/type/getdata'] = 'apiv1/product/get_type';
 $route['product/index/sub-item/getdata'] = 'apiv1/product/get_products_sub_items';
 $route['product/index/service-pack/getdata'] = 'apiv1/product/get_products_service_pack';
 
-
 //Payment
 $route['payment/bank/getdata'] = 'apiv1/payment/list_payment_bank';
 $route['payment/method/getdata'] = 'apiv1/payment/list_payment_method';
-
 
 //Order
 $route['order/getdata'] = 'apiv1/order/get_orders';

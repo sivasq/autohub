@@ -151,7 +151,7 @@ class Order_model extends Generic_model
 		$this->db->order_by('ord_createdAt');
 		$result = $this->db->get()->result_array();
 		$response_data = $this->build_response_array($result, NULL, array("createdAt"));
-		return $this->model_response(true, 200, $response_data);
+		return $this->model_response(true, 200, array("orders" => $response_data));
 	}
 
 	public function select_fields_for_order_list()

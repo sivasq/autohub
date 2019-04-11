@@ -19,23 +19,14 @@ var dataColumns = [
     {"data": "grandTotal"},
     {
         "data": "status", render: function (dataField) {
-            if (dataField == 'order placed') {
+            if (dataField === 'Placed') {
                 return '<span class="label label-default">' + dataField + '</span>';
             }
-            if (dataField == 'price added') {
-                return '<span class="label label-info">' + dataField + '</span>';
-            }
-            if (dataField == 'payment made') {
-                return '<span class="label label-warning">' + dataField + '</span>';
-            }
-            if (dataField == 'shipped') {
+            if (dataField === 'Shipped') {
                 return '<span class="label label-pink">' + dataField + '</span>';
             }
-            if (dataField == 'delivered') {
+            if (dataField === 'Delivered') {
                 return '<span class="label label-success">' + dataField + '</span>';
-            }
-            if (dataField == 'cancelled') {
-                return '<span class="label label-danger">' + dataField + '</span>';
             }
         }
     },

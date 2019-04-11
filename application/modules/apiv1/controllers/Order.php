@@ -24,19 +24,12 @@ class Order extends MY_Controller
 		$this->response($response);
 	}
 
-	public function update_order_put()
-	{
-		$orderId = $this->get_path_variable('id');
-		$response = $this->Order_model->update_order($this->httpRequest, $orderId);
-		return $this->response($response);
-	}
-
-	public function get_order_get()
-	{
-		$orderId = $this->get_path_variable('id');
-		$response = $this->Order_model->get_order_by_id($orderId);
-		return $this->response($response);
-	}
+	// public function update_order_put()
+	// {
+	// 	$orderId = $this->get_path_variable('id');
+	// 	$response = $this->Order_model->update_order($this->httpRequest, $orderId);
+	// 	return $this->response($response);
+	// }
 
 	public function list_all_user_order_get()
 	{
@@ -82,12 +75,6 @@ class Order extends MY_Controller
 		$id = $this->uri->segment(3);
 		$data = $this->Order_model->delete($id);
 	}
-
-	/*public function get_order_get()
-	{
-		$order_list = $this->Order_model->get_orders();
-		return $this->response($order_list, REST_Controller::HTTP_OK);
-	}*/
 
 	public function get_cart_items_by_order_id_get()
 	{
@@ -149,6 +136,16 @@ class Order extends MY_Controller
 			$data = $this->Order_model->insert_courier_details($courierDetails);
 		}
 		return $this->response($data);
+	}
+
+	/*
+	* Deprecated Functions
+	*/
+	public function get_order_get()
+	{
+		$orderId = $this->get_path_variable('id');
+		$response = $this->Order_model->get_order_by_id($orderId);
+		return $this->response($response);
 	}
 
 //    private function send_notification($orderStatusId)

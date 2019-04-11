@@ -135,21 +135,37 @@ function getCourierInfo() {
             '<div class="form-group">'+
             '<label class="col-md-4 control-label">Courier Id</label>'+
             '<div class="col-md-8">'+
-            '<input type="text" id="courierid" class="form-control" value="">'+
+            '<input type="text" id="courierid" class="form-control" value="" required>'+
             '</div>'+
             '</div>'+
             '<div class="form-group">'+
             '<label class="col-md-4 control-label">Courier Tracking Id</label>'+
             '<div class="col-md-8">'+
-            '<input type="text" id="couriertrackingid" class="form-control" value="">'+
+            '<input type="text" id="couriertrackingid" class="form-control" value="" required>'+
             '</div>'+
             '</div>'+
             '</form>',
         focusConfirm: false,
+        showCancelButton: true,
+        confirmButtonText: 'Submit',
+        showLoaderOnConfirm: true,
         preConfirm: () => {
+            let courierid = document.getElementById('courierid').value;
+            let couriertrackingid = document.getElementById('couriertrackingid').value;
+
+            if(courierid == ''){
+                Swal.showValidationMessage(
+                    'Please Enter Courier Id'
+                )
+            }else if(couriertrackingid == ''){
+                Swal.showValidationMessage(
+                    'Please Enter Courier Tracking Id'
+                )
+            }
+
             return {
-                'courierid': document.getElementById('courierid').value,
-                'couriertrackingid': document.getElementById('couriertrackingid').value
+                'courierid': courierid,
+                'couriertrackingid': couriertrackingid
             };
         }
     });

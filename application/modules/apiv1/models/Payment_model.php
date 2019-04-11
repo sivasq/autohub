@@ -52,9 +52,10 @@ class Payment_model extends Generic_model
 		} elseif ($quotStatus->ord_quotStatusId == 3) {
 			$this->db->insert($this->tbl_order_payment, $this->build_model_data($order_payment, $this->prfx_order_payments));
 			$payment_id = $this->db->insert_id();
-			$status = new stdClass();
-			$status->statusId = 5;
-			$this->quote_model->update_status($status, $order_payment->orderId);
+			
+			// $status = new stdClass();
+			// $status->statusId = 5;
+			// $this->quote_model->update_status($status, $order_payment->orderId);
 			return $this->model_response(true, 200, array("paymentId" => $payment_id), 'Txn Details Updated.');
 		} elseif ($quotStatus->ord_quotStatusId == 6) {
 			return $this->model_response(true, 200, array(), "You can't process For This Quote");
