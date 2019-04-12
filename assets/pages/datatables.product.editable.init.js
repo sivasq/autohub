@@ -1,237 +1,257 @@
 (function ($) {
-    var i = 1;
-    let productDataTable = {
+	var i = 1;
+	let productDataTable = {
 
-        options: {
-            addButton: '#updateTable',
-            table: proTableName,
-            dialog: {
-                wrapper: '#dialog',
-                cancelButton: '#dialogCancel',
-                confirmButton: '#dialogConfirm',
-            }
-        },
+		options: {
+			addButton: '#updateTable',
+			table: proTableName,
+			dialog: {
+				wrapper: '#dialog',
+				cancelButton: '#dialogCancel',
+				confirmButton: '#dialogConfirm',
+			}
+		},
 
-        initialize: function () {
-            this
-                .setVars()
-                .build()
-                .events();
-        },
+		initialize: function () {
+			this
+				.setVars()
+				.build()
+				.events();
+		},
 
-        setVars: function () {
-            this.$table = $(this.options.table);
-            this.$addButton = $(this.options.addButton);
+		setVars: function () {
+			this.$table = $(this.options.table);
+			this.$addButton = $(this.options.addButton);
 
-            // dialog
-            this.dialog = {};
-            this.dialog.$wrapper = $(this.options.dialog.wrapper);
-            this.dialog.$cancel = $(this.options.dialog.cancelButton);
-            this.dialog.$confirm = $(this.options.dialog.confirmButton);
+			// dialog
+			this.dialog = {};
+			this.dialog.$wrapper = $(this.options.dialog.wrapper);
+			this.dialog.$cancel = $(this.options.dialog.cancelButton);
+			this.dialog.$confirm = $(this.options.dialog.confirmButton);
 
-            return this;
-        },
+			return this;
+		},
 
-        build: function () {
-            this.datatable = this.$table.DataTable({
-                ajax: {
-                    'url': proBaseUrl + '/getdata',
-                    'type': 'GET',
-                    'beforeSend': function (request) {
-                        request.setRequestHeader(headerKey, headerValue);
-                    }
-                },
-                aoColumns: proDataColumns,
-                rowGroup: rowGroup,
-                order: [[ 7, "desc" ]]
-            });
+		build: function () {
+			this.datatable = this.$table.DataTable({
+				ajax: {
+					'url': proBaseUrl + '/getdata',
+					'type': 'GET',
+					'beforeSend': function (request) {
+						request.setRequestHeader(headerKey, headerValue);
+					}
+				},
+				aoColumns: proDataColumns,
+				rowGroup: rowGroup,
+				order: [[7, "desc"]]
+			});
 
-            window.dt = this.datatable;
+			window.dt = this.datatable;
 
-            return this;
-        },
+			return this;
+		},
 
-        events: function () {
-            var _self = this;
+		events: function () {
+			var _self = this;
 
-            this.$table
-                .on('click', 'a.save-row', function (e) {
-                    e.preventDefault();
+			this.$table
+				.on('click', 'a.save-row', function (e) {
+					e.preventDefault();
 
-                    _self.rowSave($(this).closest('tr'));
-                })
-                .on('click', 'a.cancel-row', function (e) {
-                    e.preventDefault();
+					_self.rowSave($(this).closest('tr'));
+				})
+				.on('click', 'a.cancel-row', function (e) {
+					e.preventDefault();
 
-                    _self.rowCancel($(this).closest('tr'));
-                })
-                .on('click', 'a.edit-row', function (e) {
-                    e.preventDefault();
+					_self.rowCancel($(this).closest('tr'));
+				})
+				.on('click', 'a.edit-row', function (e) {
+					e.preventDefault();
 
-                    _self.rowEdit($(this).closest('tr'));
-                })
-                .on('click', 'a.remove-row', function (e) {
-                    e.preventDefault();
+					$.scrollTo('body', 300);
+					_self.rowEdit($(this).closest('tr'));
+				})
+				.on('click', 'a.remove-row', function (e) {
+					e.preventDefault();
 
-                    var $row = $(this).closest('tr');
+					var $row = $(this).closest('tr');
 
-                    $.magnificPopup.open({
-                        items: {
-                            src: _self.options.dialog.wrapper,
-                            type: 'inline'
-                        },
-                        preloader: false,
-                        modal: true,
-                        callbacks: {
-                            change: function () {
-                                _self.dialog.$confirm.on('click', function (e) {
-                                    e.preventDefault();
+					$.magnificPopup.open({
+						items: {
+							src: _self.options.dialog.wrapper,
+							type: 'inline'
+						},
+						preloader: false,
+						modal: true,
+						callbacks: {
+							change: function () {
+								_self.dialog.$confirm.on('click', function (e) {
+									e.preventDefault();
 
-                                    _self.rowRemove($row);
-                                    $.magnificPopup.close();
-                                });
-                            },
-                            close: function () {
-                                _self.dialog.$confirm.off('click');
-                            }
-                        }
-                    });
-                });
+									_self.rowRemove($row);
+									$.magnificPopup.close();
+								});
+							},
+							close: function () {
+								_self.dialog.$confirm.off('click');
+							}
+						}
+					});
+				});
 
-            this.$addButton.on('click', function (e) {
-                e.preventDefault();
+			this.$addButton.on('click', function (e) {
+				e.preventDefault();
 
-                _self.rowAdd();
-            });
+				_self.rowAdd();
+			});
 
-            this.dialog.$cancel.on('click', function (e) {
-                e.preventDefault();
-                $.magnificPopup.close();
-            });
+			this.dialog.$cancel.on('click', function (e) {
+				e.preventDefault();
+				$.magnificPopup.close();
+			});
 
-            return this;
-        },
+			return this;
+		},
 
-        // ==========================================================================================
-        // ROW FUNCTIONS
-        // ==========================================================================================
-        rowAdd: function () {
-            console.log(JSON.stringify(valueArray));
-            $.ajax({
-                url: updateUrl + '/update',
-                data: JSON.stringify(valueArray),
-                method: "PUT",
-                beforeSend: function (request) {
-                    request.setRequestHeader(headerKey, headerValue);
-                }
-            }).success(function () {
-                this.$addButton.removeAttr('disabled');
-                swal("Success", "The Item Prices are Updated Successfully", "success");
-            }).fail(function () {
-                swal("Failed", "Fail to delete the record", "error");
-            });
-        },
+		// ==========================================================================================
+		// ROW FUNCTIONS
+		// ==========================================================================================
+		rowAdd: function () {
+			console.log(JSON.stringify(valueArray));
+			$.ajax({
+				url: updateUrl + '/update',
+				data: JSON.stringify(valueArray),
+				method: "PUT",
+				beforeSend: function (request) {
+					request.setRequestHeader(headerKey, headerValue);
+				}
+			}).success(function () {
+				this.$addButton.removeAttr('disabled');
+				swal("Success", "The Item Prices are Updated Successfully", "success");
+			}).fail(function () {
+				swal("Failed", "Fail to delete the record", "error");
+			});
+		},
 
-        rowCancel: function ($row) {
-            var _self = this,
-                $actions,
-                i,
-                data;
+		rowCancel: function ($row) {
+			var _self = this,
+				$actions,
+				i,
+				data;
 
-            if ($row.hasClass('adding')) {
-                this.rowRemove($row);
-            } else {
+			if ($row.hasClass('adding')) {
+				this.rowRemove($row);
+			} else {
 
-                data = this.datatable.row($row.get(0)).data();
-                this.datatable.row($row.get(0)).data(data);
+				data = this.datatable.row($row.get(0)).data();
+				this.datatable.row($row.get(0)).data(data);
 
-                $actions = $row.find('td.actions');
-                if ($actions.get(0)) {
-                    this.rowSetActionsDefault($row);
-                }
+				$actions = $row.find('td.actions');
+				if ($actions.get(0)) {
+					this.rowSetActionsDefault($row);
+				}
 
-                this.datatable.draw();
-            }
-        },
+				this.datatable.draw();
+			}
+		},
 
-        rowEdit: function ($row) {
-            var _self = this,
-                data;
-            data = this.datatable.row($row.get(0)).data();
-            for (var dataField in data) {
-                var els = document.getElementsByName(dataField);
-                for (var i = 0; i < els.length; i++) {
-                    els[i].value = data[dataField]
-                }
-            }
-            document.getElementById("save-button").innerHTML = "Update";
-            var submitType = document.getElementById("save-button");
-            submitType.value = "Update";
-        },
+		rowEdit: function ($row) {
+			var _self = this,
+				data;
+			data = this.datatable.row($row.get(0)).data();
+			// console.log(this.datatable.row($row.get(0)).data());
+			// changeCat();
+			for (var dataField in data) {
+				console.log(dataField);
 
-        rowSave: function ($row) {
-            var _self = this,
-                $actions,
-                values = [];
+				if (dataField === "prdCategoryId") {
+					var els = document.getElementById("productCategory");
+					els.value = data[dataField];
+				} else if (dataField === "productCategory") {
+					//Do nothing
+				} else if (dataField === "prdTypeId") {
+					var els = document.getElementById("productType");
+					els.value = data[dataField];
+					getProductUpdate();
+				} else if (dataField === "productType") {
+					//Do nothing
+				} else {
+					var els = document.getElementsByName(dataField);
+					for (var i = 0; i < els.length; i++) {
+						els[i].value = data[dataField]
+					}
+				}
 
-            if ($row.hasClass('adding')) {
-                this.$addButton.removeAttr('disabled');
-                $row.removeClass('adding');
-            }
+				console.log(els);
+			}
+			document.getElementById("save-button").innerHTML = "Update";
+			var submitType = document.getElementById("save-button");
+			submitType.value = "Update";
+		},
 
-            values = $row.find('td').map(function () {
-                var $this = $(this);
+		rowSave: function ($row) {
+			var _self = this,
+				$actions,
+				values = [];
 
-                if ($this.hasClass('actions')) {
-                    _self.rowSetActionsDefault($row);
-                    return _self.datatable.cell(this).data();
-                } else {
-                    return $.trim($this.find('input').val());
-                }
-            });
+			if ($row.hasClass('adding')) {
+				this.$addButton.removeAttr('disabled');
+				$row.removeClass('adding');
+			}
 
-            this.datatable.row($row.get(0)).data(values);
+			values = $row.find('td').map(function () {
+				var $this = $(this);
 
-            $actions = $row.find('td.actions');
-            if ($actions.get(0)) {
-                this.rowSetActionsDefault($row);
-            }
+				if ($this.hasClass('actions')) {
+					_self.rowSetActionsDefault($row);
+					return _self.datatable.cell(this).data();
+				} else {
+					return $.trim($this.find('input').val());
+				}
+			});
 
-            this.datatable.draw();
-        },
+			this.datatable.row($row.get(0)).data(values);
 
-        rowRemove: function ($row) {
-            var _self = this,
-                data
-            that = this;
-            if ($row.hasClass('adding')) {
-                this.$addButton.removeAttr('disabled');
-            }
-            data = this.datatable.row($row.get(0)).data();
-            $.post(proBaseUrl + '/delete', {
-                id: data[pro_data_id]
-            }).success(function () {
-                swal("Success", "The Record with ID : " + data[pro_data_id] + " has been successfully deleted", "success");
-                that.datatable.row($row.get(0)).remove().draw();
-            }).fail(function () {
-                swal("Failed", "Fail to delete the record", "error");
-            });
-        },
+			$actions = $row.find('td.actions');
+			if ($actions.get(0)) {
+				this.rowSetActionsDefault($row);
+			}
 
-        rowSetActionsEditing: function ($row) {
-            $row.find('.on-editing').removeClass('hidden');
-            $row.find('.on-default').addClass('hidden');
-        },
+			this.datatable.draw();
+		},
 
-        rowSetActionsDefault: function ($row) {
-            $row.find('.on-editing').addClass('hidden');
-            $row.find('.on-default').removeClass('hidden');
-        }
+		rowRemove: function ($row) {
+			var _self = this,
+				data
+			that = this;
+			if ($row.hasClass('adding')) {
+				this.$addButton.removeAttr('disabled');
+			}
+			data = this.datatable.row($row.get(0)).data();
+			$.post(proBaseUrl + '/delete', {
+				id: data[pro_data_id]
+			}).success(function () {
+				swal("Success", "The Record with ID : " + data[pro_data_id] + " has been successfully deleted", "success");
+				that.datatable.row($row.get(0)).remove().draw();
+			}).fail(function () {
+				swal("Failed", "Fail to delete the record", "error");
+			});
+		},
 
-    };
+		rowSetActionsEditing: function ($row) {
+			$row.find('.on-editing').removeClass('hidden');
+			$row.find('.on-default').addClass('hidden');
+		},
 
-    $(function () {
-        productDataTable.initialize();
-    });
+		rowSetActionsDefault: function ($row) {
+			$row.find('.on-editing').addClass('hidden');
+			$row.find('.on-default').removeClass('hidden');
+		}
+
+	};
+
+	$(function () {
+		productDataTable.initialize();
+	});
 
 }).apply(this, [jQuery]);

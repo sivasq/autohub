@@ -454,7 +454,7 @@ class Quote_model extends Generic_model
 				unset($items->orderId);
 			}
 			$grandTotal = $total;
-			$this->update(array("ord_itemTotal" => $total, "ord_grandTotal" => $grandTotal), $orderId);
+			$this->update(array("ord_quotStatusId" => 2, "ord_itemTotal" => $total, "ord_grandTotal" => $grandTotal), $orderId);
 			$response_data = $this->db->update_batch($this->table_order_detail, $orderItems, 'ode_id');
 			return $this->model_response(true, 200, $response_data);
 		} else {

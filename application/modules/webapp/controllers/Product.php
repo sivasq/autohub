@@ -298,4 +298,32 @@ class Product extends User_Controller
 		$this->Product_model->delete($id, $this->tableTypes, 'pty_id');
 	}
 
+	public function product_details()
+	{
+//		$query = $this->db->query('SELECT * FROM `products` left JOIN `product_sub_products` ON `products`.`prd_id` = `product_sub_products`.`psp_productId` WHERE `prd_id` = 17');
+
+//		$query = $this->db->query('SELECT * FROM `products` left JOIN `product_sub_products` ON `products`.`prd_id` = `product_sub_products`.`psp_productId`');
+
+//		$query = $this->db->query('SELECT *, (select `psp_subProductId` from `product_sub_products` where `psp_productId` = 17)  as `sub` FROM `products` WHERE `prd_id` = 17' );
+
+//		$query = $this->db->query('SELECT *, (select GROUP_CONCAT(`psp_subProductId`) from `product_sub_products` where `psp_productId` = 17)  as `sub` FROM `products`' );
+
+//working
+		$query = $this->db->query('SELECT *, GROUP_CONCAT(`product_sub_products`.`psp_subProductId`) AS `subitem`
+FROM  `products`
+left JOIN  `product_sub_products` ON `product_sub_products`.`psp_productId` = `products`.`prd_id`
+group by `products`.`prd_id`');
+
+//		concat(id,';',title)
+
+		$result = $query->result_array();
+
+		print_r($result);
+	}
+
+	public function get_products()
+	{
+		$response = $this->Product_model->get_products();
+		print_r($response);
+	}
 }

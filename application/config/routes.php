@@ -87,6 +87,7 @@ $route['vehicle/list-company/user-id/(:num)'] = "apiv1/vehicle/get_all_companies
 $route['vehicle/create-driver'] = "apiv1/vehicle/create_vehicle_driver";
 $route['vehicle/update-driver/driver-id/(:num)'] = "apiv1/vehicle/update_vehicle_driver";
 $route['vehicle/list-driver/company-id/(:num)'] = "apiv1/vehicle/get_all_drivers_by_company";
+$route['vehicle/get-driver/vehicle-id/(:num)'] = "apiv1/vehicle/get_driver_by_vehicle";
 
 //Business & Vehicle Types
 $route['vehicle/list-business-types'] = "apiv1/vehicle/list_business_types";
@@ -120,6 +121,7 @@ $route['quotreq/add-item/user-id/(:num)'] = 'apiv1/quotreq/add_item';
 $route['quotreq/list-items/user-id/(:num)'] = 'apiv1/quotreq/list_items';
 $route['quotreq/delete-items/user-id/(:num)'] = 'apiv1/quotreq/delete_items';
 $route['quotreq/delete/quotreq-id/(:num)'] = 'apiv1/quotreq/delete';
+
 
 
 //-------------Quote Routes---------------//
@@ -235,7 +237,7 @@ $route['vehicle/viewdata/vehicle-id/(:any)'] = 'webapp/vehicle/detail_view';
 $route['vehicle/type'] = 'webapp/VehicleType/index';
 $route['vehicle/type/create'] = 'webapp/VehicleType/create';
 $route['vehicle/type/delete'] = 'webapp/VehicleType/delete';
-$route['vehicle/type/getdata'] = 'apiv1/Vehicle/list_vehicle_types';
+$route['vehicle/type/getdata'] = 'apiv1/Vehicle/list_vehicle_types_dt';
 
 //---------Payment------------//
 $route['payment/bank'] = 'webapp/payment/banks';

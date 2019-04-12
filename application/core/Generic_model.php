@@ -106,18 +106,26 @@ class Generic_model extends CI_Model
 		return $this->model_response(true, 200, array($responseField => $result));
 	}
 
-	public function list_all($table = NULL, $where = NULL, $orderby = "createdAt", $responseField)
+	public function list_all($table = NULL, $where = NULL, $orderby = "createdAt", $responseField = NULL)
 	{
 		if ($table != NULL) {
 			$this->db->from($table);
 			$result = $this->build_response_array($this->db->get()->result_array());
-			return $this->model_response(true, 200, array($responseField => $result));
+			if(is_null($responseField)){
+				return $this->model_response(true, 200, $result);
+			}else {
+				return $this->model_response(true, 200, array($responseField => $result));
+			}
 		}
 		$this->db->from($this->table);
 		if ($orderby)
 			$this->db->order_by($this->prfx . $orderby);
 		$result = $this->build_response_array($this->db->get()->result_array());
-		return $this->model_response(true, 200, array($responseField => $result));
+		if(is_null($responseField)){
+			return $this->model_response(true, 200, $result);
+		}else {
+			return $this->model_response(true, 200, array($responseField => $result));
+		}
 	}
 
 	public function get_join(& $db, $relation_field)

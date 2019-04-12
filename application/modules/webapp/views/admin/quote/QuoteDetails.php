@@ -1,7 +1,7 @@
 <?php $this->load->view('includes/headers/admin-header'); ?>
 <script type="text/javascript">
 	var quoteId = <?php echo $itemData['id']; ?>;
-	var shippingCost =; <?php echo isset($itemData) && !empty($itemData['shippingCost']) ? $itemData['shippingCost'] : "0"; ?>
+	var shippingCost = <?php echo isset($itemData) && !empty($itemData['shippingCost']) ? $itemData['shippingCost'] : "0"; ?>
 </script>
 <script src="<?php echo base_url(); ?>assets/constants/quote-details.constants.js"></script>
 <div class="row">
@@ -249,8 +249,8 @@
 							</div>
 						</div>
 					</div>
-					<button type="button" class="btn waves-effect waves-light btn-primary"
-					        onclick="test()">Update</i></button></span>
+					<!-- <button type="button" class="btn waves-effect waves-light btn-primary"
+					        onclick="test()">Update</i></button></span> -->
 				</div>
 			</div>
 			<!-- end: panel body -->

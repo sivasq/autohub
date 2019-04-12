@@ -82,18 +82,36 @@ function getProductUpdate() {
 
     var productType = document.getElementById("productType").value;
 
+    const dynamicText = document.querySelectorAll('.dynamicText');
+
     if (productType === "1") {
         $('#productCategoryDiv').prop('hidden', false);
         $('#subItems').prop('hidden', true);
+
+        [].forEach.call(dynamicText, (e)=>{
+            e.textContent  = "Product";
+        });
     } else if (productType === "2") {
         $('#productCategoryDiv').prop('hidden', true);
         $('#subItems').prop('hidden', false);
+
+        [].forEach.call(dynamicText, (e)=>{
+            e.textContent  = "Package";
+        });
     } else if (productType === "3") {
         $('#productCategoryDiv').prop('hidden', true);
         $('#subItems').prop('hidden', true);
+
+        [].forEach.call(dynamicText, (e)=>{
+            e.textContent  = "Package Item";
+        });
     } else {
         $('#productCategoryDiv').prop('hidden', false);
         $('#subItems').prop('hidden', true);
+
+        [].forEach.call(dynamicText, (e)=>{
+            e.textContent  = "Product";
+        });
     }
 }
 
@@ -170,3 +188,8 @@ function getCourierInfo() {
         }
     });
 }
+
+// function changeCat(){
+//     var els = document.getElementById("productCategoryy");
+//     els.value = '6';
+// }

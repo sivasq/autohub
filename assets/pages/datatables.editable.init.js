@@ -68,6 +68,7 @@
                 .on('click', 'a.edit-row', function (e) {
                     e.preventDefault();
 
+                    $.scrollTo('body', 300);
                     _self.rowEdit($(this).closest('tr'));
                 })
                 .on('click', 'a.remove-row', function (e) {
@@ -162,7 +163,7 @@
             }
         },
 
-        rowEdit: function ($row) {            
+        rowEdit: function ($row) {
             var _self = this,
                 data;
             data = this.datatable.row($row.get(0)).data();

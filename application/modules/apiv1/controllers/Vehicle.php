@@ -85,6 +85,14 @@ class Vehicle extends MY_Controller
 		return $this->response($this->Driver_model->list_by_field("companyId", (int)$this->get_path_variable('company-id'), '', '', 'drivers'));
 	}
 
+	/*
+    * No Body
+    */
+	public function get_driver_by_vehicle_get()
+	{
+		$driver = $this->Driver_model->list_driver_by_vehicle((int)$this->get_path_variable('vehicle-id'));
+		return $this->response($driver, 200);
+	}
 
 	/*
 	* Business types
@@ -103,6 +111,13 @@ class Vehicle extends MY_Controller
 		return $this->response($this->Vehicletype_model->list_all('', '', '', 'vehicleTypes'));
 	}
 
+	/*
+	* vehicle types
+	*/
+	public function list_vehicle_types_dt_get()
+	{
+		return $this->response($this->Vehicletype_model->list_all());
+	}
 
 	/*
 	 * Vehicles

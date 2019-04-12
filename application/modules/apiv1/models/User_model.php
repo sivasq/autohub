@@ -14,7 +14,7 @@ class User_model extends Generic_model
 
 	public function create_shipping_address($shippingAddress)
 	{
-		$shippingAddressData = $this->build_model_data($shippingAddress, self::SHA, array(createdAt => date('Y-m-d H:i:s')));
+		$shippingAddressData = $this->build_model_data($shippingAddress, self::SHA, array('createdAt' => date('Y-m-d H:i:s')));
 		$this->db->insert(self::TBL_SHIPPING_ADDRESS, $shippingAddressData);
 		return $this->model_response(true, 202, array("shippingAddressId" => $this->db->insert_id()), 'Shipping Address Created Successfully');
 	}
