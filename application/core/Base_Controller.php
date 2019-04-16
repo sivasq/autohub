@@ -57,6 +57,5 @@ class Base_Controller extends MX_Controller
 //		 }else{
 //			 return $this->email->print_debugger();
 //		 }
-
 	}
 }

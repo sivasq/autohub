@@ -66,6 +66,7 @@ class Product_model extends Generic_Model
 	{
 		$this->db->insert($this->table, $data);
 		$productId = $this->db->insert_id();
+
 		if (!empty($subItems)) {
 			$sub_items_model = array();
 			foreach ($subItems as $subItem) {
@@ -80,12 +81,35 @@ class Product_model extends Generic_Model
 		return true;
 	}
 
+	public function update_product_with_sub_items($data, $id, $table, $id_name, $subItems = NULL)
+	{
+		$this->update($data, $id, $table, $id_name);
+
+		$this->delete($id, $this->subProducts, 'psp_productId');
+
+		if (!empty($subItems)) {
+			$sub_items_model = array();
+			foreach ($subItems as $subItem) {
+				$model = array(
+					"psp_productId" => $id,
+					"psp_subProductId" => $subItem,
+				);
+				array_push($sub_items_model, $model);
+			}
+			$this->db->insert_batch($this->subProducts, (array)$sub_items_model);
+		}
+		return true;
+	}
+
 	public function get_products()
 	{
-		$this->db->select($this->table . ".*, " . $this->tableCategories . ".pca_name as productCategory, pty_name as productType");
+		$this->db->select($this->table . ".*, " . $this->tableCategories . ".pca_name as productCategory, pty_name as productType, CONCAT('', GROUP_CONCAT( product_sub_products.psp_subProductId SEPARATOR ','), '') AS subitem, CONCAT('', GROUP_CONCAT( sub.prd_name SEPARATOR ','), '') AS subitemname");
 		$this->db->from($this->table);
 		$this->db->join($this->tableCategories, 'prd_categoryId = pca_id', 'left');
 		$this->db->join($this->tableTypes, 'prd_typeId = pty_id', 'left');
+		$this->db->join('product_sub_products', 'psp_productId = prd_id', 'left');
+		$this->db->join('products as sub', 'psp_subProductId = sub.prd_id', 'left');
+		$this->db->group_by('products.prd_id');
 		$this->db->order_by("prd_createdAt", "desc");
 		$result = $this->db->get();
 		$response_data = $this->build_datatable_response_array($result->result_array());

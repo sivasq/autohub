@@ -28,7 +28,7 @@
 						<div class="form-group">
 							<label class="col-md-4 control-label">Status</label>
 							<div class="col-md-8 input-group m-t-8">
-								<select class="form-control select2 col-md-4" id="orderStatus">
+								<select class="form-control select2 col-md-4" id="quotStatus">
 									<?php
 									if (isset($statusData))
 										foreach ($statusData as $value) {
@@ -44,7 +44,7 @@
 								</select>
 								<span class="input-group-btn">
                                     <button type="button" class="btn waves-effect waves-light btn-primary"
-                                            onclick="updateStatus()">Update</i></button></span>
+                                            onclick="updateQuotStatus()">Update</i></button></span>
 							</div>
 						</div>
 						<div class="form-group">

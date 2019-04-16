@@ -16,7 +16,7 @@ class FCM_Message
 	 */
 	protected $CI;
 
-	function __construct($params)
+	function __construct()
 	{
 		$this->CI =& get_instance();
 
@@ -29,19 +29,12 @@ class FCM_Message
 		$this->messaging = $this->firebase->getMessaging();
 	}
 
-	public function send()
+	public function send($token, $notification, $data = null)
 	{
-		$message = "lol whatever";
-		$title = "Somebody messaged whatever";
-		$notification = array("body" => $message, "title" => $title);
-
-		// $token = "ebfN5oHk_jQ:APA91bGmDlLX-vFYqIY86rxkD8kdsP5LZf33KCkvruP2oD5R_toilqrOcOYclIT3AUbrie-zMa-tcdn-9YmXi_xVaOgCe5hr3S9EFWrKzRDIO-6Vt3aU5OkviJQB5YJPWuV7CkURS7nY";
-		$token = "ez_mpVX0bgQ:APA91bFLTv2nZPhU59XPOA3KVjpPWM7UgcJ3yGxdaB2GGWttKlbB5cWxoiGLKaQ4FeMN63dc1_WfpRh8GmIW2kpDQuRxT25xfHRzl4dxs3TlIVvWowHqxqlUwcJYuZPU6nU5qtkjgjkx";
-
-		$data = [
-			'first_key' => 'First Value',
-			'second_key' => 'Second Value',
-		];
+//		$data = [
+//			'first_key' => 'First Value',
+//			'second_key' => 'Second Value',
+//		];
 
 		$message = CloudMessage::fromArray([
 			'token' => $token,
@@ -49,35 +42,11 @@ class FCM_Message
 		]);
 
 		try {
-			print_r($this->messaging->send($message));
+			$this->messaging->send($message);
+			//print_r($this->messaging->send($message));
 		} catch (Exception $e) {
-			print_r($e->getMessage());
+			$e->getMessage();
+			//print_r($e->getMessage());
 		}
-	}
-
-	public function indexd()
-	{
-//		$messaging = $this->firebase->getMessaging();
-//
-//		$message = "lol whatever";
-//		$title = "Somebody messaged whatever";
-//		$notification = array("body" => $message, "title " => $title);
-//
-//		$token = "ebfN5oHk_jQ:APA91bGmDlLX-vFYqIY86rxkD8kdsP5LZf33KCkvruP2oD5R_toilqrOcOYclIT3AUbrie-zMa-tcdn-9YmXi_xVaOgCe5hr3S9EFWrKzRDIO-6Vt3aU5OkviJQB5YJPWuV7CkURS7nY";
-//
-//		$data = [
-//			'first_key' => 'First Value',
-//			'second_key' => 'Second Value',
-//		];
-//		$message = CloudMessage::fromArray([
-//			'token' => $token,
-//			'notification' => $notification, // optional
-//		]);
-//
-//		try {
-//			print_r($messaging->send($message));
-//		} catch (Exception $e) {
-//			print_r($e->getMessage());
-//		}
 	}
 }

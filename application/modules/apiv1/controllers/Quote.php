@@ -11,6 +11,7 @@ class Quote extends MY_Controller
 	{
 		parent::__construct();
 		$this->load->model('Quote_model');
+		$this->load->library('FCM_Message', NULL, 'fcm');
 	}
 
 	/*
@@ -82,19 +83,44 @@ class Quote extends MY_Controller
 
 	public function update_items_price_put()
 	{
-		return $this->response($this->Quote_model->update_order_items_price($this->httpRequest));
+		$orderId = $this->httpRequest[0]->orderId;
+		$response = $this->Quote_model->update_quote_items_price($this->httpRequest);
+
+		if ($response[0]) {
+			$this->response($response, 200, TRUE);
+		} else {
+			$this->response($response, 200, FALSE);
+		}
+
+		$quoteDetail = $this->Quote_model->get_quote_detail_by_quote_id($orderId);
+		$userDetail = $this->Quote_model->get_user_detail_by_user_id($quoteDetail->ord_userId);
+		$deviceData = $this->Quote_model->get_device_token_by_email($userDetail->email);
+
+		//Build For Push Notification
+		$title = "Quote Update";
+		$message = "Quote Price updated for " . $quoteDetail->ord_quoteId;
+		$notification = array("body" => $message, "title" => $title);
+		$token = $deviceData->token;
+
+		$this->fcm->send($token, $notification);
+
+		//Build For Mail
+		$subject = "Quote Update Alert";
+		$message = "Hi ";
+		$message .= $userDetail->first_name . " " . $userDetail->last_name . ",<br/><br/>";
+		$message .= "we have updated price for quotation ";
+		$message .= "<b>".$quoteDetail->ord_quoteId."</b>";
+
+		$this->sendEmail($message, $userDetail->email, $subject);
 	}
 
 	public function update_status_put()
 	{
 		$updateData = $this->httpRequest;
-		$orderId = $updateData->ord_id;
-		$orderStatusId = $updateData->ord_statusId;
-		if ($orderStatusId == 3) {
-			$updateData->ord_orderId = $this->Quote_model->generate_order_number($orderId);
-		}
+		$quoteId = $updateData->ord_id;
 		unset($updateData->ord_id);
-		return $this->response($this->Quote_model->update($updateData, $orderId));
+
+		return $this->response($this->Quote_model->update_status($updateData, $quoteId));
 	}
 
 	public function update_payment_status_put()
@@ -160,5 +186,5 @@ class Quote extends MY_Controller
 	{
 		$response = $this->Quote_model->update_quote_price($this->httpRequest);
 		$this->response($response);
-	}	
+	}
 }

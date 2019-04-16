@@ -21,41 +21,13 @@ class Product extends User_Controller
 
 	public function index()
 	{
-//		$this->products();
+		$this->products();
 		$data = new stdClass();
 		$data->page_name = 'Products';
 		$data->categoryData = $this->get_categories();
 		$data->typeData = $this->get_types();
 		$data->subItems = $this->get_subItems();
 		$this->load->view('admin/product/product', $data);
-	}
-
-	public function products()
-	{
-		$data = new stdClass();
-		$data->page_name = 'Products';
-		$data->categoryData = $this->get_categories();
-		$data->typeData = $this->get_types();
-		$data->subItems = $this->get_subItems();
-		$this->load->view('admin/product/product', $data);
-	}
-
-	public function category()
-	{
-		$data['page_name'] = 'Product Category';
-		$this->load->view('admin/product/category', $data);
-	}
-
-	public function condition()
-	{
-		$data['page_name'] = 'Product Conditions';
-		$this->load->view('admin/product/condition', $data);
-	}
-
-	public function type()
-	{
-		$data['page_name'] = 'Product Types';
-		$this->load->view('admin/product/type', $data);
 	}
 
 	public function get_categories()
@@ -93,54 +65,86 @@ class Product extends User_Controller
 		return $output;
 	}
 
+	public function products()
+	{
+		$data = new stdClass();
+		$data->page_name = 'Products';
+		$data->categoryData = $this->get_categories();
+		$data->typeData = $this->get_types();
+		$data->subItems = $this->get_subItems();
+		$this->load->view('admin/product/product', $data);
+	}
 
+	public function category()
+	{
+		$data['page_name'] = 'Product Category';
+		$this->load->view('admin/product/category', $data);
+	}
+
+	public function condition()
+	{
+		$data['page_name'] = 'Product Conditions';
+		$this->load->view('admin/product/condition', $data);
+	}
+
+	public function type()
+	{
+		$data['page_name'] = 'Product Types';
+		$this->load->view('admin/product/type', $data);
+	}
 
 	public function product_create()
 	{
 		$id = $this->input->post('prdId');
 		$subItems = $this->input->post("sub_item");
-		$rules = array();
-//        $rules = array(
-//            array(
-//                'field' => 'prdName',
-//                'label' => 'Product Name',
-//                'rules' => 'required|is_unique[products.prd_name]',
-//                'errors' => array(
-//                    'required' => 'You must provide a %s.',
-//                    'is_unique' => '%s already exists',
-//                ),
-//            )
-//        );
+
 		if (isset($subItems)) {
-			$this->createProduct(SELF::PRODUCT_URL, $id, $rules, $this->postProductData(), $this->tableProducts, 'pra_id', $subItems);
+			$this->createProduct(SELF::PRODUCT_URL, $id, $this->postProductData(), $this->tableProducts, 'prd_id', $subItems);
 		} else {
-			$this->createProduct(SELF::PRODUCT_URL, $id, $rules, $this->postProductData(), $this->tableProducts, 'pra_id');
+			$this->createProduct(SELF::PRODUCT_URL, $id, $this->postProductData(), $this->tableProducts, 'prd_id');
 		}
 	}
 
-	public function createProduct($view, $id, $rules, $requestData, $table, $id_name, $subItems = NULL)
+	public function createProduct($view, $id, $requestData, $table, $id_name, $subItems = NULL)
 	{
 		$data = new stdClass();
+		$data->page_name = "Products";
+		$data->categoryData = $this->get_categories();
+		$data->typeData = $this->get_types();
+		$data->subItems = $this->get_subItems();
+
 		$this->load->helper('form');
 		$this->load->library('form_validation');
 		$submitType = $this->input->post('create_update');
 
 		if ($submitType == "Create") {
-			// set validation rules
-			$this->form_validation->set_rules($rules);
-			if ($subItems == NULL) {
-				if ($this->Product_model->insert($requestData)) {
-					redirect($view);
-				}
-			} else {
-				if ($this->Product_model->create_product_with_sub_items($requestData, $subItems)) {
-					redirect($view);
+
+			//Validation rule load from config file
+			if ($this->form_validation->run('product_create') === false) {
+				// validation not ok, send validation errors to the view
+				$this->load->view('admin/product/product', $data);
+			}else {
+				if ($subItems == NULL) {
+					if ($this->Product_model->insert($requestData)) {
+						redirect($view);
+					}
+				} else {
+					if ($this->Product_model->create_product_with_sub_items($requestData, $subItems)) {
+						redirect($view);
+					}
 				}
 			}
 		} else {
-			if ($this->Product_model->update($requestData, $id, $table, $id_name)) {
-				redirect($view);
+			if ($subItems == NULL) {
+				if ($this->Product_model->update($requestData, $id, $table, $id_name)) {
+					redirect($view);
+				}
+			} else {
+				if ($this->Product_model->update_product_with_sub_items($requestData,$id, $table, $id_name, $subItems)) {
+					redirect($view);
+				}
 			}
+
 		}
 	}
 
@@ -171,21 +175,11 @@ class Product extends User_Controller
 	public function category_create()
 	{
 		$id = $this->input->post('pcaId');
-		$rules = array(
-			array(
-				'field' => 'pcaName',
-				'label' => 'Category Name',
-				'rules' => 'required|is_unique[product_categories.pca_name]',
-				'errors' => array(
-					'required' => 'You must provide a %s.',
-					'is_unique' => '%s already exists',
-				),
-			)
-		);
-		$this->create(SELF::CATEGORY_URL, $id, $rules, $this->postCategoryData(), $this->tableCategories, 'pca_id', "Product Category");
+
+		$this->create(SELF::CATEGORY_URL, $id,'prd_category_create', $this->postCategoryData(), $this->tableCategories, 'pca_id', "Product Category");
 	}
 
-	public function create($view, $id, $rules, $requestData, $table, $id_name, $page_name)
+	public function create($view, $id, $rules_config, $requestData, $table, $id_name, $page_name)
 	{
 		$data = new stdClass();
 		$data->page_name = $page_name;
@@ -194,11 +188,8 @@ class Product extends User_Controller
 		$submitType = $this->input->post('create_update');
 
 		if ($submitType == "Create") {
-			// set validation rules
-			$this->form_validation->set_rules($rules);
-
-			if ($this->form_validation->run() === false) {
-
+			//Validation rule load from config file
+			if ($this->form_validation->run($rules_config) === false) {
 				// validation not ok, send validation errors to the view
 				$this->load->view('admin/' . $view, $data);
 			} else {
@@ -233,18 +224,8 @@ class Product extends User_Controller
 	public function condition_create()
 	{
 		$id = $this->input->post('pcoId');
-		$rules = array(
-			array(
-				'field' => 'pcoName',
-				'label' => 'Condition Name',
-				'rules' => 'required|is_unique[product_conditions.pco_name]',
-				'errors' => array(
-					'required' => 'You must provide a %s.',
-					'is_unique' => '%s already exists',
-				),
-			)
-		);
-		$this->create(SELF::CONDITION_URL, $id, $rules, $this->postConditionData(), $this->tableConditions, 'pco_id', 'Product Conditions');
+
+		$this->create(SELF::CONDITION_URL, $id, 'prd_condition_create', $this->postConditionData(), $this->tableConditions, 'pco_id', 'Product Conditions');
 	}
 
 	private function postConditionData()
@@ -267,18 +248,8 @@ class Product extends User_Controller
 	public function type_create()
 	{
 		$id = $this->input->post('ptyId');
-		$rules = array(
-			array(
-				'field' => 'ptyName',
-				'label' => 'Type Name',
-				'rules' => 'required|is_unique[product_types.pty_name]',
-				'errors' => array(
-					'required' => 'You must provide a %s.',
-					'is_unique' => '%s already exists',
-				),
-			)
-		);
-		$this->create(SELF::TYPE_URL, $id, $rules, $this->postTypeData(), $this->tableTypes, 'pty_id', "Product Types");
+
+		$this->create(SELF::TYPE_URL, $id, 'product_type_create', $this->postTypeData(), $this->tableTypes, 'pty_id', "Product Types");
 	}
 
 	private function postTypeData()
@@ -298,32 +269,60 @@ class Product extends User_Controller
 		$this->Product_model->delete($id, $this->tableTypes, 'pty_id');
 	}
 
+	//	Testing Function
 	public function product_details()
 	{
-//		$query = $this->db->query('SELECT * FROM `products` left JOIN `product_sub_products` ON `products`.`prd_id` = `product_sub_products`.`psp_productId` WHERE `prd_id` = 17');
-
-//		$query = $this->db->query('SELECT * FROM `products` left JOIN `product_sub_products` ON `products`.`prd_id` = `product_sub_products`.`psp_productId`');
-
-//		$query = $this->db->query('SELECT *, (select `psp_subProductId` from `product_sub_products` where `psp_productId` = 17)  as `sub` FROM `products` WHERE `prd_id` = 17' );
 
 //		$query = $this->db->query('SELECT *, (select GROUP_CONCAT(`psp_subProductId`) from `product_sub_products` where `psp_productId` = 17)  as `sub` FROM `products`' );
 
-//working
-		$query = $this->db->query('SELECT *, GROUP_CONCAT(`product_sub_products`.`psp_subProductId`) AS `subitem`
-FROM  `products`
-left JOIN  `product_sub_products` ON `product_sub_products`.`psp_productId` = `products`.`prd_id`
-group by `products`.`prd_id`');
 
-//		concat(id,';',title)
+//working
+//		$query = $this->db->query('SELECT *, GROUP_CONCAT(`product_sub_products`.`psp_subProductId`) AS `subitem`
+//FROM  `products`
+//left JOIN  `product_sub_products` ON `product_sub_products`.`psp_productId` = `products`.`prd_id`
+////group by `products`.`prd_id`');
+
+
+//working
+//		$query = $this->db->query('SELECT *, GROUP_CONCAT(`product_sub_products`.`psp_subProductId` ORDER BY `psp_subProductId` ASC SEPARATOR ";") AS `subitem`
+//FROM  `products`
+//LEFT JOIN  `product_sub_products` ON `product_sub_products`.`psp_productId` = `products`.`prd_id`
+//group by `products`.`prd_id`');
+
+
+//working
+//		$query = $this->db->query('SELECT *, GROUP_CONCAT(CONCAT_WS(",", `product_sub_products`.`psp_productId`, `product_sub_products`.`psp_subProductId`) SEPARATOR ";") AS `subitem`
+//FROM  `products`
+//LEFT JOIN  `product_sub_products` ON `product_sub_products`.`psp_productId` = `products`.`prd_id`
+//group by `products`.`prd_id`');
+
+
+//		$query = $this->db->query('SELECT *, CONCAT(
+//  "[", GROUP_CONCAT( JSON_OBJECT(`product_sub_products`.`psp_productId`, `product_sub_products`.`psp_subProductId`) SEPARATOR ";"), "]") AS `subitem`
+//FROM  `products`
+//LEFT JOIN  `product_sub_products` ON `product_sub_products`.`psp_productId` = `products`.`prd_id` where `psp_productId` = 17
+//group by `products`.`prd_id`');
+
+//		$query = $this->db->query('SELECT *, CONCAT(
+//  "[", GROUP_CONCAT( `product_sub_products`.`psp_subProductId` SEPARATOR ","), "]") AS `subitem`
+//FROM  `products`
+//LEFT JOIN  `product_sub_products` ON `product_sub_products`.`psp_productId` = `products`.`prd_id` where `psp_productId` = 17
+//group by `products`.`prd_id`');
+
+
+		$this->db->select("products.*, product_categories.pca_name as productCategory, pty_name as productType, CONCAT('', GROUP_CONCAT( product_sub_products.psp_subProductId SEPARATOR ','), '') AS subitem, CONCAT('', GROUP_CONCAT( sub.prd_name SEPARATOR ','), '') AS subitemname");
+		$this->db->from('products');
+		$this->db->join('product_categories', 'prd_categoryId = pca_id', 'left');
+		$this->db->join('product_types', 'prd_typeId = pty_id', 'left');
+		$this->db->join('product_sub_products', 'psp_productId = prd_id', 'left');
+		$this->db->join('products as sub', 'psp_subProductId = sub.prd_id', 'left');
+		$this->db->group_by('products.prd_id');
+		$query = $this->db->get();
+
 
 		$result = $query->result_array();
 
 		print_r($result);
 	}
 
-	public function get_products()
-	{
-		$response = $this->Product_model->get_products();
-		print_r($response);
-	}
 }

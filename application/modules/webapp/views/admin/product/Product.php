@@ -32,8 +32,8 @@
 										</label>
 										<div class="col-sm-7">
 											<select class="form-control" name="productType"
-											        id="productType" onchange="getProductUpdate()">
-												<option>Select Type</option>
+											        id="productType" onchange="getProductUpdate()" required="">
+												<option value="">Select Type</option>
 												<?php
 												if (isset($typeData)) {
 													echo $typeData;
@@ -47,8 +47,8 @@
 										<label for="productCategory" class="col-sm-4 control-label">Category</label>
 										<div class="col-sm-7">
 											<select class="form-control" name="productCategory"
-											        id="productCategory">
-												<option>Select Category</option>
+											        id="productCategory" required="">
+												<option value="">Select Category</option>
 												<?php
 												if (isset($categoryData)) {
 													echo $categoryData;
@@ -83,7 +83,7 @@
 										<div class="col-sm-7">
 											<select multiple="multiple" class="multi-select" id="sub_items"
 											        name="sub_item[]" data-plugin="multiselect"
-											        data-selectable-optgroup="true">
+											        data-selectable-optgroup="true" >
 												<?php
 												if (isset($subItems)) {
 													echo $subItems;
@@ -118,6 +118,7 @@
 			</div> <!-- end panel -->
 		</div> <!-- end col-->
 	</div>
+
 	<div class="row">
 		<div class="col-sm-12">
 			<div class="panel">
@@ -170,7 +171,3 @@
 	</div>
 	<!-- end row -->
 <?php $this->load->view('includes/footers/admin-footer'); ?>
-
-<script>
-	$('#sub_items').multiSelect('select', '20');
-</script>

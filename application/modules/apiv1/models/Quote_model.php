@@ -326,6 +326,13 @@ class Quote_model extends Generic_model
 		return $this->model_response(true, 200, array(), 'Price Updated');
 	}
 
+	public function get_quot_item_by_ids($ids)
+	{
+		$this->db->from($this->table_order_detail);
+		$this->db->where_in($this->prfx_order_details . 'id', $ids);
+		return $this->db->get()->result_array();
+	}
+
 	public function update_status($httpRequest, $quoteId)
 	{
 		$statusData = array(
@@ -336,7 +343,7 @@ class Quote_model extends Generic_model
 			$this->db->update($this->table, $statusData);
 			return $this->model_response(true, 200, array(), 'Status Updated');
 		} else {
-			return $this->model_response(true, 400, array(), "Invalid Request");
+			return $this->model_response(false, 400, array(), "Invalid Request");
 		}
 	}
 
@@ -386,13 +393,14 @@ class Quote_model extends Generic_model
 		return $this->model_response(true, 200, array(), 'Quote Converted To Order');
 	}
 
+	//Admin Panel
+
 	public function generate_order_number($orderId)
 	{
 		$order_number = "OC-" . substr(date("Y"), -2) . "-" . str_pad($orderId, 6, '0', STR_PAD_LEFT);
 		return $order_number;
 	}
 
-	//Admin Panel
 	public function get_quotes()
 	{
 		$this->db->select($this->table . ".*,qst_name as status, concat(first_name, ' ', last_name) as userName");
@@ -442,25 +450,27 @@ class Quote_model extends Generic_model
 		return $response_data;
 	}
 
-	public function update_order_items_price($orderItems)
+	public function update_quote_items_price($quoteItems)
 	{
-		$quotStatus = $this->get_quote_status_by_quot_id($orderItems[0]->orderId);
+		$quotStatus = $this->get_quote_status_by_quot_id($quoteItems[0]->orderId);
 
 		if ($quotStatus->ord_quotStatusId == 1 or $quotStatus->ord_quotStatusId == 2) {
 			$total = 0;
-			$orderId = $orderItems[0]->orderId;
-			foreach ($orderItems as $items) {
+			$orderId = $quoteItems[0]->orderId;
+			foreach ($quoteItems as $items) {
 				$total += $items->ode_price;
 				unset($items->orderId);
 			}
 			$grandTotal = $total;
 			$this->update(array("ord_quotStatusId" => 2, "ord_itemTotal" => $total, "ord_grandTotal" => $grandTotal), $orderId);
-			$response_data = $this->db->update_batch($this->table_order_detail, $orderItems, 'ode_id');
+			$response_data = $this->db->update_batch($this->table_order_detail, $quoteItems, 'ode_id');
 			return $this->model_response(true, 200, $response_data);
 		} else {
 			return $this->model_response(false, 200, array());
 		}
 	}
+
+	//	get List of quot status
 
 	public function get_quote_status_by_quot_id($quoteId)
 	{
@@ -470,7 +480,6 @@ class Quote_model extends Generic_model
 		return $this->db->get()->row();
 	}
 
-	//	get List of quot status
 	public function get_quote_status()
 	{
 		$this->db->select("qst_name, qst_order");
@@ -480,10 +489,42 @@ class Quote_model extends Generic_model
 		return $response_data;
 	}
 
-	public function get_quot_item_by_ids($ids)
+	public function get_user_email_by_quote_id($quoteId)
 	{
-		$this->db->from($this->table_order_detail);
-		$this->db->where_in($this->prfx_order_details . 'id', $ids);
-		return $this->db->get()->result_array();
+		#Create where clause
+		$this->db->select('ord_userId');
+		$this->db->from('orders');
+		$this->db->where('ord_id', $quoteId);
+		$where_clause = $this->db->get_compiled_select();
+
+		#Create main query
+		$this->db->select('email');
+		$this->db->from('users');
+		$this->db->where("`user_id` IN ($where_clause)", NULL, FALSE);
+		return $this->db->get()->row();
+	}
+
+	public function get_quote_detail_by_quote_id($quoteId)
+	{
+		$this->db->select('*');
+		$this->db->from('orders');
+		$this->db->where('ord_id', $quoteId);
+		return $this->db->get()->row();
+	}
+
+	public function get_user_detail_by_user_id($userId)
+	{
+		$this->db->select('*');
+		$this->db->from('users');
+		$this->db->where('user_id', $userId);
+		return $this->db->get()->row();
+	}
+
+	public function get_device_token_by_email($email)
+	{
+		$this->db->select('token');
+		$this->db->from('devices');
+		$this->db->where('email', $email);
+		return $this->db->get()->row();
 	}
 }

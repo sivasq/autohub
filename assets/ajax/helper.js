@@ -31,6 +31,34 @@ function updateStatus() {
     });
 }
 
+function updateQuotStatus() {
+
+    var status = document.getElementById("quotStatus").value;
+    var orderId = document.getElementById("orderId").value;
+
+    $.ajax({
+        url: updateStatusUrl,
+        data: JSON.stringify({
+            ord_id: orderId,
+            statusId: status
+        }),
+        method: "PUT",
+        beforeSend: function (request) {
+            request.setRequestHeader(headerKey, headerValue);
+        }
+    }).success(function () {
+        if (parseInt(status) >= 3) {
+            $("#updatePriceDiv").attr("hidden", true);
+        }
+        if (parseInt(status) < 3) {
+            $("#updatePriceDiv").removeAttr("hidden");
+        }
+        Swal.fire("Success", "The Status Updated Successfully", "success");
+    }).fail(function () {
+        Swal.fire("Failed", "Fail to update the status", "error");
+    });
+}
+
 function updatePaymentStatus() {
 
     var status = document.getElementById("txnStatus").value;
@@ -86,28 +114,40 @@ function getProductUpdate() {
 
     if (productType === "1") {
         $('#productCategoryDiv').prop('hidden', false);
+        $('#productCategory').prop('required',true);
+
         $('#subItems').prop('hidden', true);
+        $('#sub_items').prop('required',false);
 
         [].forEach.call(dynamicText, (e)=>{
             e.textContent  = "Product";
         });
     } else if (productType === "2") {
         $('#productCategoryDiv').prop('hidden', true);
+        $('#productCategory').prop('required',false);
+
         $('#subItems').prop('hidden', false);
+        $('#sub_items').prop('required',true);
 
         [].forEach.call(dynamicText, (e)=>{
             e.textContent  = "Package";
         });
     } else if (productType === "3") {
         $('#productCategoryDiv').prop('hidden', true);
+        $('#productCategory').prop('required',false);
+
         $('#subItems').prop('hidden', true);
+        $('#sub_items').prop('required',false);
 
         [].forEach.call(dynamicText, (e)=>{
             e.textContent  = "Package Item";
         });
     } else {
         $('#productCategoryDiv').prop('hidden', false);
+        $('#productCategory').prop('required',true);
+
         $('#subItems').prop('hidden', true);
+        $('#sub_items').prop('required',false);
 
         [].forEach.call(dynamicText, (e)=>{
             e.textContent  = "Product";

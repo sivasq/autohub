@@ -159,10 +159,9 @@
 			var _self = this,
 				data;
 			data = this.datatable.row($row.get(0)).data();
-			// console.log(this.datatable.row($row.get(0)).data());
-			// changeCat();
+
 			for (var dataField in data) {
-				console.log(dataField);
+				// console.log(dataField);
 
 				if (dataField === "prdCategoryId") {
 					var els = document.getElementById("productCategory");
@@ -175,6 +174,17 @@
 					getProductUpdate();
 				} else if (dataField === "productType") {
 					//Do nothing
+				} else if (dataField === "subitem") {
+					var itemString = data[dataField]; //1,2,3
+					var itemArrJson = JSON.parse("[" + itemString + "]");//[1,2,3]
+
+					// var itemArrString = data[dataField]; //[1,2,3]
+					// var itemArrJson = JSON.parse(itemArrString); //[1,2,3]
+
+					var itemArrJsonString = itemArrJson.map(String); //['1','2','3']
+					$('#sub_items').multiSelect('deselect_all');
+					$('#sub_items').multiSelect('select', itemArrJsonString);
+
 				} else {
 					var els = document.getElementsByName(dataField);
 					for (var i = 0; i < els.length; i++) {
