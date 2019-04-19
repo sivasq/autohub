@@ -102,7 +102,8 @@
                     },
                     success: function(response) {
                         if (response.status) {
-                            window.location.href = "<?php echo base_url('index.php/admin/dashboard'); ?>";
+                            //window.location.href = "<?php //echo base_url('index.php/admin/dashboard'); ?>//";
+                            window.location.href = "<?php echo base_url('index.php/product/category'); ?>";
                         } else {
                             $("#result").html('<div class="alert alert-danger alert-dismissable"> <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a> <strong>Try again!</strong> Invalid Login Credentials. </div>');
                         }

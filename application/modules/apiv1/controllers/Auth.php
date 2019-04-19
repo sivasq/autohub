@@ -74,6 +74,7 @@ class Auth extends My_Controller
 
 			$this->sendEmail($message, $email, $subject);
 		}
+
 		unset($response[3]);
 		$this->response($response, REST_Controller::HTTP_OK);
 	}

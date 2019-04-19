@@ -25,6 +25,7 @@ class Vehicle extends User_Controller
     {
         $vehicleId = $this->get_path_variable('vehicle-id');
         $data = new stdClass();
+	    $data->page_name = 'Vehicle Details';
         $vehicleDetails = $this->Vehicle_model->get_vehicle_details_by_vehicle_id($vehicleId);
         $data->itemData = $vehicleDetails;
         if($vehicleDetails["businessTypeId"]==2) {

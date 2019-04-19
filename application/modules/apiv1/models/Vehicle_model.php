@@ -80,11 +80,12 @@ class Vehicle_model extends Generic_model
 	// For Admin panel
 	public function get_vehicles_data()
 	{
-		$this->db->select($this->tbl_vehicle . ".*, " . $this->prfx_vehicle_type . "name as vehicleType, " . $this->prfx_business_type . "name as businessType, " . $this->prefix_vehicle_company . "companyName ,concat(vhl_make,' ',vhl_model,' ',vhl_year) as vehicleInfo,");
+		$this->db->select($this->tbl_vehicle . ".*, " . $this->prfx_vehicle_type . "name as vehicleType, " . $this->prfx_business_type . "name as businessType, " . $this->prefix_vehicle_company . "companyName ,concat(vhl_make,' ',vhl_model,' ',vhl_year) as vehicleInfo, concat(first_name,' ',last_name) as user");
 		$this->db->from($this->tbl_vehicle);
 		$this->db->join($this->tbl_vehicle_type, $this->prfx_vehicle_type . "id = " . $this->prfx_vehicle . "vehicleTypeId", "left");
 		$this->db->join($this->tbl_business_type, $this->prfx_business_type . "id = " . $this->prfx_vehicle . "businessTypeId", "left");
 		$this->db->join($this->tbl_vehicle_company, $this->prefix_vehicle_company . "id = " . $this->prfx_vehicle . "companyId", "left");
+		$this->db->join($this->tbl_users, "user_id = " . $this->prfx_vehicle . "userId", "left");
 		$result = $this->build_response_array($this->db->get()->result_array(), NULL, array("createdAt"));
 		return $this->model_response(true, 200, $result);
 	}

@@ -13,7 +13,7 @@ var dataColumns = [
             return '<a href="' + url + '">' + dataField + '</a>';
         }
     },
-    {"data": "userId"},
+    {"data": "user"},
     {"data": "vehicleInfo"},
     {"data": "businessType"},
     {"data": "vehicleType"},
