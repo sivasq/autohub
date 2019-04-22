@@ -50,7 +50,20 @@ class Quote extends MY_Controller
 	{
 		$quoteId = $this->get_path_variable('quote-id');
 		$response = $this->Quote_model->update_quote_shipping($this->httpRequest, $quoteId);
-		$this->response($response);
+
+		if($response[0]) {
+			$acceptObject = new stdClass();
+			$acceptObject->statusId = 3;
+
+			$response = $this->Quote_model->update_status($acceptObject, $quoteId);
+			if ($response) {
+				$this->response($response, REST_Controller::HTTP_OK);
+			} else {
+				$this->response($response, REST_Controller::HTTP_BAD_REQUEST);
+			}
+		}else{
+			$this->response($response, REST_Controller::HTTP_BAD_REQUEST);
+		}
 	}
 
 	/*

@@ -30,7 +30,7 @@ class Payment_model extends Generic_model
 		$this->db->from($this->tbl_payment_banks);
 		$result = $this->db->get();
 		$response_data = $this->build_response_array($result->result_array());
-		return $this->model_response(true, 200, $response_data);
+		return $this->model_response(true, 200, array('banks' => $response_data));
 	}
 
 	public function list_methods()

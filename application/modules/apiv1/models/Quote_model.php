@@ -382,7 +382,7 @@ class Quote_model extends Generic_model
 
 			return $this->model_response(true, 200, $this->db->last_query(), 'Quote Updated');
 		} else {
-			return $this->model_response(true, 400, array(), "Invalid Request");
+			return $this->model_response(false, 400, array(), "Invalid Request");
 		}
 	}
 
