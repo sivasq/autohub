@@ -21,7 +21,6 @@ class Product extends User_Controller
 
 	public function index()
 	{
-		$this->products();
 		$data = new stdClass();
 		$data->page_name = 'Products';
 		$data->categoryData = $this->get_categories();
@@ -63,16 +62,6 @@ class Product extends User_Controller
 			$output .= '<option value="' . $data[0] . '">' . $data[1] . '</option>';
 		}
 		return $output;
-	}
-
-	public function products()
-	{
-		$data = new stdClass();
-		$data->page_name = 'Products';
-		$data->categoryData = $this->get_categories();
-		$data->typeData = $this->get_types();
-		$data->subItems = $this->get_subItems();
-		$this->load->view('admin/product/product', $data);
 	}
 
 	public function category()
@@ -155,12 +144,17 @@ class Product extends User_Controller
 		$productCategory = $this->input->post('productCategory');
 		$productType = $this->input->post('productType');
 		$productPrice = $this->input->post('prdPrice');
+		$prdCurrentStock = $this->input->post('prdCurrentStock');
+		$prdImage = $this->input->post('prdimage');
+
 		$data = array(
 			'prd_name' => $productName,
 			'prd_description' => $productDescription,
 			'prd_categoryId' => $productCategory,
 			'prd_typeId' => $productType,
-			'prd_price' => $productPrice
+			'prd_price' => $productPrice,
+			'prd_currentStock' => $prdCurrentStock,
+			'prd_image' => $prdImage
 		);
 
 		return $data;

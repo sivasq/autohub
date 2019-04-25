@@ -116,6 +116,26 @@
 <!-- DB - Operations  -->
 <!--<script src="--><?php //echo base_url(); ?><!--assets/ajax/persist-data.js"></script>-->
 
+
+<!--<script src="--><?php //echo base_url(); ?><!--/node_modules/jquery/dist/jquery.js" type="text/javascript"></script>-->
+<!--// the following files only need to be included in order to support client-side uploading-->
+<script src="<?php echo base_url(); ?>node_modules/blueimp-file-upload/js/vendor/jquery.ui.widget.js" type="text/javascript"></script>
+
+<script src="<?php echo base_url(); ?>node_modules/blueimp-load-image/js/load-image.all.min.js" type="text/javascript"></script>
+<script src="<?php echo base_url(); ?>node_modules/blueimp-canvas-to-blob/js/canvas-to-blob.js" type="text/javascript"></script>
+
+<script src="<?php echo base_url(); ?>node_modules/blueimp-file-upload/js/jquery.iframe-transport.js" type="text/javascript"></script>
+<script src="<?php echo base_url(); ?>node_modules/blueimp-file-upload/js/jquery.fileupload.js" type="text/javascript"></script>
+
+<script src="<?php echo base_url(); ?>node_modules/blueimp-file-upload/js/jquery.fileupload-process.js" type="text/javascript"></script>
+<script src="<?php echo base_url(); ?>node_modules/blueimp-file-upload/js/jquery.fileupload-image.js" type="text/javascript"></script>
+<script src="<?php echo base_url(); ?>node_modules/blueimp-file-upload/js/jquery.fileupload-validate.js"></script>
+
+<script src="<?php echo base_url(); ?>node_modules/cloudinary-jquery-file-upload/cloudinary-jquery-file-upload.js" type="text/javascript"></script>
+
+<!--<script src="--><?php //echo base_url(); ?><!--node_modules/all.js" type="text/javascript"></script>-->
+<script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>
+
 <script type="text/javascript">
 	$(document).ready(function () {
 		$('form').parsley();

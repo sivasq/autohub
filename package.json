@@ -1,0 +1,23 @@
+{
+  "name": "autohub",
+  "version": "1.0.0",
+  "description": "autohub",
+  "main": "index.js",
+  "dependencies": {
+    "blueimp-canvas-to-blob": "^3.14.0",
+    "blueimp-file-upload": "^9.30.0",
+    "cloudinary-jquery-file-upload": "^2.6.3",
+    "jquery": "^3.4.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/myprojects07/autohub.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/myprojects07/autohub#readme"
+}

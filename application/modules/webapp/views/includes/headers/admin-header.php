@@ -7,7 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="AutoHub-Admin">
 	<meta name="author" content="">
-
+	<meta name="cloudinary_cloud_name" content="sqdevelop">
 	<!-- App Favicon -->
 	<link rel="shortcut icon" href="<?php echo base_url(); ?>assets/images/favicon.ico">
 
