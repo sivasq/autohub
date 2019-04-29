@@ -35,7 +35,7 @@ class Product_model extends Generic_Model
 		return $this->model_response(true, 200, array('productConditions' => $response_data));
 	}
 
-	public function list_product_by_type($typeId)
+	public function list_product_by_type($typeId, $resultKey,  $groupKey="")
 	{
 		$this->db->select($this->table . ".*, " . $this->table . ".prd_id as productId, " . $this->tableCategories . ".pca_name as productCategory, pty_name as productType");
 		$this->db->from($this->table);
@@ -44,8 +44,8 @@ class Product_model extends Generic_Model
 		$this->db->where('prd_typeId=' . $typeId);
 		$this->db->order_by('pca_name');
 		$result = $this->db->get();
-		$response_data = $this->build_response_array_simple($result->result_array(), "productCategory");
-		return $this->model_response(true, 200, array('vehicleParts' => array($response_data)));
+		$response_data = $this->build_response_array_simple($result->result_array(), $groupKey);
+		return $this->model_response(true, 200, array($resultKey => array($response_data)));
 	}
 
 	public function list_service_packs()

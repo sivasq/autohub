@@ -106,10 +106,11 @@ $route['vehicle/count/user-id/(:num)'] = "apiv1/vehicle/get_vehicle_count";
 //------------------Product Routes------------------//
 $route['product/conditions'] = 'apiv1/product/list_product_conditions';
 $route['product/vehicle-parts'] = 'apiv1/product/list_vehicle_parts';
+$route['product/shopping-parts'] = 'apiv1/product/list_shopping_parts';
 $route['product/service-packs'] = 'apiv1/product/list_service_packs';
 
 
-//Cart
+//----------------Cart Routes---------------------//
 $route['cart/add-item/user-id/(:num)'] = 'apiv1/cart/add_item';
 $route['cart/list-items/user-id/(:num)'] = 'apiv1/cart/list_items';
 $route['cart/delete-items/user-id/(:num)'] = 'apiv1/cart/delete_items';
@@ -140,13 +141,12 @@ $route['quote/convertToOrder/quote-id/(:num)'] = 'apiv1/quote/convert_to_order';
 
 
 //Order Routes
-$route['order/list/user-id/(:num)'] = 'apiv1/order/list_all_user_order';
-$route['order/getOrder/order-id/(:num)'] = 'apiv1/order/get_orders_by_orderId';
+$route['order/create'] = 'apiv1/order/create_order';
+$route['order/list/user-id/(:num)'] = 'apiv1/order/list_user_order';
+$route['order/getOrder/order-id/(:num)'] = 'apiv1/order/get_order_by_id';
 
-//$route['order/create'] = 'apiv1/order/create_order';
 // $route['order/get/id/(:num)'] = 'apiv1/order/get_order';
-
-$route['order/update/id/(:num)'] = 'apiv1/order/update_order';
+//$route['order/update/id/(:num)'] = 'apiv1/order/update_order';
 $route['order/delete/id/(:num)'] = 'apiv1/order/delete_order';
 $route['order/create-message'] = 'apiv1/order/create_order_message';
 $route['order/list-message/order-id/(:num)'] = 'apiv1/order/list_order_message';
@@ -255,7 +255,7 @@ $route['payment/method/delete'] = 'webapp/payment/methods_delete';
 //---------Orders------------//
 $route['orders/index'] = 'webapp/orders/index';
 $route['orders/viewdata/order-id/(:any)'] = 'webapp/orders/detail_view';
-$route['order-items/price/update'] = 'apiv1/order/update_items_price';
+//$route['order-items/price/update'] = 'apiv1/order/update_items_price';
 $route['order/status/update'] = 'apiv1/order/update_status';
 
 

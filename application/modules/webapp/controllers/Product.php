@@ -145,7 +145,7 @@ class Product extends User_Controller
 		$productType = $this->input->post('productType');
 		$productPrice = $this->input->post('prdPrice');
 		$prdCurrentStock = $this->input->post('prdCurrentStock');
-		$prdImage = $this->input->post('prdimage');
+		$prdImage = $this->input->post('prdImage');
 
 		$data = array(
 			'prd_name' => $productName,

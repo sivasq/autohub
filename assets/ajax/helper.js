@@ -125,6 +125,8 @@ function getProductUpdate() {
 		$('#priceDiv').prop('hidden', true);
 		$('#price').prop('required', false);
 
+		$('#productImage').prop('hidden', true);
+
 		[].forEach.call(dynamicText, (e) => {
 			e.textContent = "Product";
 		});
@@ -140,6 +142,8 @@ function getProductUpdate() {
 
 		$('#priceDiv').prop('hidden', true);
 		$('#price').prop('required', false);
+
+		$('#productImage').prop('hidden', true);
 
 		[].forEach.call(dynamicText, (e) => {
 			e.textContent = "Package";
@@ -157,6 +161,8 @@ function getProductUpdate() {
 		$('#priceDiv').prop('hidden', true);
 		$('#price').prop('required', false);
 
+		$('#productImage').prop('hidden', true);
+
 		[].forEach.call(dynamicText, (e) => {
 			e.textContent = "Package Item";
 		});
@@ -173,6 +179,8 @@ function getProductUpdate() {
 		$('#priceDiv').prop('hidden', false);
 		$('#price').prop('required', true);
 
+		$('#productImage').prop('hidden', false);
+
 		[].forEach.call(dynamicText, (e) => {
 			e.textContent = "Product";
 		});
@@ -188,6 +196,8 @@ function getProductUpdate() {
 
 		$('#price').prop('hidden', true);
 		$('#price').prop('required', false);
+
+		$('#productImage').prop('hidden', true);
 
 		[].forEach.call(dynamicText, (e) => {
 			e.textContent = "Product";

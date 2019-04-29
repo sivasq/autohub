@@ -85,7 +85,7 @@
 										Current Stock</label>
 									<div class="col-sm-7">
 										<input type="text" required="" class="form-control"
-										       id="prdDescription" name="prdDescription"
+										       id="prdCurrentStock" name="prdCurrentStock"
 										       placeholder="Current Stock" value="0">
 									</div>
 								</div>
@@ -112,6 +112,19 @@
 											}
 											?>
 										</select>
+									</div>
+								</div>
+
+								<div class="form-group" hidden id="productImage">
+									<label for="sub_items" class="col-sm-4 control-label">Product Image</label>
+									<div class="col-sm-7">
+										<input type="hidden" id="prdImage" name="prdImage">
+										<div id="upload_widget" style="line-height: normal; padding: auto;"
+										     class="btn btn-primary cloudinary-button">Select Product Image
+										</div>
+										<div class="preview" id="preview">
+											<ul class="cloudinary-thumbnails"></ul>
+										</div>
 									</div>
 								</div>
 
@@ -193,35 +206,30 @@
 </div>
 <!-- end row -->
 
-<form class="my-form">
-	<div class="form_line">
-		<h4>Upload multiple files with the file dialog or by dragging and dropping images onto the dashed region</h4>
-		<div class="form_controls">
-			<div class="upload_button_holder">
-				<input type="file" name="file" class="cloudinary_fileupload" data-cloudinary-field="image_id" multiple>
-			</div>
-		</div>
-	</div>
-</form>
+<div>
+	<!--	<form class="my-form">-->
+	<!--		<div class="form_line">-->
+	<!--			<h4>Upload files</h4>-->
+	<!--			<div class="form_controls">-->
+	<!--				<div class="upload_button_holder">-->
+	<!--					<input type="file" name="file" class="cloudinary_fileupload" data-cloudinary-field="image_id"-->
+	<!--					       multiple>-->
+	<!--					<input type="hidden" id="product_image" name="image">-->
+	<!--				</div>-->
+	<!--			</div>-->
+	<!--		</div>-->
+	<!--	</form>-->
 
-<div class="progress">
-	<div class="progress-bar" role="progressbar" style="background: #0e5e01; height: 10px;" aria-valuenow="0"
-	     aria-valuemin="0" aria-valuemax="100">
-	</div>
+	<!--	<div class="progress">-->
+	<!--		<div class="progress-bar" role="progressbar" style="background: #0e5e01; height: 10px;" aria-valuenow="0"-->
+	<!--		     aria-valuemin="0" aria-valuemax="100">-->
+	<!--		</div>-->
+	<!--	</div>-->
+
+	<!--	<div class="preview">-->
+	<!--		<ul class="cloudinary-thumbnails"></ul>-->
+	<!--	</div>-->
 </div>
-
-<div class="gallery"/>
-</div>
-
-<div class="preview"/>
-</div>
-<input type="hidden" class="image_public_id">
-
-<button id="upload_widget" class="cloudinary-button">Upload files</button>
-
-<form id="demo">
-
-</form>
 
 <?php $this->load->view('includes/footers/admin-footer'); ?>
 
@@ -272,12 +280,13 @@
 					format: data.result.format,
 					version: data.result.version,
 					secure: true,
-					width: 100,
-					crop: 'scale',
+					width: 90,
+					height: 60,
+					crop: 'limit',
 				});
-			$('.gallery').prepend('<span> <img src="' + thumbImage + '">  <a href="javascript:void(0);" onclick="deleteImage(this)" class="cursor-pointer" data-token="' + data.result.delete_token + '">x</a></span>');
+			$('.preview ul').html('<li class="cloudinary-thumbnail active ms-hover"> <img src="' + thumbImage + '">  <a href="javascript:void(0);" onclick="deleteImage(this)" class="cursor-pointer cloudinary-delete" data-token="' + data.result.delete_token + '">x</a></li>');
 
-			// $('.image_public_id').val(data.result.public_id);
+			$('#prdImage').val(data.result.url);
 		});
 
 	//================================================================
@@ -287,23 +296,27 @@
 			uploadPreset: unsignedUploadPreset,
 			sources: ['local', 'url'],
 			// cropping: "server",
-			showAdvanced_options: true,
-			form: '#demo',
-			fieldName: "image",
-			thumbnails: '.preview',
+			showAdvanced_options: false,
+			// form: '#demo',
+			// fieldName: "image",
+			thumbnails: '.widget-preview',
 			max_image_width: 200,
 		},
 		(error, result) => {
 			if (!error && result && result.event === "success") {
 				console.log('Done! Here is the image info: ', result.info);
-				var image = $.cloudinary.image(
+				var thumbImage = $.cloudinary.url(
 					result.info.public_id, {
-						format: result.info.format, version: result.info.version,
+						format: result.info.format,
+						version: result.info.version,
 						secure: true,
-						width: 150,
-						crop: 'scale'
+						width: 90,
+						height: 60,
+						crop: 'limit',
 					});
-				$('.gallery').prepend(image);
+				$('.preview ul').html('<li class="cloudinary-thumbnail active ms-hover"> <img src="' + thumbImage + '"> <a href="javascript:void(0);" onclick="deleteImage(this)" class="cursor-pointer cloudinary-delete" data-token="' + result.info.delete_token + '">x</a></li>');
+
+				$('#prdImage').val(result.info.url);
 			}
 			console.log(error);
 			return true;

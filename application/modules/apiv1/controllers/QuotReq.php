@@ -18,6 +18,7 @@ class QuotReq extends MY_Controller
 		$user_id = $this->get_path_variable('user-id');
 		$quotreq_model_data = $this->Quotreq_model->build_generic_model_array($this->httpRequest, array("userId" => $user_id, "cartType" => "quotreq"));
 		$this->response($this->Quotreq_model->insert_batch($quotreq_model_data, '', 'Request sent for Quotation'));
+
 		//Get the cartItem list
 		//$this->response($this->Quotreq_model->list_by_userId($user_id, 'Quotation Request Success'));
 	}

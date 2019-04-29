@@ -15,10 +15,10 @@ class Cart extends MY_Controller
 	{
 		$user_id = $this->get_path_variable('user-id');
 		$cart_model_data = $this->Cart_model->build_generic_model_array($this->httpRequest, array("userId" => $user_id, "cartType" => "shopping"));
-		$this->Cart_model->insert_batch($cart_model_data, 'Successfully Added into Cart');
+		$this->response($this->Cart_model->insert_batch($cart_model_data, '', 'Successfully Added into Cart'));
 
 		//Get the cartItem list
-		$this->response($this->Cart_model->list_by_userId($user_id));
+//		$this->response($this->Cart_model->list_by_userId($user_id));
 	}
 
 

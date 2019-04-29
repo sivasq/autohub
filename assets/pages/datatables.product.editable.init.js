@@ -185,6 +185,17 @@
 					$('#sub_items').multiSelect('deselect_all');
 					$('#sub_items').multiSelect('select', itemArrJsonString);
 
+				} else if (dataField === "prdImage") {
+					var els = document.getElementsByName(dataField);
+					for (var i = 0; i < els.length; i++) {
+						els[i].value = data[dataField]
+					}
+
+					if (data[dataField] != null) {
+						$('.preview ul').html('<li class="cloudinary-thumbnail active ms-hover"> <img style="width:60px; height: 60px;" src="' + data[dataField] + '"> <a href="javascript:void(0);" onclick="deleteImage(this)" class="cursor-pointer cloudinary-delete">x</a></li>');
+					}else{
+						$('.preview ul li').remove();
+					}
 				} else {
 					var els = document.getElementsByName(dataField);
 					for (var i = 0; i < els.length; i++) {
@@ -192,7 +203,7 @@
 					}
 				}
 
-				console.log(els);
+				// console.log(els);
 			}
 			document.getElementById("save-button").innerHTML = "Update";
 			var submitType = document.getElementById("save-button");
