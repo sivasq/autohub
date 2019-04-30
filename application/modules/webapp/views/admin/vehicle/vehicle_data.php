@@ -1,20 +1,19 @@
-<?php $this->load->view('includes/headers/admin-header'); ?>
-    <script src="<?php echo base_url(); ?>assets/constants/order.constants.js"></script>
+<?php $this->load->view('includes/headers/admin_header'); ?>
+    <script src="<?php echo base_url(); ?>assets/constants/vehicle.constants.js"></script>
     <div class="row">
         <div class="col-sm-12">
             <div class="panel">
                 <div class="panel-body">
                     <div class="table-responsive">
                         <table class="table table-striped table-bordered nowrap"
-                               cellspacing="0" width="100%" id="order_datatable">
+                               cellspacing="0" width="100%" id="vehicle_datatable">
                             <thead>
                             <tr>
-                                <th>Order ID</th>
+                                <th>Vehicle ID</th>
                                 <th>User</th>
-                                <th>Item Total</th>
-                                <th>Shipping Total</th>
-                                <th>Grand Total</th>
-                                <th>Status</th>
+                                <th>Name</th>
+                                <th>Business Type</th>
+                                <th>Vehicle Type</th>
                                 <th>Created Date</th>
                             </tr>
                             </thead>
@@ -50,4 +49,4 @@
         </section>
     </div>
     <!-- end row -->
-<?php $this->load->view('includes/footers/admin-footer'); ?>
+<?php $this->load->view('includes/footers/admin_footer'); ?>

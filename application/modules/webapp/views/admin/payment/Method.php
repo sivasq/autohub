@@ -1,4 +1,4 @@
-<?php $this->load->view('includes/headers/admin-header'); ?>
+<?php $this->load->view('includes/headers/admin_header'); ?>
     <script src="<?php echo base_url(); ?>assets/constants/payment-methods.constants.js"></script>
     <div class="row">
         <div class="col-sm-12">
@@ -114,4 +114,4 @@
         </section>
     </div>
     <!-- end row -->
-<?php $this->load->view('includes/footers/admin-footer'); ?>
+<?php $this->load->view('includes/footers/admin_footer'); ?>

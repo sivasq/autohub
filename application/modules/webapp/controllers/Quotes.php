@@ -17,13 +17,13 @@ class Quotes extends User_Controller
     public function index()
     {
         $data['page_name'] = "Quotes";
-        $this->load->view('admin/quote/quotedata', $data);
+        $this->load->view('admin/quote/quote_data', $data);
     }
 
 	public function reqs()
 	{
 		$data['page_name'] = "Quote Reqs.";
-		$this->load->view('admin/quote/quotereqdata', $data);
+		$this->load->view('admin/quote/quote_req_data', $data);
 	}
 
     public function detail_view()
@@ -35,7 +35,7 @@ class Quotes extends User_Controller
         $data->statusData = $this->Quote_model->get_quote_status();
 //        echo json_encode($data);
 //        die();
-        $this->load->view('admin/quote/quotedetails', $data);
+        $this->load->view('admin/quote/quote_details', $data);
 //	    print_r($data);
     }
 
@@ -62,7 +62,7 @@ class Quotes extends User_Controller
 //		$data->statusData = $this->Quote_model->get_quote_status();
 //        echo json_encode($data);
 //        die();
-		$this->load->view('admin/quote/quotereqdetails', $data);
+		$this->load->view('admin/quote/quote_req_details', $data);
 //		print_r($data);
 	}
 }

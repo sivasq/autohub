@@ -1,4 +1,4 @@
-<?php $this->load->view('includes/headers/admin-header'); ?>
+<?php $this->load->view('includes/headers/admin_header'); ?>
 <script type="text/javascript">
     var orderId = <?php echo $itemData['id'] ?>;
     var shippingCost = ;
@@ -146,4 +146,4 @@
 </div>
 </div>
 <!-- end row -->
-<?php $this->load->view('includes/footers/admin-footer'); ?> 
+<?php $this->load->view('includes/footers/admin_footer'); ?>

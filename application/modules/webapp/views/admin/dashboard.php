@@ -1,4 +1,4 @@
-<?php $this->load->view('includes/headers/admin-header'); ?>
+<?php $this->load->view('includes/headers/admin_header'); ?>
 <div class="row">
 
 	<div class="col-lg-3 col-md-6">
@@ -416,4 +416,4 @@
 
 </div>
 <!-- end row -->
-<?php $this->load->view('includes/footers/admin-footer'); ?> 
+<?php $this->load->view('includes/footers/admin_footer'); ?>

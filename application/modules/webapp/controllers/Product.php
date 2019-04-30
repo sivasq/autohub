@@ -38,7 +38,6 @@ class Product extends User_Controller
 			$output .= '<option value="' . $data[0] . '">' . $data[1] . '</option>';
 		}
 		return $output;
-
 	}
 
 	public function get_types()

@@ -6,7 +6,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class ShippingMethod extends User_Controller
 {
 
-    var $viewClass = "admin/shipping/ShippingMethod";
+    var $viewClass = "admin/shipping/shipping_method";
     var $viewPage = "shipping-method";
     public function __construct()
     {

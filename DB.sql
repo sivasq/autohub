@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 12, 2019 at 03:50 PM
--- Server version: 8.0.13
--- PHP Version: 7.2.12
+-- Generation Time: Apr 30, 2019 at 01:11 PM
+-- Server version: 8.0.15
+-- PHP Version: 7.3.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -77,7 +77,7 @@ CREATE TABLE IF NOT EXISTS `apikeys` (
   `ip_addresses` text,
   `date_created` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=79 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `apikeys`
@@ -111,7 +111,8 @@ INSERT INTO `apikeys` (`id`, `user_id`, `apikey`, `level`, `ignore_limits`, `is_
 (74, 2, 'okkco0o8ssoogg8w4csc4so0s8k8cwog0wkkgc0g', 1, 1, 0, '192.168.1.6', '2019-04-12 15:30:22'),
 (75, 2, 'ssoccs008k8wok8gs8k8ko8wcokgkggcgsg088wc', 1, 1, 0, '192.168.1.6', '2019-04-12 15:49:52'),
 (76, 2, 'osc4cc4cw4400gssococg44g480o08ws4g8gk4co', 1, 1, 0, '192.168.1.6', '2019-04-12 16:09:17'),
-(77, 6, 'k8skggw0sw0o8c08so44osgwsswwwk0gcw08o808', 1, 1, 0, '192.168.1.6', '2019-04-12 17:01:24');
+(77, 6, 'k8skggw0sw0o8c08so44osgwsswwwk0gcw08o808', 1, 1, 0, '192.168.1.6', '2019-04-12 17:01:24'),
+(78, 10, 'ckggw8k00044sckcc48wc8gkg44kwo848w8csco4', 1, 1, 0, '192.168.1.6', '2019-04-30 12:53:51');
 
 -- --------------------------------------------------------
 
@@ -126,14 +127,15 @@ CREATE TABLE IF NOT EXISTS `devices` (
   `token` text NOT NULL,
   `soft_delete` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `devices`
 --
 
 INSERT INTO `devices` (`id`, `email`, `token`, `soft_delete`) VALUES
-(9, 'guna@sqindia.net', 'fCLZ-Ku9RLQ:APA91bG_FoYVXsE0KBkzVl_yFuGOKzsGeYGz6T-dRW-SNSnnfHKmqJjz2k-8w89YB9AtMum2mVVqUSNlcK74g0ZoinC2q4vrR0yVAJNAW7Bl5Uv3GEbzlRncLDzy_OCmPmh7hWUeKoXW', 0);
+(9, 'siva@sqindia.net', 'ez_mpVX0bgQ:APA91bFLTv2nZPhU59XPOA3KVjpPWM7UgcJ3yGxdaB2GGWttKlbB5cWxoiGLKaQ4FeMN63dc1_WfpRh8GmIW2kpDQuRxT25xfHRzl4dxs3TlIVvWowHqxqlUwcJYuZPU6nU5qtkjgjkx', 0),
+(10, 'guna@sqindia.net', 'dMKIVk_PK7M:APA91bFZAyl5fIZvgTGYiM77O7FtvogNXqSjQDb6k-ktKw_hgkRj-kmDXse6UwFJ21SRLecjSYO03rk6kiqxm1pjpgnXhblgQmRwfgdxVGeXPWNb9dR5DmcmNRRQsSGnOwhV8tQdKXJZ', 0);
 
 -- --------------------------------------------------------
 
@@ -167,14 +169,16 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `ord_isOrder` tinyint(1) NOT NULL DEFAULT '0',
   `ord_isQuote` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`ord_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=96 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `orders`
 --
 
 INSERT INTO `orders` (`ord_id`, `ord_orderId`, `ord_quoteId`, `ord_userId`, `ord_statusId`, `ord_quotStatusId`, `ord_shippingAddressId`, `ord_shippingMethodId`, `ord_itemTotal`, `ord_shippingTotal`, `ord_grandTotal`, `ord_createdAt`, `ord_createdBy`, `ord_updatedAt`, `ord_updatedBy`, `ord_quotCreatedAt`, `ord_quotCreatedBy`, `ord_quotUpdatedAt`, `ord_quotUpdatedBy`, `ord_discountAmount`, `ord_discountPercent`, `ord_isOrder`, `ord_isQuote`) VALUES
-(92, NULL, 'QT-19-000092', 6, NULL, 2, NULL, NULL, '2800.00', '0.00', '2800.00', NULL, NULL, NULL, NULL, '2019-04-12 17:41:55', NULL, NULL, NULL, NULL, NULL, 0, 1);
+(92, NULL, 'QT-19-000092', 6, NULL, 3, 2, 3, '2762.00', '500.00', '3262.00', NULL, NULL, NULL, NULL, '2019-04-12 17:41:55', NULL, NULL, NULL, NULL, NULL, 0, 1),
+(94, 'OC-19-000094', NULL, 5, 1, NULL, 2, 3, '890.00', '500.00', '890.00', '2019-04-26 13:21:36', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0),
+(95, 'OC-19-000095', NULL, 5, 1, NULL, 2, 3, '890.00', '500.00', '1390.00', '2019-04-26 13:24:27', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -202,15 +206,17 @@ CREATE TABLE IF NOT EXISTS `order_details` (
   `ode_updatedBy` varchar(45) DEFAULT NULL,
   `ode_images` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`ode_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=120 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=122 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `order_details`
 --
 
 INSERT INTO `order_details` (`ode_id`, `ode_orderId`, `ode_vehicleId`, `ode_productId`, `ode_productConditionId`, `ode_quantity`, `ode_statusId`, `ode_comment`, `ode_currentMileage`, `ode_price`, `ode_discount`, `ode_total`, `ode_createdDate`, `ode_createdBy`, `ode_updatedDate`, `ode_updatedBy`, `ode_images`) VALUES
-(118, 92, 21, 13, 6, 1, NULL, 'Xggxgxxg', '684558', '1300.00', '0.00', '1300.00', '2019-04-12 17:41:55', NULL, NULL, NULL, NULL),
-(119, 92, 21, 17, NULL, 1, NULL, 'Vzvzbbxn', '957659', '1500.00', '0.00', '1500.00', '2019-04-12 17:41:55', NULL, NULL, NULL, NULL);
+(118, 92, 21, 13, 6, 1, NULL, 'Xggxgxxg', '684558', '1351.00', '0.00', '1351.00', '2019-04-12 17:41:55', NULL, NULL, NULL, NULL),
+(119, 92, 21, 17, NULL, 1, NULL, 'Vzvzbbxn', '957659', '1411.00', '0.00', '1411.00', '2019-04-12 17:41:55', NULL, NULL, NULL, NULL),
+(120, 94, 20, 1, 5, 2, NULL, 'Test comment', '500', '450.00', '10.00', '890.00', '2019-04-26 13:21:36', NULL, NULL, NULL, 'image1,image2'),
+(121, 95, 6, 1, 5, 2, NULL, 'Test comment', '500', '450.00', '10.00', '890.00', '2019-04-26 13:24:27', NULL, NULL, NULL, 'image1,image2');
 
 -- --------------------------------------------------------
 
@@ -390,7 +396,7 @@ CREATE TABLE IF NOT EXISTS `products` (
   `prd_createdAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `prd_createdBy` int(11) DEFAULT NULL,
   PRIMARY KEY (`prd_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 --
 -- Dumping data for table `products`
@@ -419,7 +425,19 @@ INSERT INTO `products` (`prd_id`, `prd_name`, `prd_description`, `prd_categoryId
 (20, 'Oil Filter', NULL, 0, 3, 0, NULL, '0.00', NULL),
 (21, 'Air Filter', NULL, 0, 3, 0, NULL, '0.00', NULL),
 (22, 'Plugs', NULL, 0, 3, 0, NULL, '0.00', NULL),
-(23, 'Car Engine Treatment', NULL, 0, 3, 0, NULL, '0.00', NULL);
+(23, 'Car Engine Treatment', NULL, 0, 3, 0, NULL, '0.00', NULL),
+(31, 'radio', 'radio', 16, 1, NULL, NULL, NULL, NULL),
+(32, 'pack item', 'pack item desc', NULL, 3, NULL, NULL, NULL, NULL),
+(33, 'pack123', 'pack desc123', NULL, 2, NULL, NULL, NULL, NULL),
+(36, 'dfdsfsd', 'fdsf', 2, 1, NULL, NULL, NULL, NULL),
+(37, 'dsfd', 'rerewr', 16, 4, 5, 'http://res.cloudinary.com/sqdevelop/image/upload/v1556257447/mettiqhsywefwzjnqdso.png', '100.00', NULL),
+(38, 'fdf', 'rwer', 8, 4, 7, 'http://res.cloudinary.com/sqdevelop/image/upload/v1556257447/mettiqhsywefwzjnqdso.png', '34.00', NULL),
+(39, 'dfdsff', 'fdsfds', 7, 4, 10, 'http://res.cloudinary.com/sqdevelop/image/upload/v1556257447/mettiqhsywefwzjnqdso.png', '125.00', NULL),
+(40, 'demo', 'rrreeee', 8, 4, 5, 'http://res.cloudinary.com/sqdevelop/image/upload/v1556260179/kbe1fxfwxadikdtbah1d.png', '121.00', NULL),
+(41, 'Purolator 29ER8956', 'Provides Optimal Engine Power', 25, 4, 8, 'http://res.cloudinary.com/sqdevelop/image/upload/v1556602792/dv57inxsvcmlgexpmx84.jpg', '0.00', NULL),
+(42, 'Spark Minda HGHB878', 'Low fuel Consumption', 25, 4, 5, 'http://res.cloudinary.com/sqdevelop/image/upload/v1556603178/it0ixaghjeossgc4yv51.jpg', '0.00', NULL),
+(43, 'Speedwav Original  Air Filter HGH897', 'Provides Optimal Engine Power', 25, 4, 3, 'http://res.cloudinary.com/sqdevelop/image/upload/v1556603235/b0ny6l9rkqhzntwx7rtk.jpg', '0.00', NULL),
+(44, 'sdf', 'fdsf', 24, 4, 12, '', '152.00', NULL);
 
 -- --------------------------------------------------------
 
@@ -435,7 +453,7 @@ CREATE TABLE IF NOT EXISTS `product_categories` (
   `pca_createdAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `pca_createdBy` int(11) DEFAULT NULL,
   PRIMARY KEY (`pca_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 --
 -- Dumping data for table `product_categories`
@@ -458,7 +476,10 @@ INSERT INTO `product_categories` (`pca_id`, `pca_name`, `pca_description`, `pca_
 (14, 'Fuel Pump', NULL, NULL),
 (15, 'Water Pump', NULL, NULL),
 (16, 'Radiator', NULL, NULL),
-(17, 'Wiper Blades', NULL, NULL);
+(17, 'Wiper Blades', NULL, NULL),
+(22, 'Light', 'dvbfg', NULL),
+(24, 'Engine', '75851JKNK ', NULL),
+(25, 'Air Filter', '75851JKNK ', NULL);
 
 -- --------------------------------------------------------
 
@@ -497,7 +518,7 @@ CREATE TABLE IF NOT EXISTS `product_sub_products` (
   `psp_productId` int(11) DEFAULT NULL,
   `psp_subProductId` int(11) DEFAULT NULL,
   PRIMARY KEY (`psp_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 --
 -- Dumping data for table `product_sub_products`
@@ -511,7 +532,9 @@ INSERT INTO `product_sub_products` (`psp_id`, `psp_productId`, `psp_subProductId
 (5, 18, 20),
 (6, 18, 21),
 (7, 18, 22),
-(8, 18, 23);
+(8, 18, 23),
+(15, 33, 21),
+(16, 33, 23);
 
 -- --------------------------------------------------------
 
@@ -527,7 +550,7 @@ CREATE TABLE IF NOT EXISTS `product_types` (
   `pty_createdAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `pty_createdBy` int(11) DEFAULT NULL,
   PRIMARY KEY (`pty_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 --
 -- Dumping data for table `product_types`
@@ -536,7 +559,8 @@ CREATE TABLE IF NOT EXISTS `product_types` (
 INSERT INTO `product_types` (`pty_id`, `pty_name`, `pty_description`, `pty_createdBy`) VALUES
 (1, 'Vehicle Parts', NULL, NULL),
 (2, 'Service Packs', NULL, NULL),
-(3, 'Package Items', NULL, NULL);
+(3, 'Package Items', NULL, NULL),
+(4, 'Shopping Items', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -637,7 +661,7 @@ CREATE TABLE IF NOT EXISTS `shopping_cart` (
   `crt_cartType` varchar(12) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `crt_createdAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`crt_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=72 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=77 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -661,14 +685,14 @@ CREATE TABLE IF NOT EXISTS `users` (
   `is_email_verified` tinyint(1) NOT NULL DEFAULT '0',
   `otp_created_at` datetime DEFAULT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `email`, `password`, `otp`, `phone`, `country`, `ref_code`, `created_at`, `otp_is_expired`, `is_email_verified`, `otp_created_at`) VALUES
-(6, 'Guna', 'Sundari', 'guna@sqindia.net', 'guna06@', '5696', '7550168101', 'Nigeria', 'VSHHDU', '2019-04-12 17:00:44', 1, 1, '2019-04-12 17:00:44');
+(10, 'Guna', 'Sundari', 'guna@sqindia.net', 'guna06@', '9567', '7550168101', 'Nigeria', 'HSJJKS', '2019-04-30 12:52:38', 1, 1, '2019-04-30 12:52:38');
 
 -- --------------------------------------------------------
 

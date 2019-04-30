@@ -1,4 +1,4 @@
-<?php $this->load->view('includes/headers/admin-header'); ?>
+<?php $this->load->view('includes/headers/admin_header'); ?>
     <main class="main-wrapper clearfix">
         <!-- Page Title Area -->
         <div class="row page-title clearfix">
@@ -188,4 +188,4 @@
             </section>
         </div>
     </main>
-<?php $this->load->view('includes/footers/admin-footer'); ?>
+<?php $this->load->view('includes/footers/admin_footer'); ?>

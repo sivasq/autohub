@@ -16,7 +16,7 @@ class Orders extends User_Controller
     public function index()
     {
         $data['page_name'] = "Orders";
-        $this->load->view('admin/order/orderdata', $data);
+        $this->load->view('admin/order/order_data', $data);
     }
 
     public function detail_view()
@@ -29,7 +29,7 @@ class Orders extends User_Controller
 //        echo json_encode($data);
 //        die();
 
-        $this->load->view('admin/order/orderdetails', $data);
+        $this->load->view('admin/order/order_details', $data);
     }
 
     public function update_items_price()

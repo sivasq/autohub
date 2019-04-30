@@ -1,4 +1,4 @@
-<?php $this->load->view('includes/headers/admin-header'); ?>
+<?php $this->load->view('includes/headers/admin_header'); ?>
     <script src="<?php echo base_url(); ?>assets/constants/product.constants.js"></script>
     <main class="main-wrapper clearfix">
         <!-- Page Title Area -->
@@ -186,4 +186,4 @@
             </section>
         </div>
     </main>
-<?php $this->load->view('includes/footers/admin-footer'); ?>
+<?php $this->load->view('includes/footers/admin_footer'); ?>

@@ -18,7 +18,7 @@ class Vehicle extends User_Controller
     public function index()
     {
         $data['page_name'] = 'Vehicle';
-        $this->load->view('admin/vehicle/VehicleData', $data);
+        $this->load->view('admin/vehicle/vehicle_data', $data);
     }
 
     public function detail_view()
@@ -32,13 +32,13 @@ class Vehicle extends User_Controller
             $data->driverData = $this->Vehicle_model->get_driver_details_by_company_id($vehicleDetails['companyId']);
             $data->companyData = $this->Vehicle_model->get_company_details_by_company_id($vehicleDetails['companyId']);
         }
-        $this->load->view('admin/vehicle/VehicleDetails', $data);
+        $this->load->view('admin/vehicle/vehicle_details', $data);
     }
 
     public function business_type()
     {
         $data['page_name'] = 'BusinessType';
-        $this->load->view('admin/vehicle/BusinessType', $data);
+        $this->load->view('admin/vehicle/business_type', $data);
     }
 
     public function type()

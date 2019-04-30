@@ -1,18 +1,18 @@
-<?php $this->load->view('includes/headers/admin-header'); ?>
+<?php $this->load->view('includes/headers/admin_header'); ?>
 <script type="text/javascript">
-	var orderId = <?php echo $itemData['id'] ?> ;
+	var quoteId = <?php echo $itemData['id']; ?>;
 	var shippingCost = <?php echo isset($itemData) && !empty($itemData['shippingCost']) ? $itemData['shippingCost'] : "0"; ?>
 </script>
-<script src="<?php echo base_url(); ?>assets/constants/order-details.constants.js"></script>
+<script src="<?php echo base_url(); ?>assets/constants/quote-details.constants.js"></script>
 <div class="row">
 	<div class="col-sm-12">
 		<div class="card-box">
 			<div class="row">
 				<div class="col-lg-4">
-					<h4 class="header-title m-t-0 m-b-30">Order Information</h4>
+					<h4 class="header-title m-t-0 m-b-30">Quote Information</h4>
 					<form class="form-horizontal" role="form">
 						<div class="form-group">
-							<label class="col-md-4 control-label">Order ID</label>
+							<label class="col-md-4 control-label">Quote ID</label>
 							<div class="col-md-8">
 								<input type="text" id="orderId" class="form-control" readonly=""
 								       value="<?php echo isset($itemData) && !empty($itemData['id']) ? $itemData['id'] : '....'; ?>">
@@ -28,13 +28,13 @@
 						<div class="form-group">
 							<label class="col-md-4 control-label">Status</label>
 							<div class="col-md-8 input-group m-t-8">
-								<select class="form-control select2 col-md-4" id="orderStatus">
+								<select class="form-control select2 col-md-4" id="quotStatus">
 									<?php
 									if (isset($statusData))
 										foreach ($statusData as $value) {
 											$data = array_values($value);
 											?>
-											<option <?php echo($data[0] == $itemData['orderStatus'] ? "selected" : ''); ?>
+											<option <?php echo($data[0] == $itemData['quoteStatus'] ? "selected" : ''); ?>
 													value="<?php echo !empty($data[1]) ? $data[1] : ''; ?>">
 												<?php echo !empty($data[0]) ? $data[0] : ''; ?>
 											</option>
@@ -43,8 +43,8 @@
 									?>
 								</select>
 								<span class="input-group-btn">
-                                        <button type="button" class="btn waves-effect waves-light btn-primary"
-                                                onclick="updateOrderStatus()">Update</i></button></span>
+                                    <button type="button" class="btn waves-effect waves-light btn-primary"
+                                            onclick="updateQuotStatus()">Update</i></button></span>
 							</div>
 						</div>
 						<div class="form-group">
@@ -76,8 +76,8 @@
 						<div class="form-group">
 							<label class="col-md-4 control-label">Address</label>
 							<div class="col-md-8">
-                                    <textarea class="form-control" readonly
-                                              rows="3"><?php echo isset($itemData) && !empty($itemData['shippingAddress']) ? $itemData['shippingAddress'] : '....'; ?></textarea>
+								<textarea class="form-control" readonly
+								          rows="3"><?php echo isset($itemData) && !empty($itemData['shippingAddress']) ? $itemData['shippingAddress'] : '....'; ?></textarea>
 							</div>
 						</div>
 						<div class="form-group">
@@ -128,17 +128,73 @@
 							</div>
 						</div>
 					</form>
+
+					<?php if (isset($itemData) && !empty($itemData['paymentStatus'])) { ?>
+						<h4 class="header-title m-t-30 m-b-30">Payment Information</h4>
+						<form class="form-horizontal" role="form">
+							<div class="form-group">
+								<label class="col-md-4 control-label">Txn Id</label>
+								<div class="col-md-8">
+									<input type="text" class="form-control" readonly=""
+									       value="<?php echo isset($itemData) && !empty($itemData['txnId']) ? $itemData['txnId'] : '....'; ?>">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-4 control-label">Txn date</label>
+								<div class="col-md-8">
+									<input type="text" class="form-control" readonly=""
+									       value="<?php echo isset($itemData) && !empty($itemData['txnDate']) ? $itemData['txnDate'] : '....'; ?>">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-md-4 control-label">Txn Status</label>
+								<div class="col-md-8 input-group m-t-8">
+									<select class="form-control select2 col-md-4" id="txnStatus">
+										<option <?php echo("underVerification" == $itemData['paymentStatus'] ? "selected" : ''); ?>
+												value="underVerification">UnderVerification
+										</option>
+										<option <?php echo("verified" == $itemData['paymentStatus'] ? "selected" : ''); ?>
+												value="verified">Verified
+										</option>
+									</select>
+									<span class="input-group-btn">
+                                    <button type="button" class="btn waves-effect waves-light btn-primary"
+                                            onclick="updatePaymentStatus()">Update</button></span>
+								</div>
+							</div>
+
+						</form>
+					<?php } ?>
+
+					<?php if (isset($itemData) && ($itemData['paymentStatus'] == "verified") && ($itemData['quotStatusId'] == 5) && !$itemData['isOrder']) { ?>
+						<form class="form-horizontal" role="form">
+							<div class="form-group">
+								<div class="col-md-offset-4">
+									<button type="button" class="btn waves-effect waves-light btn-primary"
+									        onclick="convertOrder()">Convert To Order
+									</button>
+								</div>
+							</div>
+						</form>
+					<?php } ?>
+
+					<?php if (isset($itemData) && ($itemData['paymentStatus'] == "verified") && ($itemData['quotStatusId'] == 5) && $itemData['isOrder']) { ?>
+						<p class="text-center" style="color:#00CC00; font-weight: bold;">This Quote is Converted to
+							Order <?php echo isset($itemData) && !empty($itemData['orderId']) ? $itemData['orderId'] : '....'; ?></p>
+					<?php } ?>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
+
 <div class="row">
 	<div class="col-sm-12">
 		<div class="panel">
 			<div class="panel-body">
 				<div class="editable-responsive">
-					<table id="orderItemsTable" class="table table-striped m-b-0">
+					<table id="quoteItemsTable" class="table table-striped m-b-0">
 						<thead>
 						<tr>
 							<th hidden></th>
@@ -157,7 +213,7 @@
 							foreach ($orderItems as $value) {
 								?>
 								<tr class="gradeU">
-									<td hidden><?php echo $value["orderDetailsId"] ?></td>
+									<td hidden><?php echo $value["itemId"] ?></td>
 									<td><?php echo $value["productType"] ?></td>
 									<td><?php echo $value["itemName"] ?></td>
 									<td><?php echo $value["productCategory"] ?></td>
@@ -184,15 +240,17 @@
 						</tr>
 						</tfoot>
 					</table>
-					<!--                        <div class="row" --><?php //echo "payment made" == $itemData['orderStatus'] ? "hidden" : ''; ?>
-					<!--                             id="updatePriceDiv">-->
-					<!--                            <div class="col-sm-6">-->
-					<!--                                <div class="m-b-30">-->
-					<!--                                    <button id="updateTable" class="btn btn-primary waves-effect waves-light">Update <i-->
-					<!--                                                class="fa fa-save"></i></button>-->
-					<!--                                </div>-->
-					<!--                            </div>-->
-					<!--                        </div>-->
+					<div class="row" <?php echo $itemData['quotStatusId'] >= 3 ? "hidden" : ''; ?>
+					     id="updatePriceDiv">
+						<div class="col-sm-6">
+							<div class="m-b-30">
+								<button id="updateTable" class="btn btn-primary waves-effect waves-light">Update <i
+											class="fa fa-save"></i></button>
+							</div>
+						</div>
+					</div>
+					<!-- <button type="button" class="btn waves-effect waves-light btn-primary"
+					        onclick="test()">Update</i></button></span> -->
 				</div>
 			</div>
 			<!-- end: panel body -->
@@ -200,6 +258,7 @@
 		</div> <!-- end panel -->
 	</div> <!-- end col-->
 </div>
+
 </div>
 
 <div id="dialog" class="modal-block mfp-hide">
@@ -225,8 +284,8 @@
 	</section>
 </div>
 <!-- end row -->
-<?php $this->load->view('includes/footers/admin-footer'); ?>
+<?php $this->load->view('includes/footers/admin_footer'); ?>
 
 <script>
-	$('#orderItemsTable').numericInputExample(6);
+	$('#quoteItemsTable').editableTableWidget({needEdits: [6]}).numericInputExample(6).find('td:first').focus();
 </script>
