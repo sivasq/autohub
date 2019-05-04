@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 30, 2019 at 01:11 PM
+-- Generation Time: May 10, 2019 at 06:39 AM
 -- Server version: 8.0.15
 -- PHP Version: 7.3.4
 
@@ -77,7 +77,7 @@ CREATE TABLE IF NOT EXISTS `apikeys` (
   `ip_addresses` text,
   `date_created` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=79 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=80 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `apikeys`
@@ -112,7 +112,7 @@ INSERT INTO `apikeys` (`id`, `user_id`, `apikey`, `level`, `ignore_limits`, `is_
 (75, 2, 'ssoccs008k8wok8gs8k8ko8wcokgkggcgsg088wc', 1, 1, 0, '192.168.1.6', '2019-04-12 15:49:52'),
 (76, 2, 'osc4cc4cw4400gssococg44g480o08ws4g8gk4co', 1, 1, 0, '192.168.1.6', '2019-04-12 16:09:17'),
 (77, 6, 'k8skggw0sw0o8c08so44osgwsswwwk0gcw08o808', 1, 1, 0, '192.168.1.6', '2019-04-12 17:01:24'),
-(78, 10, 'ckggw8k00044sckcc48wc8gkg44kwo848w8csco4', 1, 1, 0, '192.168.1.6', '2019-04-30 12:53:51');
+(79, 10, 'sw04cw4swkgg4k4wsgss8o8ogsos44g444k84okg', 1, 1, 0, '192.168.1.6', '2019-05-04 17:45:12');
 
 -- --------------------------------------------------------
 
@@ -169,7 +169,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `ord_isOrder` tinyint(1) NOT NULL DEFAULT '0',
   `ord_isQuote` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`ord_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=96 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=98 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `orders`
@@ -178,7 +178,9 @@ CREATE TABLE IF NOT EXISTS `orders` (
 INSERT INTO `orders` (`ord_id`, `ord_orderId`, `ord_quoteId`, `ord_userId`, `ord_statusId`, `ord_quotStatusId`, `ord_shippingAddressId`, `ord_shippingMethodId`, `ord_itemTotal`, `ord_shippingTotal`, `ord_grandTotal`, `ord_createdAt`, `ord_createdBy`, `ord_updatedAt`, `ord_updatedBy`, `ord_quotCreatedAt`, `ord_quotCreatedBy`, `ord_quotUpdatedAt`, `ord_quotUpdatedBy`, `ord_discountAmount`, `ord_discountPercent`, `ord_isOrder`, `ord_isQuote`) VALUES
 (92, NULL, 'QT-19-000092', 6, NULL, 3, 2, 3, '2762.00', '500.00', '3262.00', NULL, NULL, NULL, NULL, '2019-04-12 17:41:55', NULL, NULL, NULL, NULL, NULL, 0, 1),
 (94, 'OC-19-000094', NULL, 5, 1, NULL, 2, 3, '890.00', '500.00', '890.00', '2019-04-26 13:21:36', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0),
-(95, 'OC-19-000095', NULL, 5, 1, NULL, 2, 3, '890.00', '500.00', '1390.00', '2019-04-26 13:24:27', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0);
+(95, 'OC-19-000095', NULL, 5, 1, NULL, 2, 3, '890.00', '500.00', '1390.00', '2019-04-26 13:24:27', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0),
+(96, 'OC-19-000096', NULL, 5, 1, NULL, 2, 3, '890.00', '500.00', '1390.00', '2019-05-04 12:37:42', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0),
+(97, NULL, 'QT-19-000097', 10, NULL, 1, NULL, NULL, '0.00', '0.00', '0.00', NULL, NULL, NULL, NULL, '2019-05-06 12:20:26', NULL, NULL, NULL, NULL, NULL, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -206,7 +208,7 @@ CREATE TABLE IF NOT EXISTS `order_details` (
   `ode_updatedBy` varchar(45) DEFAULT NULL,
   `ode_images` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`ode_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=122 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=124 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `order_details`
@@ -216,7 +218,9 @@ INSERT INTO `order_details` (`ode_id`, `ode_orderId`, `ode_vehicleId`, `ode_prod
 (118, 92, 21, 13, 6, 1, NULL, 'Xggxgxxg', '684558', '1351.00', '0.00', '1351.00', '2019-04-12 17:41:55', NULL, NULL, NULL, NULL),
 (119, 92, 21, 17, NULL, 1, NULL, 'Vzvzbbxn', '957659', '1411.00', '0.00', '1411.00', '2019-04-12 17:41:55', NULL, NULL, NULL, NULL),
 (120, 94, 20, 1, 5, 2, NULL, 'Test comment', '500', '450.00', '10.00', '890.00', '2019-04-26 13:21:36', NULL, NULL, NULL, 'image1,image2'),
-(121, 95, 6, 1, 5, 2, NULL, 'Test comment', '500', '450.00', '10.00', '890.00', '2019-04-26 13:24:27', NULL, NULL, NULL, 'image1,image2');
+(121, 95, 6, 1, 5, 2, NULL, 'Test comment', '500', '450.00', '10.00', '890.00', '2019-04-26 13:24:27', NULL, NULL, NULL, 'image1,image2'),
+(122, 96, NULL, 1, NULL, 2, NULL, NULL, NULL, '450.00', '10.00', '890.00', '2019-05-04 12:37:42', NULL, NULL, NULL, NULL),
+(123, 97, 22, 14, 6, 1, NULL, 'Chzhshbd', '855469', '0.00', '0.00', '0.00', '2019-05-06 12:20:26', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -430,14 +434,14 @@ INSERT INTO `products` (`prd_id`, `prd_name`, `prd_description`, `prd_categoryId
 (32, 'pack item', 'pack item desc', NULL, 3, NULL, NULL, NULL, NULL),
 (33, 'pack123', 'pack desc123', NULL, 2, NULL, NULL, NULL, NULL),
 (36, 'dfdsfsd', 'fdsf', 2, 1, NULL, NULL, NULL, NULL),
-(37, 'dsfd', 'rerewr', 16, 4, 5, 'http://res.cloudinary.com/sqdevelop/image/upload/v1556257447/mettiqhsywefwzjnqdso.png', '100.00', NULL),
-(38, 'fdf', 'rwer', 8, 4, 7, 'http://res.cloudinary.com/sqdevelop/image/upload/v1556257447/mettiqhsywefwzjnqdso.png', '34.00', NULL),
-(39, 'dfdsff', 'fdsfds', 7, 4, 10, 'http://res.cloudinary.com/sqdevelop/image/upload/v1556257447/mettiqhsywefwzjnqdso.png', '125.00', NULL),
-(40, 'demo', 'rrreeee', 8, 4, 5, 'http://res.cloudinary.com/sqdevelop/image/upload/v1556260179/kbe1fxfwxadikdtbah1d.png', '121.00', NULL),
+(37, 'Speedwav Original AirFilter', 'rerewr', 16, 4, 5, 'http://res.cloudinary.com/sqdevelop/image/upload/v1556879555/i3kwcs8cbofaw0gnyydm.jpg', '100.00', NULL),
+(38, 'Purolator HGDH878', 'rwer', 8, 4, 7, 'http://res.cloudinary.com/sqdevelop/image/upload/v1556879534/gwgnianl4rxf3v10q9mw.jpg', '34.00', NULL),
+(39, 'Speedwav 28391Zip Original Airfilter', 'fdsfds', 7, 4, 10, 'http://res.cloudinary.com/sqdevelop/image/upload/v1556879712/sqh49noolwdsojs9pslm.jpg', '125.00', NULL),
+(40, 'demo', 'rrreeee', 8, 4, 5, 'http://res.cloudinary.com/sqdevelop/image/upload/v1556879511/suwsznaxjsmhobjhtrym.jpg', '121.00', NULL),
 (41, 'Purolator 29ER8956', 'Provides Optimal Engine Power', 25, 4, 8, 'http://res.cloudinary.com/sqdevelop/image/upload/v1556602792/dv57inxsvcmlgexpmx84.jpg', '0.00', NULL),
 (42, 'Spark Minda HGHB878', 'Low fuel Consumption', 25, 4, 5, 'http://res.cloudinary.com/sqdevelop/image/upload/v1556603178/it0ixaghjeossgc4yv51.jpg', '0.00', NULL),
 (43, 'Speedwav Original  Air Filter HGH897', 'Provides Optimal Engine Power', 25, 4, 3, 'http://res.cloudinary.com/sqdevelop/image/upload/v1556603235/b0ny6l9rkqhzntwx7rtk.jpg', '0.00', NULL),
-(44, 'sdf', 'fdsf', 24, 4, 12, '', '152.00', NULL);
+(44, 'Spark Minda FGHB789', 'fdsf', 24, 4, 12, 'http://res.cloudinary.com/sqdevelop/image/upload/v1556879627/v2argabypag15xhb39rb.jpg', '152.00', NULL);
 
 -- --------------------------------------------------------
 
@@ -661,7 +665,18 @@ CREATE TABLE IF NOT EXISTS `shopping_cart` (
   `crt_cartType` varchar(12) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `crt_createdAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`crt_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=77 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=86 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `shopping_cart`
+--
+
+INSERT INTO `shopping_cart` (`crt_id`, `crt_userId`, `crt_productId`, `crt_vehicleId`, `crt_quantity`, `crt_productConditionId`, `crt_currentMileage`, `crt_comment`, `crt_images`, `crt_cartType`) VALUES
+(78, 5, 1, NULL, 1, NULL, NULL, NULL, NULL, 'shopping'),
+(80, 10, 43, NULL, 1, NULL, NULL, NULL, NULL, 'shopping'),
+(81, 10, 44, NULL, 1, NULL, NULL, NULL, NULL, 'shopping'),
+(84, 10, 39, NULL, 1, NULL, NULL, NULL, NULL, 'shopping'),
+(85, 10, 37, NULL, 1, NULL, NULL, NULL, NULL, 'shopping');
 
 -- --------------------------------------------------------
 
@@ -719,7 +734,7 @@ CREATE TABLE IF NOT EXISTS `vehicles` (
   `vhl_createdAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `vhl_updatedAt` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`vhl_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `vehicles`
@@ -727,7 +742,8 @@ CREATE TABLE IF NOT EXISTS `vehicles` (
 
 INSERT INTO `vehicles` (`vhl_id`, `vhl_vin`, `vhl_userId`, `vhl_vehicleTypeId`, `vhl_year`, `vhl_make`, `vhl_model`, `vhl_trim`, `vhl_businessTypeId`, `vhl_companyId`, `vhl_driverId`, `vhl_mileageRange`, `vhl_actualMileage`, `vhl_image`, `vhl_updatedAt`) VALUES
 (20, 'GHDUXB5789GHSBBDM', 6, 1, '2018', 'Acura', 'TLX', 'Advance Package 4dr Sedan (3.5L 6cyl 9A)', 2, 18, 0, '875649', '646949', NULL, NULL),
-(21, 'HCGDXX6755775HCHC', 6, 0, '2016', 'Acura', 'RDX', '4dr SUV (3.5L 6cyl 6A)', 1, 0, 0, '', '605785', 'https://res.cloudinary.com/sqdevelop/image/upload/v1555069904/wm5nnjbtlrmzjejgaeq9.jpg', NULL);
+(21, 'HCGDXX6755775HCHC', 6, 0, '2016', 'Acura', 'RDX', '4dr SUV (3.5L 6cyl 6A)', 1, 0, 0, '', '605785', 'https://res.cloudinary.com/sqdevelop/image/upload/v1555069904/wm5nnjbtlrmzjejgaeq9.jpg', NULL),
+(22, 'XGHGGXGX467586GXC', 10, 0, '2018', 'Bentley', 'Continental GT', 'Select Car Trim', 1, 0, 0, '', '858858', NULL, NULL);
 
 -- --------------------------------------------------------
 
