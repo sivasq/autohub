@@ -470,7 +470,7 @@ class Quote_model extends Generic_model
 		}
 	}
 
-	//	get List of quot status
+	//	get quot status
 	public function get_quote_status_by_quot_id($quoteId)
 	{
 		$this->db->select('ord_quotStatusId');

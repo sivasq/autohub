@@ -1,5 +1,5 @@
 <?php
-require APPPATH . 'core/Generic_model.php';
+require_once APPPATH . 'core/Generic_model.php';
 
 class Order_model extends Generic_model
 {
@@ -147,6 +147,12 @@ class Order_model extends Generic_model
 		return $this->build_response_array($finalItems_array);
 	}
 
+	public function generate_order_number($orderId)
+	{
+		$order_number = "OC-" . substr(date("Y"), -2) . "-" . str_pad($orderId, 6, '0', STR_PAD_LEFT);
+		return $order_number;
+	}
+
 	public function get_orders_by_userId($user_id)
 	{
 		$this->db->select($this->select_fields_for_order_list() . ", ost_name as status, concat(first_name, ' ', last_name) as userName, orp_status as orp_paymentStatus, orp_txnId");
@@ -159,6 +165,23 @@ class Order_model extends Generic_model
 		$result = $this->db->get()->result_array();
 		$response_data = $this->build_response_array($result, NULL, array("createdAt"));
 		return $this->model_response(true, 200, array("orders" => $response_data));
+	}
+
+	public function select_fields_for_order_list()
+	{
+		return $this->prefix . "id as orderId, " .
+			$this->prefix . "orderId as orderNumber, " .
+			$this->prefix . "userId, " .
+			$this->prefix . "statusId, " .
+			$this->prefix . "shippingAddressId, " .
+			$this->prefix . "shippingMethodId, " .
+			$this->prefix . "itemTotal, " .
+			$this->prefix . "shippingTotal, " .
+			$this->prefix . "grandTotal, " .
+			$this->prefix . "discountAmount, " .
+			$this->prefix . "discountPercent, " .
+			$this->prefix . "createdAt, " .
+			$this->prefix . "createdBy";
 	}
 
 	public function get_order_by_id($orderId)
@@ -186,10 +209,13 @@ class Order_model extends Generic_model
 
 	}
 
-	public function generate_order_number($orderId)
+	public function select_ode_fields_for_order_list()
 	{
-		$order_number = "OC-" . substr(date("Y"), -2) . "-" . str_pad($orderId, 6, '0', STR_PAD_LEFT);
-		return $order_number;
+		return $this->prfx_order_details . "id as itemId," .
+			$this->prfx_order_details . "price as itemPrice, " .
+			$this->prfx_order_details . "comment, " .
+			$this->prfx_order_details . "currentMileage, " .
+			$this->prfx_order_details . "vehicleId";
 	}
 
 	public function get_orders()
@@ -222,19 +248,7 @@ class Order_model extends Generic_model
 
 	public function get_order_items_by_id($orderId)
 	{
-		$this->db->select("ord_id,
-        concat(first_name, ' ', last_name) as userName,
-        sha_id as shippingAddressId,concat(sha_firstName, ' ', sha_lastName) as shippingUser,concat(sha_addressLine1, ' ', sha_addressLine2,' ', sha_city,' ', sha_state,' ', sha_country) as shippingAddress,sha_city,sha_state,sha_country,sha_postCode,sha_phone,sha_email,
-        ode_id as itemId, ode_productConditionId as itemConditionId, 
-        pco_name as itemConditionName, 
-        ost_name as ost_orderStatus, 
-        prd_name as ord_itemName,ode_id as orderDetailsId, 
-        ode_price as itemPrice, ode_vehicleId, 
-        concat(vhl_make,' ',vhl_model,' ',vhl_year) as vehicleInfo,vhl_vin as vehicleVin, vhl_make as vehicleMake, vhl_model as vehicleModel, vhl_year as vehicleYear, vhl_image as vehicleImage, 
-        ode_comment, ode_currentMileage, 
-        shm_name as shippingMethod, shm_price as shippingCost,
-        pty_name as productType,
-        pca_name as productCategory");
+		$this->db->select("concat(first_name, ' ', last_name) as userName, ord_id, ord_quoteId, ord_orderId, ord_statusId, ord_isQuote, ord_isOrder, ord_shippingAddressId as shippingAddressId, concat(sha_firstName, ' ', sha_lastName) as shippingUser, concat(sha_addressLine1, ' ', sha_addressLine2,' ', sha_city,' ', sha_state,' ', sha_country) as shippingAddress, sha_city, sha_state, sha_country, sha_postCode, sha_phone, sha_email, ord_shippingMethodId as shippingMethodId, shm_name as shippingMethod, ord_shippingTotal as shippingCost, ode_id as itemId, ode_productConditionId as itemConditionId, pco_name as itemConditionName, ost_name as ost_orderStatus, prd_name as ord_itemName, ode_id as orderDetailsId, prd_name as ord_itemName, ode_price as itemPrice, ode_vehicleId, concat(vhl_make,' ',vhl_model,' ',vhl_year) as vehicleInfo,vhl_vin as vehicleVin, vhl_make as vehicleMake, vhl_model as vehicleModel, vhl_year as vehicleYear, vhl_image as vehicleImage,  ode_comment, ode_currentMileage,  shm_name as shippingMethod, shm_price as shippingCost, pty_name as productType, pca_name as productCategory, orp_status as orp_paymentStatus, orp_txnId, orp_createdAt as txnDate");
 		$this->db->from($this->table);
 		$this->db->join($this->tbl_users, "user_id = ord_userId", "left");
 		$this->db->join($this->table_order_status, "ord_statusId = ost_id", "left");
@@ -246,9 +260,10 @@ class Order_model extends Generic_model
 		$this->db->join($this->table_shipping_methods, "shm_id = ord_shippingMethodId", "left");
 		$this->db->join($this->table_product_type, "pty_id = prd_typeId", "left");
 		$this->db->join($this->table_product_categories, "pca_id = prd_categoryId", "left");
+		$this->db->join($this->tbl_order_payment, "orp_orderId = ord_id", "left");
 		$this->db->where('ode_orderId', $orderId);
 		$result = $this->db->get()->result_array();
-		$response_data = $this->build_response_array($result, "category");
+		$response_data = $this->build_response_array($result, "category", array('txnDate'));
 
 		//Mapping order items
 		$response_data = $this->map_response($response_data, array("orderItems" => array("itemName", "itemPrice", "itemConditionId", "itemConditionName", "comment", "currentMileage", "vehicleId", "vehicleVin", "vehicleMake", "vehicleModel", "vehicleYear", "vehicleImage", "productType", "productCategory", "vehicleInfo", "orderDetailsId")), true);
@@ -260,16 +275,34 @@ class Order_model extends Generic_model
 	public function update_status($request, $orderId)
 	{
 		$statusData = array(
-			'ord_status' => $this->validate_input($request, "statusId")
+			'ord_statusId' => $this->validate_input($request, "statusId")
 		);
-		if (!isset($statusData)) {
-			$this->db->where("order_id", $orderId);
+
+		if (isset($statusData)) {
+			$this->db->where("ord_id", $orderId);
 			$this->db->update($this->table, $statusData);
-			return $this->model_response(true, 200);
+			return $this->model_response(true, 200, array(), 'Status Updated');
 		} else {
 			return $this->model_response(true, 400, array(), "Invalid Request");
 		}
+	}
 
+	public function update_payment_status($httpRequest, $orderId)
+	{
+		$statusData = array(
+			'orp_status' => $this->validate_input($httpRequest, "orp_status")
+		);
+		if (isset($statusData)) {
+			$this->db->where("orp_orderId", $orderId);
+			$this->db->update($this->tbl_order_payment, $statusData);
+
+			$updateData = new stdClass();
+			$updateData->statusId = 1;
+
+			return $this->Order_model->update_status($updateData, $orderId);
+		} else {
+			return $this->model_response(true, 400, array(), "Invalid Request");
+		}
 	}
 
 	public function insert_courier_details($courierDetails)
@@ -314,30 +347,12 @@ class Order_model extends Generic_model
 		return $response_data;
 	}
 
-	public function select_ode_fields_for_order_list()
+	public function get_order_status_by_order_id($orderId)
 	{
-		return $this->prfx_order_details . "id as itemId," .
-			$this->prfx_order_details . "price as itemPrice, " .
-			$this->prfx_order_details . "comment, " .
-			$this->prfx_order_details . "currentMileage, " .
-			$this->prfx_order_details . "vehicleId";
-	}
-
-	public function select_fields_for_order_list()
-	{
-		return $this->prefix . "id as orderId, " .
-			$this->prefix . "orderId as orderNumber, " .
-			$this->prefix . "userId, " .
-			$this->prefix . "statusId, " .
-			$this->prefix . "shippingAddressId, " .
-			$this->prefix . "shippingMethodId, " .
-			$this->prefix . "itemTotal, " .
-			$this->prefix . "shippingTotal, " .
-			$this->prefix . "grandTotal, " .
-			$this->prefix . "discountAmount, " .
-			$this->prefix . "discountPercent, " .
-			$this->prefix . "createdAt, " .
-			$this->prefix . "createdBy";
+		$this->db->select('ord_statusId');
+		$this->db->from($this->table);
+		$this->db->where($this->prefix . "id", $orderId);
+		return $this->db->get()->row();
 	}
 
 

@@ -24,8 +24,13 @@ class Payment extends MY_Controller
 		return $this->response($this->Payment_model->list_methods());
 	}
 
+	public function create_quote_payment_post()
+	{
+		return $this->response($this->Payment_model->create_quote_payment($this->httpRequest));
+	}
+
 	public function create_order_payment_post()
 	{
-		return $this->response($this->Payment_model->create_payment($this->httpRequest));
+		return $this->response($this->Payment_model->create_order_payment($this->httpRequest));
 	}
 }

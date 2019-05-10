@@ -3,6 +3,7 @@ var tableName = '';
 var baseUrl = window.location.origin + '/autohub/index.php/order/get-details/order-id/' + orderId;
 var updateUrl = window.location.origin + '/autohub/index.php/order-items/price';
 var updateOrderStatusUrl = window.location.origin + '/autohub/index.php/order/status/update';
+var updatePaymentStatusUrl = window.location.origin + '/autohub/index.php/order/payment/update';
 var data_id = 'orderDetailsId';
 var dataColumns = [
     // {"data": "productType"},

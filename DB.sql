@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: May 10, 2019 at 06:39 AM
+-- Generation Time: May 10, 2019 at 10:41 AM
 -- Server version: 8.0.15
 -- PHP Version: 7.3.4
 
@@ -180,7 +180,7 @@ INSERT INTO `orders` (`ord_id`, `ord_orderId`, `ord_quoteId`, `ord_userId`, `ord
 (94, 'OC-19-000094', NULL, 5, 1, NULL, 2, 3, '890.00', '500.00', '890.00', '2019-04-26 13:21:36', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0),
 (95, 'OC-19-000095', NULL, 5, 1, NULL, 2, 3, '890.00', '500.00', '1390.00', '2019-04-26 13:24:27', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0),
 (96, 'OC-19-000096', NULL, 5, 1, NULL, 2, 3, '890.00', '500.00', '1390.00', '2019-05-04 12:37:42', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0),
-(97, NULL, 'QT-19-000097', 10, NULL, 1, NULL, NULL, '0.00', '0.00', '0.00', NULL, NULL, NULL, NULL, '2019-05-06 12:20:26', NULL, NULL, NULL, NULL, NULL, 0, 1);
+(97, 'OC-19-000097', 'QT-19-000097', 10, 1, NULL, 0, 0, '345.00', '0.00', '345.00', '2019-05-10 15:16:43', NULL, NULL, NULL, '2019-05-06 12:20:26', NULL, NULL, NULL, NULL, NULL, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -220,7 +220,7 @@ INSERT INTO `order_details` (`ode_id`, `ode_orderId`, `ode_vehicleId`, `ode_prod
 (120, 94, 20, 1, 5, 2, NULL, 'Test comment', '500', '450.00', '10.00', '890.00', '2019-04-26 13:21:36', NULL, NULL, NULL, 'image1,image2'),
 (121, 95, 6, 1, 5, 2, NULL, 'Test comment', '500', '450.00', '10.00', '890.00', '2019-04-26 13:24:27', NULL, NULL, NULL, 'image1,image2'),
 (122, 96, NULL, 1, NULL, 2, NULL, NULL, NULL, '450.00', '10.00', '890.00', '2019-05-04 12:37:42', NULL, NULL, NULL, NULL),
-(123, 97, 22, 14, 6, 1, NULL, 'Chzhshbd', '855469', '0.00', '0.00', '0.00', '2019-05-06 12:20:26', NULL, NULL, NULL, NULL);
+(123, 97, 22, 14, 6, 1, NULL, 'Chzhshbd', '855469', '345.00', '0.00', '345.00', '2019-05-06 12:20:26', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -267,7 +267,14 @@ CREATE TABLE IF NOT EXISTS `order_payments` (
   `orp_updatedAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `orp_updatedBy` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`orp_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `order_payments`
+--
+
+INSERT INTO `order_payments` (`orp_id`, `orp_orderId`, `orp_methodId`, `orp_bankId`, `orp_status`, `orp_txnId`, `orp_createdBy`, `orp_updatedBy`) VALUES
+(9, 97, NULL, 1, 'verified', '456456456', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -303,7 +310,7 @@ CREATE TABLE IF NOT EXISTS `order_status` (
   `ost_createdDate` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `ost_createdBy` int(11) DEFAULT NULL,
   PRIMARY KEY (`ost_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 --
 -- Dumping data for table `order_status`
@@ -312,7 +319,9 @@ CREATE TABLE IF NOT EXISTS `order_status` (
 INSERT INTO `order_status` (`ost_id`, `ost_name`, `ost_Description`, `ost_order`, `ost_createdBy`) VALUES
 (1, 'Placed', NULL, 1, NULL),
 (2, 'Shipped', NULL, 2, NULL),
-(3, 'Delivered', NULL, 3, NULL);
+(3, 'Delivered', NULL, 3, NULL),
+(4, 'Pending Payment', NULL, 4, NULL),
+(5, 'Paid', NULL, 5, NULL);
 
 -- --------------------------------------------------------
 
@@ -617,7 +626,14 @@ CREATE TABLE IF NOT EXISTS `shipping_addresses` (
   `sha_email` varchar(45) DEFAULT NULL,
   `sha_createdAt` datetime DEFAULT NULL,
   PRIMARY KEY (`sha_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+--
+-- Dumping data for table `shipping_addresses`
+--
+
+INSERT INTO `shipping_addresses` (`sha_id`, `sha_userId`, `sha_firstName`, `sha_lastName`, `sha_addressLine1`, `sha_addressLine2`, `sha_city`, `sha_state`, `sha_country`, `sha_postCode`, `sha_phone`, `sha_email`, `sha_createdAt`) VALUES
+(13, 10, 'Guna', 'Sundari', 'Guduvanchery', 'Chennai', 'Chennai', 'Tamilnadu', 'Nigeria', '', '7550168101', 'guna@sqindia.net', '2019-05-10 12:48:00');
 
 -- --------------------------------------------------------
 
@@ -675,8 +691,7 @@ INSERT INTO `shopping_cart` (`crt_id`, `crt_userId`, `crt_productId`, `crt_vehic
 (78, 5, 1, NULL, 1, NULL, NULL, NULL, NULL, 'shopping'),
 (80, 10, 43, NULL, 1, NULL, NULL, NULL, NULL, 'shopping'),
 (81, 10, 44, NULL, 1, NULL, NULL, NULL, NULL, 'shopping'),
-(84, 10, 39, NULL, 1, NULL, NULL, NULL, NULL, 'shopping'),
-(85, 10, 37, NULL, 1, NULL, NULL, NULL, NULL, 'shopping');
+(84, 10, 39, NULL, 1, NULL, NULL, NULL, NULL, 'shopping');
 
 -- --------------------------------------------------------
 
@@ -788,14 +803,15 @@ CREATE TABLE IF NOT EXISTS `vehicle_companies` (
   `vcm_createdAt` timestamp NULL DEFAULT NULL,
   `vcm_createdBy` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`vcm_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `vehicle_companies`
 --
 
 INSERT INTO `vehicle_companies` (`vcm_id`, `vcm_userId`, `vcm_companyName`, `vcm_email`, `vcm_phone`, `vcm_address1`, `vcm_address2`, `vcm_city`, `vcm_createdAt`, `vcm_createdBy`) VALUES
-(18, 6, 'Sqindia', 'www.sqindia.net', '7558846399', 'Guduvanchery', 'Chennai', NULL, '2019-04-12 11:44:16', NULL);
+(18, 6, 'Sqindia', 'www.sqindia.net', '7558846399', 'Guduvanchery', 'Chennai', NULL, '2019-04-12 11:44:16', NULL),
+(19, 10, 'Sqindia', 'www.sqindia.net', '0875469', 'Guduvanchery', 'Chennai', NULL, '2019-05-10 07:43:36', NULL);
 
 -- --------------------------------------------------------
 

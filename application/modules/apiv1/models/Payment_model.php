@@ -16,6 +16,7 @@ class Payment_model extends Generic_model
 		parent::__construct($this->tbl_order_payment, $this->prfx_payment_banks);
 		$this->load->helper('inflector');
 		$this->load->model('apiv1/Quote_model');
+		$this->load->model('apiv1/Order_model');
 	}
 
 	public function create_bank($bank_data)
@@ -41,7 +42,7 @@ class Payment_model extends Generic_model
 		return $this->model_response(true, 200, $response_data);
 	}
 
-	public function create_payment($order_payment)
+	public function create_quote_payment($order_payment)
 	{
 		//Check Payment Status for quote
 		$quotStatus = $this->Quote_model->get_quote_status_by_quot_id($order_payment->orderId);
@@ -52,7 +53,7 @@ class Payment_model extends Generic_model
 		} elseif ($quotStatus->ord_quotStatusId == 3) {
 			$this->db->insert($this->tbl_order_payment, $this->build_model_data($order_payment, $this->prfx_order_payments));
 			$payment_id = $this->db->insert_id();
-			
+
 			// $status = new stdClass();
 			// $status->statusId = 5;
 			// $this->quote_model->update_status($status, $order_payment->orderId);
@@ -60,5 +61,27 @@ class Payment_model extends Generic_model
 		} elseif ($quotStatus->ord_quotStatusId == 6) {
 			return $this->model_response(true, 200, array(), "You can't process For This Quote");
 		}
+	}
+
+	public function create_order_payment($order_payment)
+	{
+		//Check Payment Status for quote
+		$orderStatus = $this->Order_model->get_order_status_by_order_id($order_payment->orderId);
+
+		//If already payment Done
+		if (in_array($orderStatus->ord_statusId, [1, 2, 3])) {
+			return $this->model_response(true, 200, array(), 'Already Payment Made for this Order');
+		} elseif ($orderStatus->ord_statusId == 4) {
+			$this->db->insert($this->tbl_order_payment, $this->build_model_data($order_payment, $this->prfx_order_payments));
+			$payment_id = $this->db->insert_id();
+
+			// $status = new stdClass();
+			// $status->statusId = 5;
+			// $this->quote_model->update_status($status, $order_payment->orderId);
+			return $this->model_response(true, 200, array("paymentId" => $payment_id), 'Txn Details Updated.');
+		}
+//		elseif (in_array($orderStatus->ord_quotStatusId, [1, 2, 3])) {
+//			return $this->model_response(true, 200, array(), "You can't process For This Order");
+//		}
 	}
 }

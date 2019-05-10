@@ -128,11 +128,52 @@
 							</div>
 						</div>
 					</form>
+
+					<?php if (isset($itemData) && !empty($itemData['paymentStatus'])) { ?>
+						<h4 class="header-title m-t-30 m-b-30">Payment Information</h4>
+						<form class="form-horizontal" role="form">
+							<div class="form-group">
+								<label class="col-md-4 control-label">Txn Id</label>
+								<div class="col-md-8">
+									<input type="text" class="form-control" readonly=""
+									       value="<?php echo isset($itemData) && !empty($itemData['txnId']) ? $itemData['txnId'] : '....'; ?>">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-4 control-label">Txn date</label>
+								<div class="col-md-8">
+									<input type="text" class="form-control" readonly=""
+									       value="<?php echo isset($itemData) && !empty($itemData['txnDate']) ? $itemData['txnDate'] : '....'; ?>">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-md-4 control-label">Txn Status</label>
+								<div class="col-md-8 input-group m-t-8">
+									<select class="form-control select2 col-md-4" id="txnStatus" <?php if (isset($itemData) && !empty($itemData['statusId']) && $itemData['statusId'] != 4) { echo 'disabled'; }?> >
+										<option <?php echo("underVerification" == $itemData['paymentStatus'] ? "selected" : ''); ?>
+												value="underVerification">UnderVerification
+										</option>
+										<option <?php echo("verified" == $itemData['paymentStatus'] ? "selected" : ''); ?>
+												value="verified">Verified
+										</option>
+									</select>
+									<?php if (isset($itemData) && !empty($itemData['statusId']) && $itemData['statusId'] == 4) { ?>
+									<span class="input-group-btn">
+                                    <button type="button" class="btn waves-effect waves-light btn-primary"
+                                            onclick="updatePaymentStatus()">Update</button></span>
+									<?php } ?>
+								</div>
+							</div>
+
+						</form>
+					<?php } ?>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
+
 <div class="row">
 	<div class="col-sm-12">
 		<div class="panel">
@@ -184,15 +225,15 @@
 						</tr>
 						</tfoot>
 					</table>
-					<!--                        <div class="row" --><?php //echo "payment made" == $itemData['orderStatus'] ? "hidden" : ''; ?>
-					<!--                             id="updatePriceDiv">-->
-					<!--                            <div class="col-sm-6">-->
-					<!--                                <div class="m-b-30">-->
-					<!--                                    <button id="updateTable" class="btn btn-primary waves-effect waves-light">Update <i-->
-					<!--                                                class="fa fa-save"></i></button>-->
-					<!--                                </div>-->
-					<!--                            </div>-->
-					<!--                        </div>-->
+					<!--					<div class="row" --><?php //echo "payment made" == $itemData['orderStatus'] ? "hidden" : ''; ?>
+					<!--					     id="updatePriceDiv">-->
+					<!--						<div class="col-sm-6">-->
+					<!--							<div class="m-b-30">-->
+					<!--								<button id="updateTable" class="btn btn-primary waves-effect waves-light">Update <i-->
+					<!--											class="fa fa-save"></i></button>-->
+					<!--							</div>-->
+					<!--						</div>-->
+					<!--					</div>-->
 				</div>
 			</div>
 			<!-- end: panel body -->

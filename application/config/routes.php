@@ -131,7 +131,7 @@ $route['quote/listQuotes/user-id/(:num)'] = 'apiv1/quote/list_user_quotes';
 $route['quote/getQuote/quote-id/(:num)'] = 'apiv1/quote/get_quote_by_id';
 $route['quote/accept/quote-id/(:num)'] = 'apiv1/quote/accept_quote';
 $route['quote/decline/quote-id/(:num)'] = 'apiv1/quote/decline_quote';
-$route['payment/create'] = 'apiv1/payment/create_order_payment';
+$route['payment/create'] = 'apiv1/payment/create_quote_payment';
 //
 $route['quote/addItem'] = 'apiv1/quote/add_item_to_quote';
 $route['quote/removeItem'] = 'apiv1/quote/remove_item_from_quote';
@@ -144,6 +144,7 @@ $route['quote/convertToOrder/quote-id/(:num)'] = 'apiv1/quote/convert_to_order';
 $route['order/create'] = 'apiv1/order/create_order';
 $route['order/list/user-id/(:num)'] = 'apiv1/order/list_user_order';
 $route['order/getOrder/order-id/(:num)'] = 'apiv1/order/get_order_by_id';
+$route['payment/create_to_order'] = 'apiv1/payment/create_order_payment';
 
 // $route['order/get/id/(:num)'] = 'apiv1/order/get_order';
 //$route['order/update/id/(:num)'] = 'apiv1/order/update_order';
@@ -257,7 +258,7 @@ $route['orders/index'] = 'webapp/orders/index';
 $route['orders/viewdata/order-id/(:any)'] = 'webapp/orders/detail_view';
 //$route['order-items/price/update'] = 'apiv1/order/update_items_price';
 $route['order/status/update'] = 'apiv1/order/update_status';
-
+$route['order/payment/update'] = 'apiv1/order/update_payment_status';
 
 //---------Quotes------------//
 $route['quotes/index'] = 'webapp/quotes/index';
