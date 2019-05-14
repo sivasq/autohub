@@ -88,7 +88,7 @@ class Order_model extends Generic_model
 		$grandTotal = $shippingTotal + array_sum(array_column($cartItems, 'total'));
 
 		/* Create Quote Data */
-		$CartData = $this->build_model_data($inputData, $this->prefix, array("statusId" => 1, "isOrder" => 1, "itemTotal" => $itemTotal, "shippingTotal" => $shippingTotal, "grandTotal" => $grandTotal, "CreatedAt" => date('Y-m-d H:i:s'), "CreatedBy" => NULL));
+		$CartData = $this->build_model_data($inputData, $this->prefix, array("statusId" => 4, "isOrder" => 1, "itemTotal" => $itemTotal, "shippingTotal" => $shippingTotal, "grandTotal" => $grandTotal, "CreatedAt" => date('Y-m-d H:i:s'), "CreatedBy" => NULL));
 
 		/* Insert Quote data */
 		$this->db->insert($this->table, $CartData);
@@ -97,7 +97,7 @@ class Order_model extends Generic_model
 			return $this->model_response(false, 500, array(), "Error on creating Quote");
 		}
 
-		/* Update Quote Number */
+		/* Update Order Number */
 		$this->update(array('ord_orderId' => $this->generate_order_number($orderId)), $orderId);
 
 		/* Create quote Items data */

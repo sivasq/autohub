@@ -177,6 +177,7 @@ class Product_model extends Generic_Model
 			$this->prfx . "name as productName, " .
 			$this->prfx . "image as productImage, " .
 			$this->cat_prfx . "name as categoryName, " .
+			$this->prfx . "price as productPrice, " .
 			$this->pty_prfx . "name as productType";
 	}
 

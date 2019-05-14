@@ -28,6 +28,9 @@ var dataColumns = [
             if (dataField === 'Delivered') {
                 return '<span class="label label-success">' + dataField + '</span>';
             }
+            if (dataField === 'Not Paid') {
+                return '<span class="label label-warning">' + dataField + '</span>';
+            }
         }
     },
     {"data": "createdAt"},
