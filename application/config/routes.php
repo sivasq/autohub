@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /*
 | -------------------------------------------------------------------------
@@ -55,17 +55,17 @@ $route['translate_uri_dashes'] = FALSE;
 
 
 //-------------Auth Routes---------------//
-$route[ 'auth/emailValidate'] = 'apiv1/auth/email_validate';
-$route[ 'auth/register'] = 'apiv1/auth/user_registration';
-$route[ 'auth/sendOtp'] = 'apiv1/auth/send_otp';
-$route[ 'auth/verifyOtp'] = 'apiv1/auth/otp_verify';
-$route[ 'auth/login'] = 'apiv1/auth/user_login_auth';
-$route[ 'auth/changePassword'] = 'apiv1/auth/change_password';
-$route[ 'auth/logout'] = 'apiv1/auth/logout';
+$route['auth/emailValidate'] = 'apiv1/auth/email_validate';
+$route['auth/register'] = 'apiv1/auth/user_registration';
+$route['auth/sendOtp'] = 'apiv1/auth/send_otp';
+$route['auth/verifyOtp'] = 'apiv1/auth/otp_verify';
+$route['auth/login'] = 'apiv1/auth/user_login_auth';
+$route['auth/changePassword'] = 'apiv1/auth/change_password';
+$route['auth/logout'] = 'apiv1/auth/logout';
 
 
 //-------------Register Device-------------//
-$route[ 'auth/registerDevice'] = 'apiv1/auth/registerDevice';
+$route['auth/registerDevice'] = 'apiv1/auth/registerDevice';
 
 
 //-------------Shipping Address------------//
@@ -275,6 +275,12 @@ $route['quote/payment/update'] = 'apiv1/quote/update_payment_status';
 $route['shipping-method'] = 'webapp/ShippingMethod/index';
 $route['shipping-method/create'] = 'webapp/ShippingMethod/create';
 $route['shipping-method/delete'] = 'webapp/ShippingMethod/delete';
+
+//---------Policy------------//
+$route['policy/get'] = 'apiv1/policy/get_policies';
+$route['policy/policy-view'] = 'webapp/Policy/policy_view';
+$route['policy/policy-update'] = 'webapp/Policy/policy_update';
+// $route['policy/return_policy'] = 'webapp/Policy/return_policy';
 
 //Image Manage
 $route['imagemanage/upload'] = 'apiv1/imagemanage/upload';

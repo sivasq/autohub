@@ -1,6 +1,6 @@
 <?php
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 class Product extends User_Controller
 {
@@ -15,7 +15,7 @@ class Product extends User_Controller
 
 	public function __construct()
 	{
-		parent:: __construct();
+		parent::__construct();
 		$this->load->model('apiv1/Product_model');
 	}
 
@@ -111,7 +111,7 @@ class Product extends User_Controller
 			if ($this->form_validation->run('product_create') === false) {
 				// validation not ok, send validation errors to the view
 				$this->load->view('admin/product/product', $data);
-			}else {
+			} else {
 				if ($subItems == NULL) {
 					if ($this->Product_model->insert($requestData)) {
 						redirect($view);
@@ -128,11 +128,10 @@ class Product extends User_Controller
 					redirect($view);
 				}
 			} else {
-				if ($this->Product_model->update_product_with_sub_items($requestData,$id, $table, $id_name, $subItems)) {
+				if ($this->Product_model->update_product_with_sub_items($requestData, $id, $table, $id_name, $subItems)) {
 					redirect($view);
 				}
 			}
-
 		}
 	}
 
@@ -144,6 +143,9 @@ class Product extends User_Controller
 		$productType = $this->input->post('productType');
 		$productPrice = $this->input->post('prdPrice');
 		$prdCurrentStock = $this->input->post('prdCurrentStock');
+		$prdBrand = $this->input->post('prdBrand');
+		$prdPartNumber = $this->input->post( 'prdPartNumber');
+		$prdIncluded = $this->input->post( 'prdIncluded');
 		$prdImage = $this->input->post('prdImage');
 
 		$data = array(
@@ -153,6 +155,9 @@ class Product extends User_Controller
 			'prd_typeId' => $productType,
 			'prd_price' => $productPrice,
 			'prd_currentStock' => $prdCurrentStock,
+			'prd_brand' => $prdBrand,
+			'prd_partNumber' => $prdPartNumber,
+			'prd_included' => $prdIncluded,
 			'prd_image' => $prdImage
 		);
 
@@ -169,7 +174,7 @@ class Product extends User_Controller
 	{
 		$id = $this->input->post('pcaId');
 
-		$this->create(SELF::CATEGORY_URL, $id,'prd_category_create', $this->postCategoryData(), $this->tableCategories, 'pca_id', "Product Category");
+		$this->create(SELF::CATEGORY_URL, $id, 'prd_category_create', $this->postCategoryData(), $this->tableCategories, 'pca_id', "Product Category");
 	}
 
 	public function create($view, $id, $rules_config, $requestData, $table, $id_name, $page_name)
@@ -266,41 +271,41 @@ class Product extends User_Controller
 	public function product_details()
 	{
 
-//		$query = $this->db->query('SELECT *, (select GROUP_CONCAT(`psp_subProductId`) from `product_sub_products` where `psp_productId` = 17)  as `sub` FROM `products`' );
+		//		$query = $this->db->query('SELECT *, (select GROUP_CONCAT(`psp_subProductId`) from `product_sub_products` where `psp_productId` = 17)  as `sub` FROM `products`' );
 
 
-//working
-//		$query = $this->db->query('SELECT *, GROUP_CONCAT(`product_sub_products`.`psp_subProductId`) AS `subitem`
-//FROM  `products`
-//left JOIN  `product_sub_products` ON `product_sub_products`.`psp_productId` = `products`.`prd_id`
-////group by `products`.`prd_id`');
+		//working
+		//		$query = $this->db->query('SELECT *, GROUP_CONCAT(`product_sub_products`.`psp_subProductId`) AS `subitem`
+		//FROM  `products`
+		//left JOIN  `product_sub_products` ON `product_sub_products`.`psp_productId` = `products`.`prd_id`
+		////group by `products`.`prd_id`');
 
 
-//working
-//		$query = $this->db->query('SELECT *, GROUP_CONCAT(`product_sub_products`.`psp_subProductId` ORDER BY `psp_subProductId` ASC SEPARATOR ";") AS `subitem`
-//FROM  `products`
-//LEFT JOIN  `product_sub_products` ON `product_sub_products`.`psp_productId` = `products`.`prd_id`
-//group by `products`.`prd_id`');
+		//working
+		//		$query = $this->db->query('SELECT *, GROUP_CONCAT(`product_sub_products`.`psp_subProductId` ORDER BY `psp_subProductId` ASC SEPARATOR ";") AS `subitem`
+		//FROM  `products`
+		//LEFT JOIN  `product_sub_products` ON `product_sub_products`.`psp_productId` = `products`.`prd_id`
+		//group by `products`.`prd_id`');
 
 
-//working
-//		$query = $this->db->query('SELECT *, GROUP_CONCAT(CONCAT_WS(",", `product_sub_products`.`psp_productId`, `product_sub_products`.`psp_subProductId`) SEPARATOR ";") AS `subitem`
-//FROM  `products`
-//LEFT JOIN  `product_sub_products` ON `product_sub_products`.`psp_productId` = `products`.`prd_id`
-//group by `products`.`prd_id`');
+		//working
+		//		$query = $this->db->query('SELECT *, GROUP_CONCAT(CONCAT_WS(",", `product_sub_products`.`psp_productId`, `product_sub_products`.`psp_subProductId`) SEPARATOR ";") AS `subitem`
+		//FROM  `products`
+		//LEFT JOIN  `product_sub_products` ON `product_sub_products`.`psp_productId` = `products`.`prd_id`
+		//group by `products`.`prd_id`');
 
 
-//		$query = $this->db->query('SELECT *, CONCAT(
-//  "[", GROUP_CONCAT( JSON_OBJECT(`product_sub_products`.`psp_productId`, `product_sub_products`.`psp_subProductId`) SEPARATOR ";"), "]") AS `subitem`
-//FROM  `products`
-//LEFT JOIN  `product_sub_products` ON `product_sub_products`.`psp_productId` = `products`.`prd_id` where `psp_productId` = 17
-//group by `products`.`prd_id`');
+		//		$query = $this->db->query('SELECT *, CONCAT(
+		//  "[", GROUP_CONCAT( JSON_OBJECT(`product_sub_products`.`psp_productId`, `product_sub_products`.`psp_subProductId`) SEPARATOR ";"), "]") AS `subitem`
+		//FROM  `products`
+		//LEFT JOIN  `product_sub_products` ON `product_sub_products`.`psp_productId` = `products`.`prd_id` where `psp_productId` = 17
+		//group by `products`.`prd_id`');
 
-//		$query = $this->db->query('SELECT *, CONCAT(
-//  "[", GROUP_CONCAT( `product_sub_products`.`psp_subProductId` SEPARATOR ","), "]") AS `subitem`
-//FROM  `products`
-//LEFT JOIN  `product_sub_products` ON `product_sub_products`.`psp_productId` = `products`.`prd_id` where `psp_productId` = 17
-//group by `products`.`prd_id`');
+		//		$query = $this->db->query('SELECT *, CONCAT(
+		//  "[", GROUP_CONCAT( `product_sub_products`.`psp_subProductId` SEPARATOR ","), "]") AS `subitem`
+		//FROM  `products`
+		//LEFT JOIN  `product_sub_products` ON `product_sub_products`.`psp_productId` = `products`.`prd_id` where `psp_productId` = 17
+		//group by `products`.`prd_id`');
 
 
 		$this->db->select("products.*, product_categories.pca_name as productCategory, pty_name as productType, CONCAT('', GROUP_CONCAT( product_sub_products.psp_subProductId SEPARATOR ','), '') AS subitem, CONCAT('', GROUP_CONCAT( sub.prd_name SEPARATOR ','), '') AS subitemname");
@@ -317,5 +322,4 @@ class Product extends User_Controller
 
 		print_r($result);
 	}
-
 }

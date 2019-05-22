@@ -125,6 +125,8 @@ function getProductUpdate() {
 		$('#priceDiv').prop('hidden', true);
 		$('#price').prop('required', false);
 
+		$('.technical').prop('hidden', true);
+
 		$('#productImage').prop('hidden', true);
 
 		[].forEach.call(dynamicText, (e) => {
@@ -142,6 +144,8 @@ function getProductUpdate() {
 
 		$('#priceDiv').prop('hidden', true);
 		$('#price').prop('required', false);
+
+		$('.technical').prop('hidden', true);
 
 		$('#productImage').prop('hidden', true);
 
@@ -161,6 +165,8 @@ function getProductUpdate() {
 		$('#priceDiv').prop('hidden', true);
 		$('#price').prop('required', false);
 
+		$('.technical').prop('hidden', true);
+
 		$('#productImage').prop('hidden', true);
 
 		[].forEach.call(dynamicText, (e) => {
@@ -179,6 +185,8 @@ function getProductUpdate() {
 		$('#priceDiv').prop('hidden', false);
 		$('#price').prop('required', true);
 
+		$('.technical').prop('hidden', false);
+
 		$('#productImage').prop('hidden', false);
 
 		[].forEach.call(dynamicText, (e) => {
@@ -196,6 +204,8 @@ function getProductUpdate() {
 
 		$('#price').prop('hidden', true);
 		$('#price').prop('required', false);
+
+		$('.technical').prop('hidden', true);
 
 		$('#productImage').prop('hidden', true);
 

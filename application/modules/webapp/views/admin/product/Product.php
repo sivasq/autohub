@@ -9,30 +9,25 @@
 						<div class="card-box">
 							<h4 class="header-title m-t-0 m-b-30">Add <span class="dynamicText">Product</span></h4>
 
-							<form id="myForm" class="form-horizontal"
-							      action="<?php echo api_url("product/create"); ?>"
-							      data-parsley-validate
-							      novalidate method="post" onReset="updateForm(event);">
+							<form id="myForm" class="form-horizontal" action="<?php echo api_url("product/create"); ?>" data-parsley-validate novalidate method="post" onReset="updateForm(event);">
 								<?php
 								$error = validation_errors();
 								if (!empty($error)) {
 									?>
 									<div class="alert alert-danger alert-dismissible">
-										<a href="#" class="close" data-dismiss="alert"
-										   aria-label="close">&times;</a>
+										<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 										<strong>Warning!</strong> <?php echo $error ?>
 									</div>
-									<?php
-								}
-								?>
+								<?php
+							}
+							?>
 								<input type="hidden" id="prdId" name="prdId">
 
 								<div class="form-group">
 									<label for="productType" class="col-sm-4 control-label">Type
 									</label>
 									<div class="col-sm-7">
-										<select class="form-control" name="productType"
-										        id="productType" onchange="getProductUpdate()" required="">
+										<select class="form-control" name="productType" id="productType" onchange="getProductUpdate()" required="">
 											<option value="">Select Type</option>
 											<?php
 											if (isset($typeData)) {
@@ -46,8 +41,7 @@
 								<div class="form-group" id="productCategoryDiv">
 									<label for="productCategory" class="col-sm-4 control-label">Category</label>
 									<div class="col-sm-7">
-										<select class="form-control" name="productCategory"
-										        id="productCategory" required="">
+										<select class="form-control" name="productCategory" id="productCategory" required="">
 											<option value="">Select Category</option>
 											<?php
 											if (isset($categoryData)) {
@@ -62,31 +56,23 @@
 									<label for="prdName" class="col-sm-4 control-label"><span class="dynamicText">Product</span>
 										Name*</label>
 									<div class="col-sm-7">
-										<input type="text" required="" class="form-control"
-										       id="prdName" name="prdName"
-										       placeholder="Name">
+										<input type="text" required="" class="form-control" id="prdName" name="prdName" placeholder="Name">
 									</div>
 								</div>
 
 								<div class="form-group">
-									<label for="prdDescription" class="col-sm-4 control-label"><span
-												class="dynamicText">Product</span>
+									<label for="prdDescription" class="col-sm-4 control-label"><span class="dynamicText">Product</span>
 										Description</label>
 									<div class="col-sm-7">
-										<input type="text" required="" class="form-control"
-										       id="prdDescription" name="prdDescription"
-										       placeholder="Description">
+										<input type="text" required="" class="form-control" id="prdDescription" name="prdDescription" placeholder="Description">
 									</div>
 								</div>
 
 								<div class="form-group" hidden id="stockDiv">
-									<label for="prdDescription" class="col-sm-4 control-label"><span
-												class="dynamicText">Product</span>
+									<label for="prdDescription" class="col-sm-4 control-label"><span class="dynamicText">Product</span>
 										Current Stock</label>
 									<div class="col-sm-7">
-										<input type="text" required="" class="form-control"
-										       id="prdCurrentStock" name="prdCurrentStock"
-										       placeholder="Current Stock" value="0">
+										<input type="text" required="" class="form-control" id="prdCurrentStock" name="prdCurrentStock" placeholder="Current Stock" value="0">
 									</div>
 								</div>
 
@@ -94,18 +80,40 @@
 									<label for="prdPrice" class="col-sm-4 control-label"><span class="dynamicText">Product</span>
 										Price</label>
 									<div class="col-sm-7">
-										<input type="text" required="" class="form-control"
-										       id="prdPrice" name="prdPrice"
-										       placeholder="Product Price" value="0">
+										<input type="text" required="" class="form-control" id="prdPrice" name="prdPrice" placeholder="Product Price" value="0">
+									</div>
+								</div>
+
+								<div class="form-group technical" hidden>
+									<label for="prdPrice" class="col-sm-4 control-label"><span class="dynamicText">Product</span>
+										Brand</label>
+									<div class="col-sm-7">
+										<input type="text" required="" class="form-control" id="prdBrand" name="prdBrand" placeholder="Product Brand" value="">
+									</div>
+								</div>
+
+								<div class="form-group technical" hidden>
+									<label for="prdPrice" class="col-sm-4 control-label"><span class="dynamicText">Item
+										</span>
+										Part Number</label>
+									<div class="col-sm-7">
+										<input type="text" required="" class="form-control" id="prdPartNumber" name="prdPartNumber" placeholder="Product Part Number" value="">
+									</div>
+								</div>
+
+								<div class="form-group technical" hidden>
+									<label for="prdPrice" class="col-sm-4 control-label"><span class="dynamicText">
+										</span>
+										Included</label>
+									<div class="col-sm-7">
+										<input type="text" required="" class="form-control" id="prdIncluded" name="prdIncluded" placeholder="Product Included" value="">
 									</div>
 								</div>
 
 								<div class="form-group" hidden id="subItems">
 									<label for="sub_items" class="col-sm-4 control-label">Package Items*</label>
 									<div class="col-sm-7">
-										<select multiple="multiple" class="multi-select" id="sub_items"
-										        name="sub_item[]" data-plugin="multiselect"
-										        data-selectable-optgroup="true">
+										<select multiple="multiple" class="multi-select" id="sub_items" name="sub_item[]" data-plugin="multiselect" data-selectable-optgroup="true">
 											<?php
 											if (isset($subItems)) {
 												echo $subItems;
@@ -119,8 +127,7 @@
 									<label for="sub_items" class="col-sm-4 control-label">Product Image</label>
 									<div class="col-sm-7">
 										<input type="hidden" id="prdImage" name="prdImage">
-										<div id="upload_widget" style="line-height: normal; padding: auto;"
-										     class="btn btn-primary cloudinary-button">Select Product Image
+										<div id="upload_widget" style="line-height: normal; padding: auto;" class="btn btn-primary cloudinary-button">Select Product Image
 										</div>
 										<div class="preview" id="preview">
 											<ul class="cloudinary-thumbnails"></ul>
@@ -130,14 +137,11 @@
 
 								<div class="form-group">
 									<div class="col-sm-offset-4 col-sm-8">
-										<button type="submit"
-										        class="btn btn-primary waves-effect waves-light"
-										        name="create_update" id="save-button" value="Create">
+										<button type="submit" class="btn btn-primary waves-effect waves-light" name="create_update" id="save-button" value="Create">
 											Save
 										</button>
 
-										<button type="reset"
-										        class="btn btn-default waves-effect waves-light m-l-5">
+										<button type="reset" class="btn btn-default waves-effect waves-light m-l-5">
 											Cancel
 										</button>
 
@@ -159,19 +163,18 @@
 		<div class="panel">
 			<div class="panel-body">
 				<div class="table-responsive">
-					<table class="table table-striped table-bordered nowrap"
-					       cellspacing="0" width="100%" id="products_datatable">
+					<table class="table table-striped table-bordered nowrap" cellspacing="0" width="100%" id="products_datatable">
 						<thead>
-						<tr>
-							<th>Product ID</th>
-							<th>Product Name</th>
-							<th>Product Description</th>
-							<th>Product Type</th>
-							<th>Product Category</th>
-							<th>Product Image</th>
-							<th>Created On</th>
-							<th>Actions</th>
-						</tr>
+							<tr>
+								<th>Product ID</th>
+								<th>Product Name</th>
+								<th>Product Description</th>
+								<th>Product Type</th>
+								<th>Product Category</th>
+								<th>Product Image</th>
+								<th>Created On</th>
+								<th>Actions</th>
+							</tr>
 						</thead>
 					</table>
 				</div>
@@ -234,11 +237,13 @@
 <?php $this->load->view('includes/footers/admin_footer'); ?>
 
 <script>
-
 	const cloudName = 'sqdevelop';
 	const unsignedUploadPreset = 'Upload';
 
-	$.cloudinary.config({cloud_name: cloudName, secure: true});
+	$.cloudinary.config({
+		cloud_name: cloudName,
+		secure: true
+	});
 
 	function deleteImage(that) {
 		$.cloudinary.delete_by_token($(that).data("token"));
@@ -249,28 +254,26 @@
 	// console.log($.cloudinary.image("sample"));
 
 	$('.cloudinary_fileupload')
-		.unsigned_cloudinary_upload(unsignedUploadPreset,
-			{
-				autoUpload: true,
-				cloud_name: cloudName,
-				tags: 'browser_uploads',
-			}
-		)
-		.bind('fileuploadprogress', function (e, data) {
+		.unsigned_cloudinary_upload(unsignedUploadPreset, {
+			autoUpload: true,
+			cloud_name: cloudName,
+			tags: 'browser_uploads',
+		})
+		.bind('fileuploadprogress', function(e, data) {
 			console.log(`fileuploadprogress data.loaded: ${data.loaded},data.total: ${data.total}`);
 			// $('.progress-bar').css('width', Math.round((data.loaded * 100.0) / data.total) + '%');
 			$('.progress-bar').css('width', 0);
 			$('.progress').fadeIn();
 			$(".progress-bar").animate({
 				width: Math.round((data.loaded * 100.0) / data.total) + '%'
-			}, function () {
+			}, function() {
 				$(this).closest('.progress').fadeOut();
 			});
 		})
-		.bind('cloudinaryprogress', function (e, data) {
+		.bind('cloudinaryprogress', function(e, data) {
 			console.log(`cloudinaryprogress data.loaded: ${data.loaded},data.total: ${data.total}`);
 		})
-		.bind('cloudinarydone', function (e, data) {
+		.bind('cloudinarydone', function(e, data) {
 			// inspect data.result for return value with link to the uploaded image and more
 			console.log(`data.loaded: ${data.loaded},data.total: ${data.total}`)
 			console.log('Upload result', data.result);
@@ -323,8 +326,7 @@
 		}
 	);
 
-	document.getElementById("upload_widget").addEventListener("click", function () {
+	document.getElementById("upload_widget").addEventListener("click", function() {
 		myWidget.open();
 	}, false);
-
 </script>
