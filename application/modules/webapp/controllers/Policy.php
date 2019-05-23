@@ -23,6 +23,7 @@ class Policy extends User_Controller
         $data['product_poliy']  = (object)$this->Policy_model->get_policy_by_id(1)[3];
         $data['shipping_poliy']  = (object)$this->Policy_model->get_policy_by_id(2)[3];
         $data['return_poliy']  = (object)$this->Policy_model->get_policy_by_id(3)[3];
+        $data['customer_poliy']  = (object)$this->Policy_model->get_policy_by_id(4)[3];
         $this->load->view('admin/policy/policy_view', $data);
     }
 
@@ -37,5 +38,4 @@ class Policy extends User_Controller
         $id = $this->input->post('id');
         $this->Shippingmethod_model->delete($id);
     }
-
 }

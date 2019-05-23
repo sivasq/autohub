@@ -17,6 +17,7 @@ class Policy extends MY_Controller
         $data['product_poliy']  = $this->Policy_model->get_policy_by_id(1)[3];
         $data['shipping_poliy']  = $this->Policy_model->get_policy_by_id(2)[3];
         $data['return_poliy']  = $this->Policy_model->get_policy_by_id(3)[3];
+        $data['customer_poliy']  = $this->Policy_model->get_policy_by_id(4)[3];
         return $this->response(array(true, 200, 'Policies', $data));
     }
 }

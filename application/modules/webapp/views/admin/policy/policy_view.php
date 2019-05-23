@@ -117,6 +117,45 @@
     </div> <!-- end col-->
 </div>
 
+<div class="row">
+    <div class="col-sm-12">
+        <div class="panel">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card-box">
+                            <h4 class="header-title m-t-0 m-b-30">Customer Policy</h4>
+
+                            <form id="myForm" class="form-horizontal" action="<?php echo api_url("policy/policy-update"); ?>" data-parsley-validate novalidate method="post">
+                                <input type="hidden" id="policyid" name="policyid" value="<?php echo $customer_poliy->id; ?>">
+                                <div class="form-group">
+                                    <label for="details" class="col-sm-2 control-label">Customer Policy</label>
+                                    <div class="col-sm-7">
+                                        <textarea required="" class="form-control" id="details" name="details" placeholder="Customer Info"> <?php echo $customer_poliy->value; ?></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-8">
+                                        <button type="submit" class="btn btn-primary waves-effect waves-light" name="create_update" id="save-button" value="Update">
+                                            Save / Update
+                                        </button>
+
+                                        <button type="reset" class="btn btn-default waves-effect waves-light m-l-5">
+                                            Cancel
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end: panel body -->
+        </div> <!-- end panel -->
+    </div> <!-- end col-->
+</div>
+
 </div>
 <!-- end row -->
 <?php $this->load->view('includes/footers/admin_footer'); ?>
