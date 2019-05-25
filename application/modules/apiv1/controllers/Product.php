@@ -35,7 +35,7 @@ class Product extends MY_Controller
 	 */
 	public function list_shopping_parts_get()
 	{
-		$response = $this->Product_model->list_product_by_type(4, 'shoppingParts', 'productCategory');
+		$response = $this->Product_model->list_product_by_type_for_shopping_items(4, 'shoppingParts');
 		return $this->response($response);
 	}
 

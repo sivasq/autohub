@@ -139,13 +139,13 @@ class Product extends User_Controller
 	{
 		$productName = $this->input->post('prdName');
 		$productDescription = $this->input->post('prdDescription');
-		$productCategory = $this->input->post('productCategory');
 		$productType = $this->input->post('productType');
+		$productCategory = $this->input->post('productCategory');
 		$productPrice = $this->input->post('prdPrice');
 		$prdCurrentStock = $this->input->post('prdCurrentStock');
 		$prdBrand = $this->input->post('prdBrand');
-		$prdPartNumber = $this->input->post( 'prdPartNumber');
-		$prdIncluded = $this->input->post( 'prdIncluded');
+		$prdPartNumber = $this->input->post('prdPartNumber');
+		$prdIncluded = $this->input->post('prdIncluded');
 		$prdImage = $this->input->post('prdImage');
 
 		$data = array(

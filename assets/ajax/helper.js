@@ -173,8 +173,8 @@ function getProductUpdate() {
 			e.textContent = "Package Item";
 		});
 	} else if (productType === "4") {
-		$('#productCategoryDiv').prop('hidden', false);
-		$('#productCategory').prop('required', true);
+		$('#productCategoryDiv').prop('hidden', true);
+		$('#productCategory').prop('required', false);
 
 		$('#subItems').prop('hidden', true);
 		$('#sub_items').prop('required', false);

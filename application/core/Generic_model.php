@@ -111,9 +111,9 @@ class Generic_model extends CI_Model
 		if ($table != NULL) {
 			$this->db->from($table);
 			$result = $this->build_response_array($this->db->get()->result_array());
-			if(is_null($responseField)){
+			if (is_null($responseField)) {
 				return $this->model_response(true, 200, $result);
-			}else {
+			} else {
 				return $this->model_response(true, 200, array($responseField => $result));
 			}
 		}
@@ -121,14 +121,14 @@ class Generic_model extends CI_Model
 		if ($orderby)
 			$this->db->order_by($this->prfx . $orderby);
 		$result = $this->build_response_array($this->db->get()->result_array());
-		if(is_null($responseField)){
+		if (is_null($responseField)) {
 			return $this->model_response(true, 200, $result);
-		}else {
+		} else {
 			return $this->model_response(true, 200, array($responseField => $result));
 		}
 	}
 
-	public function get_join(& $db, $relation_field)
+	public function get_join(&$db, $relation_field)
 	{
 		$db->join($this->table, $this->prfx . "id = " . $relation_field, "left");
 	}
@@ -220,11 +220,14 @@ class Generic_model extends CI_Model
 
 		foreach ($result as $val) {
 			$response_data = $this->build_response($val, $date_fields);
-
-			if (array_key_exists($mapField, $response_data)) {
-				$response_array_data[$response_data[$mapField]][] = $response_data;
+			if ($mapField != Null) {
+				if (array_key_exists($mapField, $response_data)) {
+					$response_array_data[$response_data[$mapField]][] = $response_data;
+				} else {
+					$response_array_data[""][] = $response_data;
+				}
 			} else {
-				$response_array_data[""][] = $response_data;
+				$response_array_data[] = $response_data;
 			}
 		}
 
@@ -261,8 +264,8 @@ class Generic_model extends CI_Model
 
 				array_push($mapped_array[$model_key], $mapped_items);
 
-//				   if(!$repeated)
-//				      break;
+				//				   if(!$repeated)
+				//				      break;
 			}
 		}
 		return $mapped_array;
@@ -366,7 +369,6 @@ class Generic_model extends CI_Model
 		if (empty($conditionKey) or empty($conditionValue)) {
 			$this->db->select($selectCondition);
 			$this->db->from($tableName);
-
 		} else {
 			$this->db->select($selectCondition);
 			$this->db->from($tableName);
