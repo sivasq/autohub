@@ -1,0 +1,2743 @@
+{
+	"info": {
+		"_postman_id": "919451e5-67ba-4a73-afc0-e11b009175ab",
+		"name": "AutoHubb",
+		"description": "Autolane360 is a Houston Based car parts sales company with branches in San Antonio Texas, Nigerian and Ghana.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Email Validate",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"type": "text",
+								"value": "{{apikey}}"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"siva@sqindia.net\"\n}"
+						},
+						"url": {
+							"raw": "{{local}}/auth/emailValidate",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"auth",
+								"emailValidate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{apikey}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"first_name\": \"abc\",\n    \"last_name\": \"def\",\n    \"email\": \"siva@sqindia.net\",\n    \"password\": \"string\",\n    \"phone\": \"999999999\",\n    \"country\": \"India\",\n    \"ref_code\": \"string\"\n}"
+						},
+						"url": {
+							"raw": "{{local}}/auth/register",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Resend OTP",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{apikey}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"siva@sqindia.net\"\n}"
+						},
+						"url": {
+							"raw": "{{local}}/auth/sendOtp",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"auth",
+								"sendOtp"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify OTP",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{apikey}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"siva@sqindia.net\",\n    \"otp\": 9212\n}"
+						},
+						"url": {
+							"raw": "{{local}}/auth/verifyOtp",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"auth",
+								"verifyOtp"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"type": "text",
+								"value": "{{apikey}}"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"guna@sqindia.net\",\n    \"password\": \"guna06@\"\n}"
+						},
+						"url": {
+							"raw": "{{local}}/auth/login",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change Password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"type": "text",
+								"value": "{{apikey}}"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"siva@sqindia.net\",\n    \"password\": \"password\"\n}"
+						},
+						"url": {
+							"raw": "{{local}}/auth/changePassword",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"auth",
+								"changePassword"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"type": "text",
+								"value": "{{apikey}}"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "key",
+									"value": "8OCgG7u3tj0eInrEVBzM6pks",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{local}}/auth/logout",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register Device",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"type": "text",
+								"value": "{{apikey}}"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Access-Control-Request-Headers",
+								"type": "text",
+								"value": "application/json",
+								"disabled": true
+							},
+							{
+								"key": "Access-Control-Request-Method",
+								"type": "text",
+								"value": "post",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"mufeed1@dfsd.com\",\n    \"token\": \"dklfjdsklfjsdfkldsjf\"\n}"
+						},
+						"url": {
+							"raw": "{{local}}/auth/registerDevice",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"auth",
+								"registerDevice"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "The Collection deals with the request and response required for the registration and login of a user in the application"
+		},
+		{
+			"name": "Shipping Address",
+			"item": [
+				{
+					"name": "Create User Shipping Address",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"type": "text",
+								"value": "{{apikey}}"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Access-Control-Request-Headers",
+								"type": "text",
+								"value": "application/json",
+								"disabled": true
+							},
+							{
+								"key": "Access-Control-Request-Method",
+								"type": "text",
+								"value": "post",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"userId\":1,\n\t\"firstName\":\"Ebin\",\n\t\"lastName\":\"Chandy\",\n\t\"addressLine1\":\"trivandrum\",\n\t\"addressLine2\":\"Kazhakuttam\",\n\t\"city\":\"Thrissur\",\n\t\"state\":\"Kerala\",\n\t\"country\":\"India\",\n\t\"postCode\":\"680671\",\n\t\"phone\":\"8788787\",\n\t\"email\":\"mufeed@dfsd.com\"\n}"
+						},
+						"url": {
+							"raw": "{{local}}/user/create-shipping-address",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"user",
+								"create-shipping-address"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List User Shipping Addresses",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"type": "text",
+								"value": "{{apikey}}"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Access-Control-Request-Headers",
+								"type": "text",
+								"value": "application/json",
+								"disabled": true
+							},
+							{
+								"key": "Access-Control-Request-Method",
+								"type": "text",
+								"value": "post",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{local}}/user/list-shipping-address/user-id/1",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"user",
+								"list-shipping-address",
+								"user-id",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User Shipping Address",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-api-key",
+								"type": "text",
+								"value": "{{apikey}}"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Access-Control-Request-Headers",
+								"type": "text",
+								"value": "application/json",
+								"disabled": true
+							},
+							{
+								"key": "Access-Control-Request-Method",
+								"type": "text",
+								"value": "post",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"userId\":1,\n\t\"firstName\":\"Ebin---aE\",\n\t\"lastName\":\"Chandy\",\n\t\"addressLine1\":\"trivandrum\",\n\t\"addressLine2\":\"Kazhakuttam\",\n\t\"city\":\"Thrissur\",\n\t\"state\":\"Kerala\",\n\t\"country\":\"India\",\n\t\"postCode\":\"680671\",\n\t\"phone\":\"8788787\",\n\t\"email\":\"mufeed@dfsd.com\"\n}"
+						},
+						"url": {
+							"raw": "{{local}}/user/update-shipping-address/shipping-address-id/8",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"user",
+								"update-shipping-address",
+								"shipping-address-id",
+								"8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Shipping Address",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-api-key",
+								"type": "text",
+								"value": "{{apikey}}"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Access-Control-Request-Headers",
+								"type": "text",
+								"value": "application/json",
+								"disabled": true
+							},
+							{
+								"key": "Access-Control-Request-Method",
+								"type": "text",
+								"value": "post",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{local}}/user/delete-shipping-address/shipping-address-id/7",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"user",
+								"delete-shipping-address",
+								"shipping-address-id",
+								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Shipping Address Details",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"type": "text",
+								"value": "{{apikey}}"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Access-Control-Request-Headers",
+								"type": "text",
+								"value": "application/json",
+								"disabled": true
+							},
+							{
+								"key": "Access-Control-Request-Method",
+								"type": "text",
+								"value": "post",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{local}}/user/get-shipping-address/shipping-address-id/8",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"user",
+								"get-shipping-address",
+								"shipping-address-id",
+								"8"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Vehicles",
+			"item": [
+				{
+					"name": "Create vehicle company By User Id",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{apikey}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"userId\":1,\n\t\"companyName\":\"Broadtech123\",\n\t\"email\":\"bradmin@gmail.com\",\n\t\"phone\":\"1232321321\",\n\t\"address1\":\"jhdgfjhgsd\",\n\t\"address2\":\"ewrrewe\",\n\t\"city\":\"trivandrum\"\n}"
+						},
+						"url": {
+							"raw": "{{local}}/vehicle/create-company",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"vehicle",
+								"create-company"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update vehicle company By Company Id",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-api-key",
+								"type": "text",
+								"value": "{{apikey}}"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"userId\":1,\n\t\"companyName\":\"BRTech\",\n\t\"email\":\"test@gmail.com\",\n\t\"phone\":\"1232321321\",\n\t\"address1\":\"jhdgfjhgsd\",\n\t\"address2\":\"ewrrewe\",\n\t\"city\":\"trivandrum\"\n}"
+						},
+						"url": {
+							"raw": "{{local}}/vehicle/update-company/company-id/2",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"vehicle",
+								"update-company",
+								"company-id",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List all user companies",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{apikey}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{local}}/vehicle/list-company/user-id/1",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"vehicle",
+								"list-company",
+								"user-id",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create vehicle driver",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{apikey}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"companyId\":1,\n\t\"firstName\":\"Vishnu\",\n\t\"lastName\":\"thomas\",\n\t\"email\":\"test@gmail.com\",\n\t\"phone\":\"1232321321\",\n\t\"city\":\"trivandrum\",\n\t\"state\":\"kerala\",\n\t\"image\":\"string\"\n}"
+						},
+						"url": {
+							"raw": "{{local}}/vehicle/create-driver",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"vehicle",
+								"create-driver"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update vehicle driver",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{apikey}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"companyId\":1,\n\t\"firstName\":\"BIN--U-Satish\",\n\t\"lastName\":\"thomas\",\n\t\"email\":\"test@gmail.com\",\n\t\"phone\":\"1232321321\",\n\t\"city\":\"trivandrum\",\n\t\"state\":\"Keralaa\"\n}"
+						},
+						"url": {
+							"raw": "{{local}}/vehicle/update-driver/driver-id/6",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"vehicle",
+								"update-driver",
+								"driver-id",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List drivers by company",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{apikey}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{local}}/vehicle/list-driver/company-id/1",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"vehicle",
+								"list-driver",
+								"company-id",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List drivers by vehicle",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"type": "text",
+								"value": "{{apikey}}"
+							}
+						],
+						"url": {
+							"raw": "{{local}}/vehicle/get-driver/vehicle-id/9",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"vehicle",
+								"get-driver",
+								"vehicle-id",
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List vehicle business types",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"type": "text",
+								"value": "{{apikey}}"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Access-Control-Request-Headers",
+								"type": "text",
+								"value": "application/json",
+								"disabled": true
+							},
+							{
+								"key": "Access-Control-Request-Method",
+								"type": "text",
+								"value": "post",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{local}}/vehicle/list-business-types",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"vehicle",
+								"list-business-types"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List vehicle types",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"type": "text",
+								"value": "{{apikey}}"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Access-Control-Request-Headers",
+								"type": "text",
+								"value": "application/json",
+								"disabled": true
+							},
+							{
+								"key": "Access-Control-Request-Method",
+								"type": "text",
+								"value": "post",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{local}}/vehicle/list-vehicle-types",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"vehicle",
+								"list-vehicle-types"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Vehicle",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{apikey}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Access-Control-Request-Headers",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Access-Control-Request-Method",
+								"value": "post",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"userId\":1,\n\t\"vin\":123231,\n\t\"vehicleTypeId\":1,\t\n    \"year\": \"2019\",\n    \"make\": \"nissan\",\n    \"model\": \"kicks\",\n    \"trim\": \"string\",\n    \"image\": \"string\",\n    \"businessTypeId\":1,\n    \"companyId\": 1,\n    \"driverId\": 1,\n    \"mileageRange\":\"1233\",\n    \"actualMileage\": \"130\"\n}"
+						},
+						"url": {
+							"raw": "{{local}}/vehicle/create",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"vehicle",
+								"create"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create Vehicle",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"type": "text",
+										"value": "aaa4dd9c481f4aff80d22a9efec5e80f"
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"carYear\": \"string\",\n    \"carMake\": \"string\",\n    \"carModel\": \"string\",\n    \"carTrim\": \"string\",\n    \"carMileage\": \"string\",\n    \"carImage\": \"string\",\n    \"isCommerical\": false,\n    \"isPrivate\": true,\n    \"commericalData\": {\n        \"carType\": \"string\",\n        \"carVIN\": \"string\",\n        \"carMileageRange\": \"string\",\n        \"carDriverData\": [\n            {\n                \"firstName\": \"string\",\n                \"lastName\": \"string\",\n                \"phoneNumber\": \"string\",\n                \"email\": \"string\",\n                \"city\": \"string\",\n                \"state\": \"string\",\n                \"image\": \"string\"\n            },\n            {\n                \"firstName\": \"string\",\n                \"lastName\": \"string\",\n                \"phoneNumber\": \"string\",\n                \"email\": \"string\",\n                \"city\": \"string\",\n                \"state\": \"string\",\n                \"image\": \"string\"\n            }\n        ],\n        \"companyData\": {\n            \"companyName\": \"string\",\n            \"companyEmail\": \"string\",\n            \"companyAddress1\": \"string\",\n            \"companyAddress2\": \"string\",\n            \"companyCity\": \"string\",\n            \"companyContactName\": \"string\",\n            \"companyPhone\": \"string\"\n        }\n    }\n}"
+								},
+								"url": {
+									"raw": "{{url}}/vehicle/create",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"vehicle",
+										"create"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n\t\"status\":\"success\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Update Vehicle",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{apikey}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Access-Control-Request-Headers",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Access-Control-Request-Method",
+								"value": "post",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"userId\":1,\n\t\"vin\":123231,\n\t\"vehicleTypeId\":1,\t\n    \"year\": \"2019\",\n    \"make\": \"Nissan\",\n    \"model\": \"Kicks\",\n    \"trim\": \"123213\",\n    \"image\": \"232131\",\n    \"businessTypeId\":1,\n    \"companyId\": 1,\n    \"driverId\": 1,\n    \"mileageRange\":\"1233\",\n    \"actualMileage\": \"130\"\n}"
+						},
+						"url": {
+							"raw": "{{local}}/vehicle/update/vehicle-id/10",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"vehicle",
+								"update",
+								"vehicle-id",
+								"10"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create Vehicle",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"type": "text",
+										"value": "aaa4dd9c481f4aff80d22a9efec5e80f"
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"carYear\": \"string\",\n    \"carMake\": \"string\",\n    \"carModel\": \"string\",\n    \"carTrim\": \"string\",\n    \"carMileage\": \"string\",\n    \"carImage\": \"string\",\n    \"isCommerical\": false,\n    \"isPrivate\": true,\n    \"commericalData\": {\n        \"carType\": \"string\",\n        \"carVIN\": \"string\",\n        \"carMileageRange\": \"string\",\n        \"carDriverData\": [\n            {\n                \"firstName\": \"string\",\n                \"lastName\": \"string\",\n                \"phoneNumber\": \"string\",\n                \"email\": \"string\",\n                \"city\": \"string\",\n                \"state\": \"string\",\n                \"image\": \"string\"\n            },\n            {\n                \"firstName\": \"string\",\n                \"lastName\": \"string\",\n                \"phoneNumber\": \"string\",\n                \"email\": \"string\",\n                \"city\": \"string\",\n                \"state\": \"string\",\n                \"image\": \"string\"\n            }\n        ],\n        \"companyData\": {\n            \"companyName\": \"string\",\n            \"companyEmail\": \"string\",\n            \"companyAddress1\": \"string\",\n            \"companyAddress2\": \"string\",\n            \"companyCity\": \"string\",\n            \"companyContactName\": \"string\",\n            \"companyPhone\": \"string\"\n        }\n    }\n}"
+								},
+								"url": {
+									"raw": "{{url}}/vehicle/create",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"vehicle",
+										"create"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n\t\"status\":\"success\"\n}"
+						}
+					]
+				},
+				{
+					"name": "List user vehicles",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"type": "text",
+								"value": "{{apikey}}"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Access-Control-Request-Headers",
+								"type": "text",
+								"value": "application/json",
+								"disabled": true
+							},
+							{
+								"key": "Access-Control-Request-Method",
+								"type": "text",
+								"value": "post",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{local}}/vehicle/list/user-id/1",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"vehicle",
+								"list",
+								"user-id",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Vehicle Count by User",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"type": "text",
+								"value": "{{apikey}}"
+							}
+						],
+						"url": {
+							"raw": "{{local}}/vehicle/count/user-id/1",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"vehicle",
+								"count",
+								"user-id",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "list product conditions",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{apikey}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{local}}/product/conditions",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"product",
+								"conditions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get Policies",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"type": "text",
+								"value": "g4c0o848k840ww00w44gskw8k8w00cwo4gko0g04"
+							}
+						],
+						"url": {
+							"raw": "{{local}}/policy/get",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"policy",
+								"get"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List vehicle parts",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{apikey}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{local}}/product/vehicle-parts",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"product",
+								"vehicle-parts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Shopping Items",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"type": "text",
+								"value": "gswoco0o80ccowgw0c4ks08ocogg4socgc48s80o"
+							}
+						],
+						"url": {
+							"raw": "{{local}}/product/shopping-parts",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"product",
+								"shopping-parts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Service Packs",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{apikey}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{local}}/product/service-packs",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"product",
+								"service-packs"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cart",
+			"item": [
+				{
+					"name": "add item",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"type": "text",
+								"value": "{{apikey}}"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Access-Control-Request-Headers",
+								"type": "text",
+								"value": "application/json",
+								"disabled": true
+							},
+							{
+								"key": "Access-Control-Request-Method",
+								"type": "text",
+								"value": "post",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n        \"productId\": 1,\n        \"quantity\": 1\n    }\n]"
+						},
+						"url": {
+							"raw": "{{local}}/cart/add-item/user-id/5",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"cart",
+								"add-item",
+								"user-id",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Items",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"type": "text",
+								"value": "w8s4k8g48gg00o8k0k0c0gs8cowwc0sccocso4ks"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Access-Control-Request-Headers",
+								"type": "text",
+								"value": "application/json",
+								"disabled": true
+							},
+							{
+								"key": "Access-Control-Request-Method",
+								"type": "text",
+								"value": "post",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{server}}/cart/list-items/user-id/10",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"cart",
+								"list-items",
+								"user-id",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete multiple Items",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"type": "text",
+								"value": "{{apikey}}"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Access-Control-Request-Headers",
+								"type": "text",
+								"value": "application/json",
+								"disabled": true
+							},
+							{
+								"key": "Access-Control-Request-Method",
+								"type": "text",
+								"value": "post",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cartIds\": [\n        74,\n        73\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{local}}/cart/delete-items/user-id/2",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"cart",
+								"delete-items",
+								"user-id",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Item",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-api-key",
+								"type": "text",
+								"value": "{{apikey}}"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Access-Control-Request-Headers",
+								"type": "text",
+								"value": "application/json",
+								"disabled": true
+							},
+							{
+								"key": "Access-Control-Request-Method",
+								"type": "text",
+								"value": "post",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{local}}/cart/delete/cart-id/72",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"cart",
+								"delete",
+								"cart-id",
+								"72"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Req Quote",
+			"item": [
+				{
+					"name": "add item",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"type": "text",
+								"value": "{{apikey}}"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Access-Control-Request-Headers",
+								"type": "text",
+								"value": "application/json",
+								"disabled": true
+							},
+							{
+								"key": "Access-Control-Request-Method",
+								"type": "text",
+								"value": "post",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"vehicleId\": 5,\r\n        \"productId\": 17,\r\n        \"quantity\": 1,\r\n        \"productConditionId\": 6,\r\n        \"currentMileage\": \"270\",\r\n        \"comment\": \"Test comment\",\r\n        \"images\": \"image1,image2\"\r\n    }\r\n]"
+						},
+						"url": {
+							"raw": "{{local}}/quotreq/add-item/user-id/2",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"quotreq",
+								"add-item",
+								"user-id",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Items",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"type": "text",
+								"value": "{{apikey}}"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Access-Control-Request-Headers",
+								"type": "text",
+								"value": "application/json",
+								"disabled": true
+							},
+							{
+								"key": "Access-Control-Request-Method",
+								"type": "text",
+								"value": "post",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{local}}/quotreq/list-items/user-id/2",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"quotreq",
+								"list-items",
+								"user-id",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Item",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-api-key",
+								"type": "text",
+								"value": "{{apikey}}"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Access-Control-Request-Headers",
+								"type": "text",
+								"value": "application/json",
+								"disabled": true
+							},
+							{
+								"key": "Access-Control-Request-Method",
+								"type": "text",
+								"value": "post",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{local}}/quotreq/delete/quotreq-id/3",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"quotreq",
+								"delete",
+								"quotreq-id",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete multiple Items",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"type": "text",
+								"value": "{{apikey}}"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Access-Control-Request-Headers",
+								"type": "text",
+								"value": "application/json",
+								"disabled": true
+							},
+							{
+								"key": "Access-Control-Request-Method",
+								"type": "text",
+								"value": "post",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"quotReqIds\": [\n        2,\n        5\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{local}}/quotreq/delete-items/user-id/1",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"quotreq",
+								"delete-items",
+								"user-id",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Quots",
+			"item": [
+				{
+					"name": "Create Quote",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"type": "text",
+								"value": "{{apikey}}"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Access-Control-Request-Headers",
+								"type": "text",
+								"value": "application/json",
+								"disabled": true
+							},
+							{
+								"key": "Access-Control-Request-Method",
+								"type": "text",
+								"value": "post",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": 1,\n    \"quoteItems\": [\n        {\n            \"id\": 42,\n            \"price\": 450,\n            \"discount\": 10,\n            \"total\": 890,\n            \"quantity\": 2\n        },\n        {\n            \"id\": 43,\n            \"quantity\": 2\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{local}}/quote/create",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"quote",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Quotes by User",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"type": "text",
+								"value": "{{apikey}}"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{local}}/quote/listQuotes/user-id/6",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"quote",
+								"listQuotes",
+								"user-id",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Quote By Quote Id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{apikey}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Access-Control-Request-Headers",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Access-Control-Request-Method",
+								"value": "post",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{local}}/quote/getQuote/quote-id/76",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"quote",
+								"getQuote",
+								"quote-id",
+								"76"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Quote Accept",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"type": "text",
+								"value": "{{apikey}}"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Access-Control-Request-Headers",
+								"type": "text",
+								"value": "application/json",
+								"disabled": true
+							},
+							{
+								"key": "Access-Control-Request-Method",
+								"type": "text",
+								"value": "post",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"shippingAddressId\": 2,\n    \"shippingMethodId\": 3,\n    \"shippingTotal\": 500\n}"
+						},
+						"url": {
+							"raw": "{{local}}/quote/accept/quote-id/92",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"quote",
+								"accept",
+								"quote-id",
+								"92"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Quote Decline",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-api-key",
+								"type": "text",
+								"value": "{{apikey}}"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Access-Control-Request-Headers",
+								"type": "text",
+								"value": "application/json",
+								"disabled": true
+							},
+							{
+								"key": "Access-Control-Request-Method",
+								"type": "text",
+								"value": "post",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{local}}/quote/decline/quote-id/76",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"quote",
+								"decline",
+								"quote-id",
+								"76"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Quote Payment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{apikey}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Access-Control-Request-Headers",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Access-Control-Request-Method",
+								"value": "post",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"orderId\":97,\n\t\"bankId\":1,\n\t\"txnId\":\"456456456\",\n\t\"status\":\"underVerification\"\n}"
+						},
+						"url": {
+							"raw": "{{local}}/payment/create",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"payment",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Extra Item to quote",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"type": "text",
+								"value": "{{apikey}}"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Access-Control-Request-Headers",
+								"type": "text",
+								"value": "application/json",
+								"disabled": true
+							},
+							{
+								"key": "Access-Control-Request-Method",
+								"type": "text",
+								"value": "post",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": 2,\n    \"quoteId\": 76,\n    \"quoteItems\": [\n        {\n            \"id\": 34,\n            \"price\": 250,\n            \"discount\": 0,\n            \"total\": 210\n        },\n        {\n            \"id\": 37,\n            \"price\": 400,\n            \"discount\": 0,\n            \"total\": 100\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{local}}/quote/addItem",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"quote",
+								"addItem"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Item from quote",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"type": "text",
+								"value": "{{apikey}}"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Access-Control-Request-Headers",
+								"type": "text",
+								"value": "application/json",
+								"disabled": true
+							},
+							{
+								"key": "Access-Control-Request-Method",
+								"type": "text",
+								"value": "post",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": 1,\n    \"quoteId\": 79,\n    \"quoteItemId\": 84\n}"
+						},
+						"url": {
+							"raw": "{{local}}/quote/removeItem",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"quote",
+								"removeItem"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Quote Item Price",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"type": "text",
+								"value": "{{apikey}}"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Access-Control-Request-Headers",
+								"type": "text",
+								"value": "application/json",
+								"disabled": true
+							},
+							{
+								"key": "Access-Control-Request-Method",
+								"type": "text",
+								"value": "post",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": 1,\n    \"quoteId\": 76,\n    \"quoteItems\": [\n        {\n            \"id\": 75,\n            \"price\": 280,\n            \"discount\": 0,\n            \"total\": 280\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{local}}/quote/updatePrice",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"quote",
+								"updatePrice"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Quote Status Update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-api-key",
+								"type": "text",
+								"value": "{{apikey}}"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Access-Control-Request-Headers",
+								"type": "text",
+								"value": "application/json",
+								"disabled": true
+							},
+							{
+								"key": "Access-Control-Request-Method",
+								"type": "text",
+								"value": "post",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"statusId\": 2\n}"
+						},
+						"url": {
+							"raw": "{{local}}/quote/status/quote-id/76",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"quote",
+								"status",
+								"quote-id",
+								"76"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Convert Quote To Order",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"type": "text",
+								"value": "{{apikey}}"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Access-Control-Request-Headers",
+								"type": "text",
+								"value": "application/json",
+								"disabled": true
+							},
+							{
+								"key": "Access-Control-Request-Method",
+								"type": "text",
+								"value": "post",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{local}}/quote/convertToOrder/quote-id/76",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"quote",
+								"convertToOrder",
+								"quote-id",
+								"76"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "Create Order",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"type": "text",
+								"value": "{{apikey}}"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Access-Control-Request-Headers",
+								"type": "text",
+								"value": "application/json",
+								"disabled": true
+							},
+							{
+								"key": "Access-Control-Request-Method",
+								"type": "text",
+								"value": "post",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": 5,\n    \"shippingAddressId\": 2,\n    \"shippingMethodId\": 3,\n    \"shippingTotal\": 500,\n    \"cartItems\": [\n        {\n            \"id\": 77,\n            \"price\": 450,\n            \"discount\": 10,\n            \"total\": 890,\n            \"quantity\": 2\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{local}}/order/create",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"order",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Orders by User",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{apikey}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Access-Control-Request-Headers",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Access-Control-Request-Method",
+								"value": "post",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{local}}/order/list/user-id/5",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"order",
+								"list",
+								"user-id",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Order By Id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{apikey}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{local}}/order/getOrder/order-id/94",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"order",
+								"getOrder",
+								"order-id",
+								"94"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Order Payment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"type": "text",
+								"value": "{{apikey}}"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Access-Control-Request-Headers",
+								"type": "text",
+								"value": "application/json",
+								"disabled": true
+							},
+							{
+								"key": "Access-Control-Request-Method",
+								"type": "text",
+								"value": "post",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"orderId\":97,\n\t\"bankId\":1,\n\t\"txnId\":\"456456456\",\n\t\"status\":\"underVerification\"\n}"
+						},
+						"url": {
+							"raw": "{{local}}/payment/create_to_order",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"payment",
+								"create_to_order"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Order Message",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"type": "text",
+								"value": "7A4wojCq30TBWDXyEuGZJezP"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Access-Control-Request-Headers",
+								"type": "text",
+								"value": "application/json",
+								"disabled": true
+							},
+							{
+								"key": "Access-Control-Request-Method",
+								"type": "text",
+								"value": "post",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"orderId\":1,\n\t\"messageType\":\"U\",\n\t\"message\":\"I will make payment soon\"\n\n}"
+						},
+						"url": {
+							"raw": "{{url}}/order/create-message",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"order",
+								"create-message"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List order message",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"type": "text",
+								"value": "7A4wojCq30TBWDXyEuGZJezP"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Access-Control-Request-Headers",
+								"type": "text",
+								"value": "application/json",
+								"disabled": true
+							},
+							{
+								"key": "Access-Control-Request-Method",
+								"type": "text",
+								"value": "post",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{url}}/order/list-message/order-id/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"order",
+								"list-message",
+								"order-id",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Shipping Methods",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{apikey}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{local}}/order/list-shipping-methods",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"order",
+								"list-shipping-methods"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Order Payment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "7A4wojCq30TBWDXyEuGZJezP",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Access-Control-Request-Headers",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Access-Control-Request-Method",
+								"value": "post",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"orderId\":1,\n\t\"methodId\":2,\n\t\"bankId\":1,\n\t\"status\":\"PAID\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/order/payment/create",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"order",
+								"payment",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Order Status Update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "7A4wojCq30TBWDXyEuGZJezP",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Access-Control-Request-Headers",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Access-Control-Request-Method",
+								"value": "post",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"status\": \"CONFIRMED\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/order/status/orderId/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"order",
+								"status",
+								"orderId",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Order old",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{apikey}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Access-Control-Request-Headers",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Access-Control-Request-Method",
+								"value": "post",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"userId\":1,\n\t\"shippingAddressId\":2,\n\t\"orderItems\":[{\n\t\t\"vehicleId\":5,\n\t\t\"productId\":1,\n\t\t\"productConditionId\":5,\n\t\t\"comment\":\"\", \n\t\t\"currentMileage\":300\n\t},\n\t{\n\t\t\"vehicleId\":5,\n\t\t\"productId\":1,\n\t\t\"productConditionId\":5,\n\t\t\"comment\":\"\", \n\t\t\"currentMileage\":0\n\t}]\n}"
+						},
+						"url": {
+							"raw": "{{local}}/order/create",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"order",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Order",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-api-key",
+								"type": "text",
+								"value": "{{apikey}}"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Access-Control-Request-Headers",
+								"type": "text",
+								"value": "application/json",
+								"disabled": true
+							},
+							{
+								"key": "Access-Control-Request-Method",
+								"type": "text",
+								"value": "post",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"userId\":1,\n\t\"shippingAddressId\":1,\n\t\"statusId\":2,\n\t\"itemTotal\":70.00,\n\t\"shippingTotal\":10.00,\t\n\t\"orderShipping\":{\n\t\t\"methodId\":1,\n\t\t\"amount\":10.00\n\t},\n\t\"orderItems\":[{\n\t\t\"id\":1,\n\t\t\"vehicleId\":5,\n\t\t\"productId\":1,\n\t\t\"comment\":\"\", \n\t\t\"currentMileage\":\"4000\",\n\t\t\"price\":35.00,\n\t\t\"total\":35.00\n\t},\n\t{\n\t\t\"id\":2,\n\t\t\"vehicleId\":5,\n\t\t\"productId\":1,\n\t\t\"comment\":\"\", \n\t\t\"currentMileage\":\"4000\",\n\t\t\"price\":35.00,\n\t\t\"total\":35.00\n\t}]\n}"
+						},
+						"url": {
+							"raw": "{{local}}/order/update/id/73",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"order",
+								"update",
+								"id",
+								"73"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Payment",
+			"item": [
+				{
+					"name": "List Payment Banks",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"type": "text",
+								"value": "{{apikey}}"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Access-Control-Request-Headers",
+								"type": "text",
+								"value": "application/json",
+								"disabled": true
+							},
+							{
+								"key": "Access-Control-Request-Method",
+								"type": "text",
+								"value": "post",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{local}}/payment/list-bank",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"payment",
+								"list-bank"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Quote Payment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{apikey}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Access-Control-Request-Headers",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Access-Control-Request-Method",
+								"value": "post",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"orderId\":76,\n\t\"bankId\":1,\n\t\"txnId\":\"456456456\",\n\t\"status\":\"underVerification\"\n}"
+						},
+						"url": {
+							"raw": "{{local}}/payment/create",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"payment",
+								"create"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ImageUpload",
+			"item": [
+				{
+					"name": "ImageUpload",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{apikey}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "cloudImage",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{local}}/imagemanage/upload",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"imagemanage",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ImageUpload Copy",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{apikey}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "cloudImage",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{local}}/apiv1/test/demo",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"apiv1",
+								"test",
+								"demo"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "d1a97047-005e-456a-a3db-386f234145a5",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "f89248d2-dfec-4b81-ad3d-4e8e898e3f73",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "3530a083-96c9-4436-85a8-10029fb3b0ca",
+			"key": "local",
+			"value": "192.168.1.10/Autohub",
+			"type": "string"
+		},
+		{
+			"id": "eec2587a-2673-4075-a21e-fd03a452b6c2",
+			"key": "server",
+			"value": "104.197.80.225/Autohub",
+			"type": "string"
+		}
+	]
+}
